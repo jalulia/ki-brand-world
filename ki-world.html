@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>気 — The World of Ki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=Yuji+Syuku&family=Libre+Barcode+39+Extended+Text&display=swap" rel="stylesheet">
+<style>
+/* ============ OBVIOUSLY — the brand face (self-hosted woff2, no serif anywhere) ============ */
+@font-face{font-family:'Obviously';src:url('assets/fonts/Obviously-Thin.woff2') format('woff2');font-weight:100;font-display:swap}
+@font-face{font-family:'Obviously';src:url('assets/fonts/Obviously-Light.woff2') format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Obviously';src:url('assets/fonts/Obviously-Medium.woff2') format('woff2');font-weight:400 500;font-display:swap}
+@font-face{font-family:'Obviously';src:url('assets/fonts/Obviously-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Obviously';src:url('assets/fonts/Obviously-Black.woff2') format('woff2');font-weight:900;font-display:swap}
+@font-face{font-family:'Obviously XB';src:url('assets/fonts/Obviously-Extended-Black.woff2') format('woff2');font-weight:900;font-display:swap}
+@font-face{font-family:'Obviously XReg';src:url('assets/fonts/Obviously-Extended.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Obviously Cond';src:url('assets/fonts/Obviously-Condensed-Black.woff2') format('woff2');font-weight:900;font-display:swap}
+@font-face{font-family:'Obviously Wide';src:url('assets/fonts/Obviously-Wide-Black.woff2') format('woff2');font-weight:900;font-display:swap}
+
+:root{
+  --ink:#0a0908; --ink2:#231F20; --ink3:#565553;
+  --cream:#F7F6F1; --cream2:#F5F1EB; --cream3:#EFE9DD; --paper:#FBFAF7;
+  --gold:#B88448; --gold-d:#633201; --gold-bg:#D4A265; --tan:#D0AB64;
+  --mint:#8DCAA7; --sage:#619C8A; --red:#ED1C23;
+  /* flavor ramps (light->dark, SWOP v2 -> sRGB, verbatim) */
+  --yuzu1:#B7C055; --yuzu2:#7C9D3D; --yuzu3:#336832; --yuzu4:#212A15;
+  --hok1:#E5F1DC; --hok2:#8DCAA7; --hok3:#2A624F; --hok4:#072538;
+  --map1:#B98448; --map2:#8E5320; --map3:#633203; --map4:#381B00;
+  --cola1:#E33D41; --cola2:#C82033; --cola3:#5A0D20; --cola4:#270F14;
+  --sat1:#FCD10A; --sat2:#F7932C; --sat3:#ED722D; --sat4:#3E1B12;
+  /* finish markers — production notation, NEVER fills */
+  --uv:#8FC740; --foil:#FFF200; --emboss:#92298E;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --jp:'Noto Sans JP',sans-serif; --jpserif:'Noto Serif JP',serif; --brush:'Yuji Syuku',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#E7E9EA;-webkit-font-smoothing:antialiased}
+body{font-family:'Obviously',system-ui,sans-serif;color:var(--ink);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+
+/* paper grain over everything */
+#grain{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.05;mix-blend-mode:multiply}
+
+/* scaling frame */
+#wrap{width:100%;overflow-x:hidden}
+#frame{position:relative;margin:0 auto}
+#stage{width:1280px;transform-origin:top left;background:#FCFCFB}
+
+/* ---- section chrome ---- */
+section{position:relative;width:1280px;overflow:hidden}
+.ground-cream{background:#FCFCFB}
+.ground-cream2{background:#F3F4F4}
+.ground-warm{background:#FCFCFB}
+.ground-mist{background:linear-gradient(180deg,#FCFCFB,#EEF1F1)}
+.ground-dark{background:var(--ink);color:var(--cream)}
+.ground-mtn{background:#11281f}
+.sechead{position:absolute;top:18px;left:34px;right:34px;display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);z-index:6}
+.ground-dark .sechead,.ground-mtn .sechead{color:#bdb6a3}
+.secnum{position:absolute;font-family:'Obviously XB';font-weight:900;font-size:330px;line-height:.7;
+  color:transparent;-webkit-text-stroke:1.5px rgba(10,9,8,.10);top:40px;right:20px;z-index:1;user-select:none}
+.ground-dark .secnum,.ground-mtn .secnum{-webkit-text-stroke-color:rgba(247,246,241,.13)}
+.sectitle{position:absolute;left:34px;font-family:'Obviously XB';font-weight:900;letter-spacing:-.01em;z-index:6}
+.fn{position:absolute;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink3);z-index:6}
+.ground-dark .fn,.ground-mtn .fn{color:#9c9784}
+
+/* ---- artifacts (draggable) ---- */
+.art{position:absolute;z-index:10;cursor:grab;touch-action:none;
+  filter:drop-shadow(0 8px 22px rgba(20,14,8,.16));transition:filter .15s,transform .15s}
+.art:hover{filter:drop-shadow(0 14px 34px rgba(20,14,8,.26));z-index:50}
+.art:active{cursor:grabbing}
+.art img{pointer-events:none}
+.prov{font-family:var(--mono);font-size:9px;letter-spacing:.04em;color:var(--ink3);text-transform:uppercase}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+
+/* topbar */
+#topbar{position:fixed;top:0;left:0;right:0;height:34px;z-index:8000;background:rgba(10,9,8,.92);
+  color:var(--cream);display:flex;align-items:center;justify-content:space-between;padding:0 16px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;backdrop-filter:blur(4px)}
+#topbar nav{display:flex;gap:18px}
+#topbar nav a{text-decoration:none;opacity:.7;cursor:pointer}
+#topbar nav a:hover{opacity:1;color:var(--mint)}
+#topbar .r{color:var(--gold-bg)}
+
+/* masthead — premium · cool · real logo + real pucks */
+.mast{height:760px;background:#FCFCFB;border-bottom:1px solid rgba(10,9,8,.07)}
+.mast-kanji{position:absolute;top:36px;left:50%;transform:translateX(-50%);font-family:var(--jpserif);font-weight:900;font-size:540px;line-height:1;color:rgba(10,9,8,.035);z-index:0;user-select:none;pointer-events:none}
+.mast-mid{position:absolute;top:118px;left:0;right:0;text-align:center;z-index:5;pointer-events:none}
+.eyebrow2{font-family:var(--mono);font-size:11.5px;letter-spacing:.5em;text-transform:uppercase;color:var(--ink3);padding-left:.5em}
+.mast-logo{width:164px;margin:40px auto 0;display:block}
+.mast-tag{font-family:'Obviously';font-weight:300;font-size:20px;letter-spacing:.62em;text-transform:uppercase;color:var(--ink);margin-top:34px;padding-left:.62em}
+.pk{width:130px;text-align:center}
+.pk img{width:130px;filter:drop-shadow(0 10px 16px rgba(20,14,8,.18))}
+.pk .l{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);margin-top:10px}
+.pk .l b{display:block;font-family:'Obviously';font-weight:700;font-size:11px;letter-spacing:.01em;color:var(--ink);text-transform:none;margin-bottom:1px}
+.mast-warn{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink2);background:#fff;border:1px solid rgba(10,9,8,.1);padding:8px 15px;border-radius:100px}
+.mast-warn .dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex:0 0 auto}
+.mast-warn b{color:var(--red);font-family:'Obviously';font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+
+/* warning band artifact */
+.warnband{width:560px;background:var(--cream);border:2px solid var(--ink);padding:0}
+.warnband .top{background:var(--red);color:#fff;font-family:'Obviously';font-weight:700;font-size:13px;
+  letter-spacing:.16em;text-transform:uppercase;padding:7px 14px;display:flex;justify-content:space-between}
+.warnband .body{padding:13px 16px;font-family:'Obviously';font-weight:500;font-size:15px;line-height:1.4;color:var(--ink)}
+.warnband .foot{border-top:1px solid var(--ink);padding:7px 16px;display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3)}
+
+/* ticker */
+.ticker{height:60px;background:var(--ink);color:var(--cream);display:flex;align-items:center;overflow:hidden;white-space:nowrap;border-top:1px solid #2c2925;border-bottom:1px solid #2c2925}
+.ticker .run{display:inline-flex;gap:0;animation:tick 38s linear infinite;will-change:transform}
+.ticker b{font-family:'Obviously';font-weight:900;font-size:19px;letter-spacing:.02em;padding:0 4px}
+.ticker span{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-bg);padding:0 26px 0 6px;align-self:center}
+.ticker em{color:var(--mint);font-style:normal}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* puck flavor card */
+.puck{width:248px;background:var(--paper);border-radius:3px;padding:16px 16px 14px;border:1px solid rgba(10,9,8,.08)}
+.puck .lid{height:150px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.puck .lid .ki{font-family:'Obviously XB';font-weight:900;font-size:60px;color:#fff;mix-blend-mode:overlay}
+.puck img.tin{width:172px;height:172px;object-fit:contain;margin:-8px auto -4px;display:block;filter:drop-shadow(0 10px 14px rgba(20,14,8,.16))}
+.puck .nm{font-family:'Obviously';font-weight:900;font-size:21px;line-height:1;margin-top:13px;letter-spacing:-.01em}
+.puck .kata{font-family:var(--jp);font-weight:500;font-size:13px;color:var(--ink3);margin-top:4px;letter-spacing:.1em}
+.puck .meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:11px;border-top:1px solid rgba(10,9,8,.1);padding-top:8px}
+.puck .str{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink3)}
+.puck .px{font-family:'Obviously';font-weight:700;font-size:16px}
+.puck .ramp{display:flex;height:7px;margin-top:9px;border-radius:2px;overflow:hidden}
+.puck .ramp i{flex:1}
+
+/* small ephemera */
+.washi{width:190px;height:34px;opacity:.92;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(10,9,8,.55);
+  box-shadow:inset 0 0 0 100px rgba(141,202,167,.5)}
+.sticky{width:184px;height:178px;background:#F7E59A;padding:16px 15px;font-family:var(--brush);font-size:18px;line-height:1.34;color:#3a2f10;
+  box-shadow:2px 6px 14px rgba(20,14,8,.2);transform:rotate(-3deg)}
+.sticky .pin{position:absolute;top:-7px;left:50%;width:14px;height:14px;border-radius:50%;background:var(--red);transform:translateX(-50%);box-shadow:0 2px 4px rgba(0,0,0,.3)}
+.scrap{font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--ink2);background:var(--cream2);
+  padding:11px 13px;max-width:230px;border:1px dashed rgba(10,9,8,.3);transform:rotate(1.4deg)}
+.stampchip{width:120px;background:var(--cream);border:1px solid var(--ink);padding:9px}
+
+.note-lbl{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+/* konbini — designed */
+.neon{width:236px;background:#0c0b09;border-radius:10px;padding:16px 18px 14px;text-align:center;border:1px solid #2a2722}
+.neon .jp{font-family:var(--jpserif);font-weight:900;font-size:40px;color:#fff;text-shadow:0 0 3px #fff,0 0 12px #ff4d54,0 0 24px #E33D41,0 0 40px #C82033;line-height:1}
+.neon .en{font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;color:#9be7c4;text-shadow:0 0 8px rgba(141,202,167,.8);margin-top:10px}
+.neon .hrs{font-family:'Obviously';font-weight:700;font-size:13px;letter-spacing:.1em;color:#ffd35a;text-shadow:0 0 10px rgba(247,147,44,.7);margin-top:7px}
+.shelf{width:440px;background:#e7eaeb;border:1px solid rgba(10,9,8,.16);border-radius:7px;overflow:hidden;box-shadow:0 14px 30px rgba(20,14,8,.18)}
+.shelf .head{background:var(--ink);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 14px}
+.shelf .head .jp{font-family:var(--jpserif);font-weight:900;font-size:17px;letter-spacing:.08em}
+.shelf .head .en{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:#9be7c4}
+.shelf .lite{height:7px;background:linear-gradient(90deg,#f4fbff,#dff0ff 50%,#f4fbff)}
+.shelf .row{display:flex;justify-content:space-around;align-items:flex-end;padding:16px 14px 10px;border-bottom:7px solid #cfd3d4;position:relative}
+.shelf .row:last-child{border-bottom:none}
+.shelf .row img{width:92px;filter:drop-shadow(0 7px 7px rgba(0,0,0,.18))}
+.shelf .pt{position:absolute;top:8px;font-family:var(--mono);font-size:9px;background:var(--sat1);color:#3E1B12;padding:2px 6px;border-radius:2px;box-shadow:0 2px 4px rgba(0,0,0,.2);font-weight:600}
+.receipt{width:236px;background:#fff;font-family:var(--mono);font-size:10.5px;line-height:1.55;color:#2a2a28;padding:16px 16px 22px;box-shadow:0 10px 26px rgba(20,14,8,.2)}
+.receipt .c{text-align:center}.receipt .b{font-family:'Obviously';font-weight:900}
+.receipt .rule{border-top:1px dashed #b9b6ad;margin:8px 0}
+.receipt .li{display:flex;justify-content:space-between}
+.receipt .bc{font-family:'Libre Barcode 39 Extended Text';font-size:34px;text-align:center;line-height:1;margin-top:8px;color:#111}
+.receipt .perf{height:0;border-bottom:8px dotted #e7e9ea;margin:10px -16px -16px}
+
+/* ============ FLAVOR WORLD · TOKYO COLA (東京コーラ · city-pop night) ============ */
+.world-cola{background:radial-gradient(120% 80% at 50% 0,#3a0a14,#1a060c 55%,#0a0407);color:#ffe9ea;overflow:hidden}
+.world-cola .skyline{position:absolute;left:0;right:0;bottom:0;height:280px;z-index:0;pointer-events:none;
+  background:
+   linear-gradient(transparent,rgba(227,61,65,.10)),
+   repeating-linear-gradient(90deg,transparent 0 60px,rgba(255,210,90,.05) 60px 61px);
+  -webkit-mask:linear-gradient(#000,transparent)}
+.world-cola .grid{position:absolute;left:-20%;right:-20%;bottom:0;height:200px;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(227,61,65,.45) 1px,transparent 1px),linear-gradient(90deg,rgba(227,61,65,.30) 1px,transparent 1px);
+  background-size:48px 26px;transform:perspective(320px) rotateX(64deg);transform-origin:bottom;opacity:.5}
+.world-cola .sun{position:absolute;left:50%;top:120px;transform:translateX(-50%);width:300px;height:300px;border-radius:50%;z-index:0;
+  background:linear-gradient(#FCD10A,#F7932C 45%,#E33D41);opacity:.16;-webkit-mask:repeating-linear-gradient(#000 0 9px,transparent 9px 15px)}
+
+/* boombox */
+.boom{width:548px;height:248px;border-radius:20px;padding:16px;position:relative;
+  background:linear-gradient(165deg,#8a1a26,#440b14 55%,#1f070b);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.14),inset 0 -3px 8px rgba(0,0,0,.5),0 22px 44px rgba(0,0,0,.55)}
+.boom .handle{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:170px;height:20px;border:5px solid #3a0a12;border-bottom:none;border-radius:16px 16px 0 0}
+.boom .spk{width:120px;height:120px;border-radius:50%;position:absolute;top:60px;
+  background:radial-gradient(circle at 42% 38%,#3a1015,#0c0305);box-shadow:inset 0 0 0 6px #4a0e16,inset 0 0 0 9px #E33D41,0 0 0 1px #000}
+.boom .spk.l{left:18px}.boom .spk.r{right:18px}
+.boom .spk::after{content:"";position:absolute;inset:16px;border-radius:50%;
+  background-image:radial-gradient(#2a0a10 1.5px,transparent 1.7px);background-size:9px 9px;background-color:#160508}
+.boom .spk .cone{position:absolute;inset:42px;border-radius:50%;background:radial-gradient(circle at 42% 38%,#5a151c,#1a0508);box-shadow:0 0 0 2px #FCD10A55}
+.boom .center{position:absolute;left:150px;right:150px;top:14px;bottom:14px;display:flex;flex-direction:column;gap:7px}
+.boom .disp{background:#120406;border:1px solid #E33D41;border-radius:5px;padding:6px 9px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;box-shadow:inset 0 0 12px rgba(227,61,65,.4)}
+.boom .disp .st{font-family:var(--mono);font-size:11px;color:#ff7a7e;text-shadow:0 0 7px #E33D41;letter-spacing:.04em}
+.boom .disp .fm{font-family:'Obviously';font-weight:900;font-size:13px;color:#FCD10A;text-shadow:0 0 8px #F7932C}
+.boom .dial{height:20px;background:#0c0305;border-radius:4px;position:relative;overflow:hidden;border:1px solid #4a0e16}
+.boom .dial .scale{position:absolute;inset:0;background:repeating-linear-gradient(90deg,#6a1c24 0 1px,transparent 1px 16px)}
+.boom .dial .scale b{position:absolute;height:100%;width:1px;background:#9a2a32}
+.boom .dial .needle{position:absolute;top:-2px;bottom:-2px;width:2px;background:#FCD10A;box-shadow:0 0 7px #FCD10A;transition:left .5s cubic-bezier(.5,1.6,.4,1)}
+.boom .cass{height:42px;background:#0c0305;border:1px solid #4a0e16;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:34px;position:relative}
+.boom .cass .lbl{position:absolute;font-family:var(--mono);font-size:7.5px;letter-spacing:.18em;color:#8a2a32;top:3px}
+.boom .reel{width:24px;height:24px;border-radius:50%;border:2px solid #8a2a32;border-top-color:#FCD10A;animation:spin 1.8s linear infinite}
+.boom .row2{display:flex;gap:8px;align-items:center}
+.boom .vu{display:flex;gap:3px;align-items:flex-end;height:26px;flex:1}
+.boom .vu i{flex:1;background:linear-gradient(#FCD10A,#E33D41);border-radius:1px;animation:vu 1s ease-in-out infinite alternate}
+.boom .btns{display:flex;gap:4px}
+.boom .btns b{display:block;width:15px;height:13px;background:linear-gradient(#3a0e14,#1a0508);border-radius:2px;border-top:1px solid #6a1c24}
+.boom .knob{position:absolute;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#8a242c,#1a0508);box-shadow:inset 0 0 0 2px #4a0e16,0 2px 3px rgba(0,0,0,.5)}
+.boom .knob::after{content:"";position:absolute;top:3px;left:50%;width:2px;height:9px;background:#FCD10A;transform:translateX(-50%)}
+@keyframes vu{from{height:18%}to{height:100%}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* cassette */
+.cassette{width:230px;height:142px;border-radius:8px;background:linear-gradient(#2a0a10,#160508);border:1px solid #4a0e16;padding:10px;position:relative;box-shadow:0 14px 26px rgba(0,0,0,.5)}
+.cassette .top{background:linear-gradient(#E33D41,#C82033);border-radius:4px;padding:6px 9px;color:#fff}
+.cassette .top .t{font-family:'Obviously Cond';font-weight:900;font-size:17px;letter-spacing:.04em;line-height:1}
+.cassette .top .s{font-family:var(--mono);font-size:8px;letter-spacing:.14em;margin-top:2px;color:#ffe0a0}
+.cassette .win{margin-top:9px;background:#0c0305;border-radius:4px;height:52px;display:flex;align-items:center;justify-content:space-around;border:1px solid #4a0e16}
+.cassette .win .r{width:30px;height:30px;border-radius:50%;border:3px solid #6a1c24;border-top-color:#FCD10A;background:radial-gradient(#1a0508,#0c0305)}
+.cassette .win .tape{flex:1;height:14px;margin:0 4px;background:linear-gradient(#3a1015,#160508);border-radius:2px}
+.cassette .ft{display:flex;justify-content:space-between;margin-top:6px;font-family:var(--mono);font-size:8px;color:#9a5a5e;letter-spacing:.1em}
+
+/* round seal / badge */
+.seal{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,#E33D41,#C82033 70%,#7a0f1c);position:relative;color:#fff;box-shadow:0 10px 22px rgba(0,0,0,.45),inset 0 0 0 4px rgba(255,255,255,.18),inset 0 0 0 9px #FCD10A}
+.seal .ring{position:absolute;inset:14px;border-radius:50%;border:1px dashed rgba(255,255,255,.5)}
+.seal .ki{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Obviously',sans-serif;font-weight:900;font-size:54px}
+.seal .arc{position:absolute;inset:0;font-family:var(--mono);font-size:9px;letter-spacing:.2em}
+.seal .arc.t{top:18px;left:0;right:0;text-align:center}
+.seal .arc.b{bottom:18px;left:0;right:0;text-align:center;color:#FCD10A}
+.seal .star{position:absolute;top:50%;font-size:11px;color:#FCD10A;transform:translateY(-50%)}
+
+/* transit ticket */
+.ticket{width:250px;background:#fbfaf7;color:#1a1a18;border-radius:4px;overflow:hidden;box-shadow:0 12px 26px rgba(0,0,0,.4);position:relative}
+.ticket .stub{position:absolute;left:174px;top:0;bottom:0;border-left:2px dashed #c9c5ba}
+.ticket .hd{background:#C82033;color:#fff;padding:7px 12px;display:flex;justify-content:space-between;align-items:center}
+.ticket .hd .jp{font-family:var(--jpserif);font-weight:900;font-size:15px}
+.ticket .hd .en{font-family:var(--mono);font-size:8px;letter-spacing:.14em}
+.ticket .bd{padding:11px 12px;font-family:var(--mono);font-size:10px;line-height:1.6;color:#3a3a36}
+.ticket .bd .big{font-family:'Obviously';font-weight:900;font-size:20px;color:#C82033;line-height:1}
+.ticket .stubcol{position:absolute;right:0;top:0;bottom:0;width:76px;writing-mode:vertical-rl;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:#8a2a32;padding:10px 0}
+
+/* spec document */
+.specdoc{width:280px;background:#fbfaf7;color:#1a1a18;border-radius:3px;padding:15px 16px;box-shadow:0 12px 26px rgba(0,0,0,.4);font-family:var(--mono);font-size:10.5px}
+.specdoc .h{display:flex;justify-content:space-between;border-bottom:2px solid #1a1a18;padding-bottom:6px}
+.specdoc .h b{font-family:'Obviously';font-weight:900;font-size:14px}
+.specdoc .li{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dotted #c9c5ba}
+.specdoc .sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:5px;outline:1px solid rgba(0,0,0,.2)}
+.tagsticker{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:5px 11px;border-radius:3px;font-weight:600}
+.wf{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+/* red vinyl with electric-blue label */
+.vinyl{width:232px;height:232px;border-radius:50%;position:relative;box-shadow:0 18px 34px rgba(0,0,0,.5);
+  background:repeating-radial-gradient(#180407 0 1.5px,#2a0a10 1.5px 3.5px),radial-gradient(circle,#3a1015,#160508)}
+.vinyl .sheen{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 210deg,transparent,rgba(255,255,255,.10) 8%,transparent 18%,transparent 70%,rgba(255,255,255,.07) 80%,transparent 90%)}
+.vinyl .lab{position:absolute;inset:33%;border-radius:50%;background:radial-gradient(circle at 42% 38%,#5fb4e6,#48A0D9 55%,#2f7fb5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#06243a;box-shadow:0 0 0 3px #06243a,inset 0 0 10px rgba(255,255,255,.3)}
+.vinyl .lab .t{font-family:'Obviously Cond';font-weight:900;font-size:14px;line-height:1;color:#fff}
+.vinyl .lab .s{font-family:var(--mono);font-size:7px;letter-spacing:.12em;margin-top:3px;color:#06243a}
+.vinyl .hole{position:absolute;inset:48.5%;border-radius:50%;background:#06243a;box-shadow:0 0 0 1px #5fb4e6}
+/* kanban vertical sign */
+.kanban{width:78px;background:linear-gradient(#E33D41,#C82033);border:3px solid #48A0D9;border-radius:6px;padding:16px 0 12px;text-align:center;box-shadow:0 14px 26px rgba(0,0,0,.4)}
+.kanban .jp{writing-mode:vertical-rl;margin:0 auto;font-family:var(--jpserif);font-weight:900;font-size:30px;color:#fff;letter-spacing:.1em;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.kanban .en{font-family:var(--mono);font-size:8px;color:#9fdcff;letter-spacing:.12em;margin-top:12px}
+.kanban .ki{font-family:'Obviously';font-weight:900;font-size:22px;color:#48A0D9;background:#fff;border-radius:50%;width:34px;height:34px;line-height:34px;margin:8px auto 0}
+.vm-can{background:linear-gradient(180deg,#ef6064,#C82033);border-radius:3px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;font-family:'Obviously';font-weight:900;font-size:10px;color:#fff;box-shadow:inset 0 3px 4px rgba(255,255,255,.25),inset 0 -3px 5px rgba(0,0,0,.3)}
+.vm-btn{background:linear-gradient(#5fb4e6,#48A0D9);border-radius:3px;height:19px;box-shadow:inset 0 -2px 3px rgba(6,36,58,.4),0 1px 0 rgba(255,255,255,.2)}
+.telecard{width:160px;height:100px;border-radius:7px;background:linear-gradient(135deg,#E33D41,#9c1626);border:1px solid #48A0D9;padding:10px;color:#fff;position:relative;box-shadow:0 12px 22px rgba(0,0,0,.4)}
+.telecard .chip{width:24px;height:18px;border-radius:3px;background:linear-gradient(#FCD10A,#cf9b1a);position:absolute;right:13px;top:13px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+.telecard .jp{font-family:var(--jpserif);font-weight:900;font-size:19px;letter-spacing:.06em}
+.telecard .v{font-family:'Obviously';font-weight:900;font-size:22px;color:#9fdcff;position:absolute;bottom:9px;left:11px}
+.telecard .u{font-family:var(--mono);font-size:7px;letter-spacing:.12em;position:absolute;bottom:13px;right:11px;color:#9fdcff}
+.matchbook{width:82px;height:110px;border-radius:4px;background:linear-gradient(#C82033,#7a1320);padding:8px;color:#fff;text-align:center;box-shadow:0 9px 18px rgba(0,0,0,.4);position:relative;overflow:hidden}
+.matchbook .flap{position:absolute;top:0;left:0;right:0;height:36px;background:#E33D41;border-bottom:2px dashed #48A0D9}
+.matchbook .ki{position:relative;font-family:'Obviously';font-weight:900;font-size:22px;margin-top:5px}
+.matchbook .t{font-family:var(--mono);font-size:7px;letter-spacing:.08em;margin-top:26px;color:#ffe0a0;position:relative}
+.matchbook .strike{position:absolute;bottom:8px;left:8px;right:8px;height:10px;background:repeating-linear-gradient(90deg,#48A0D9 0 3px,#2f7fb5 3px 6px);border-radius:2px}
+.token{width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#7cc3ee,#48A0D9 58%,#2f7fb5);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Obviously';font-weight:900;font-size:26px;border:2px solid #06243a;box-shadow:0 7px 14px rgba(0,0,0,.4),inset 0 0 0 4px rgba(255,255,255,.28)}
+
+/* ===== reusable WORLD KIT — colours set inline via --vars ===== */
+.wkanban{width:80px;border:3px solid var(--k2);border-radius:6px;padding:15px 0 12px;text-align:center;background:var(--k1);box-shadow:0 14px 26px rgba(0,0,0,.3)}
+.wkanban .jp{writing-mode:vertical-rl;margin:0 auto;font-family:var(--jpserif);font-weight:900;font-size:30px;color:#fff;letter-spacing:.1em;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.wkanban .ki{font-family:'Obviously';font-weight:900;font-size:22px;color:var(--k2);background:#fff;border-radius:50%;width:34px;height:34px;line-height:34px;margin:8px auto 0}
+.wkanban .en{font-family:var(--mono);font-size:8px;color:#fff;opacity:.85;letter-spacing:.1em;margin-top:9px}
+.wseal{width:150px;height:150px;border-radius:50%;position:relative;color:#fff;background:radial-gradient(circle at 45% 40%,var(--s1),var(--s3) 74%);
+  box-shadow:0 10px 22px rgba(0,0,0,.4),inset 0 0 0 4px rgba(255,255,255,.22),inset 0 0 0 9px var(--s2)}
+.wseal .ring{position:absolute;inset:14px;border-radius:50%;border:1px dashed rgba(255,255,255,.55)}
+.wseal .ki{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Obviously';font-weight:900;font-size:52px}
+.wseal .t{position:absolute;top:17px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:8.5px;letter-spacing:.16em}
+.wseal .b{position:absolute;bottom:17px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;color:var(--s2)}
+.wseal .star{position:absolute;top:50%;transform:translateY(-50%);font-size:11px;color:var(--s2)}
+.wpass{width:252px;border-radius:8px;overflow:hidden;background:#fbfaf7;color:#1a1a18;position:relative;box-shadow:0 12px 26px rgba(0,0,0,.32)}
+.wpass .hd{padding:8px 13px;color:#fff;display:flex;justify-content:space-between;align-items:center;background:var(--p1)}
+.wpass .hd .jp{font-family:var(--jpserif);font-weight:900;font-size:15px}
+.wpass .hd .en{font-family:var(--mono);font-size:8px;letter-spacing:.12em}
+.wpass .bd{padding:11px 13px;font-family:var(--mono);font-size:10px;line-height:1.6;color:#3a3a36}
+.wpass .bd .big{font-family:'Obviously';font-weight:900;font-size:19px;color:var(--p1);line-height:1.05}
+.wpass .stub{position:absolute;right:74px;top:0;bottom:0;border-left:2px dashed #cfcabf}
+.wpass .sc{position:absolute;right:0;top:0;bottom:0;width:74px;writing-mode:vertical-rl;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--p1);padding:10px 0;opacity:.8}
+.wvend{width:198px;border-radius:12px;padding:9px;border:2px solid var(--v2);background:var(--v1);box-shadow:0 18px 30px rgba(0,0,0,.4)}
+.wvend .vh{border-radius:6px;text-align:center;padding:6px 0;font-family:var(--jpserif);font-weight:900;font-size:16px;letter-spacing:.1em;color:#fff;background:var(--v2)}
+.wvend .vg{background:rgba(0,0,0,.5);border-radius:5px;margin-top:7px;height:120px;padding:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.wvend .vg i{border-radius:3px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;font-family:'Obviously';font-weight:900;font-size:9px;color:#fff;background:var(--v3);box-shadow:inset 0 3px 4px rgba(255,255,255,.2),inset 0 -3px 5px rgba(0,0,0,.3)}
+.wvend .vd{border-radius:4px;margin-top:7px;font-family:var(--mono);font-size:8px;text-align:center;padding:5px;letter-spacing:.05em;background:var(--v2);color:#fff}
+.wvend .vb{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:7px}
+.wvend .vb i{height:18px;border-radius:3px;background:var(--v2);box-shadow:inset 0 -2px 3px rgba(0,0,0,.3)}
+.wvend .vslot{margin-top:8px;background:rgba(0,0,0,.55);border:1px solid var(--v2);border-radius:4px;height:30px}
+
+/* ===== Hokkaido signatures ===== */
+.snowglobe{width:186px}
+.snowglobe .dome{width:186px;height:186px;border-radius:50%;overflow:hidden;position:relative;background:linear-gradient(#e6f3ed,#c4e2d5);box-shadow:0 14px 26px rgba(0,0,0,.22)}
+.snowglobe .dome::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 18px 14px 34px rgba(255,255,255,.85),inset -12px -10px 26px rgba(42,98,79,.28);pointer-events:none}
+.snowglobe .snow i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;top:-6px;animation:fall linear infinite}
+.snowglobe .base{height:34px;margin:-9px 24px 0;background:linear-gradient(#2A624F,#072538);border-radius:0 0 12px 12px;display:flex;align-items:center;justify-content:center;color:#8DCAA7;font-family:'Obviously';font-weight:900;font-size:14px;letter-spacing:.14em;box-shadow:0 8px 14px rgba(0,0,0,.3)}
+@keyframes fall{to{transform:translateY(200px)}}
+.thermo{width:56px;height:212px;background:#fbfaf7;border-radius:30px;padding:12px 0 8px;display:flex;flex-direction:column;align-items:center;box-shadow:0 12px 22px rgba(0,0,0,.22);position:relative}
+.thermo .tube{width:12px;flex:1;background:#dde8e3;border-radius:8px;position:relative;overflow:hidden}
+.thermo .hg{position:absolute;bottom:0;left:0;right:0;height:34%;background:linear-gradient(#8DCAA7,#2A624F)}
+.thermo .bulb{width:30px;height:30px;border-radius:50%;background:#2A624F;margin-top:-7px;z-index:2}
+.thermo .v{position:absolute;left:-30px;top:30px;font-family:'Obviously';font-weight:900;font-size:18px;color:#2A624F;width:28px;text-align:right}
+.thermo .lab{position:absolute;right:-30px;top:14px;font-family:var(--mono);font-size:8px;color:#6a7a73;letter-spacing:.1em;writing-mode:vertical-rl}
+
+/* ===== Yuzu signatures ===== */
+.crate{width:238px;background:#fbf8ec;border:2px solid #336832;border-radius:5px;overflow:hidden;box-shadow:0 12px 24px rgba(0,0,0,.2)}
+.crate .top{background:#7C9D3D;color:#fff;text-align:center;padding:8px;font-family:'Obviously XB';font-weight:900;font-size:23px;letter-spacing:.04em}
+.crate .ill{height:118px;position:relative;background:#eef3d6;overflow:hidden}
+.crate .ft{padding:8px 11px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:8.5px;color:#336832;letter-spacing:.06em}
+.carton{width:124px;height:190px;position:relative;filter:drop-shadow(0 12px 18px rgba(0,0,0,.25))}
+.carton .gable{position:absolute;top:0;left:8px;right:8px;height:28px;background:#5e7a2e;clip-path:polygon(0 100%,50% 8%,100% 100%)}
+.carton .cap{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:#B7C055;z-index:2;box-shadow:inset 0 0 0 2px #5e7a2e}
+.carton .body{position:absolute;top:25px;left:0;right:0;bottom:0;background:linear-gradient(90deg,#5e7a2e,#B7C055 42%,#9bb24a 66%,#5e7a2e);border-radius:2px;text-align:center;padding-top:20px}
+.carton .body .jp{font-family:var(--jpserif);font-weight:900;font-size:21px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.carton .body .en{font-family:'Obviously Cond';font-weight:900;font-size:13px;letter-spacing:.08em;color:#21340f;margin-top:5px}
+.carton .body .ki{font-family:'Obviously';font-weight:900;font-size:24px;color:#fff;margin-top:10px}
+.carton .body .u{font-family:var(--mono);font-size:8px;color:#21340f;margin-top:8px;letter-spacing:.1em}
+.scale{width:154px}
+.scale .dial{width:154px;height:106px;border-radius:154px 154px 6px 6px;background:#fbf8ec;border:3px solid #336832;border-bottom:none;position:relative;overflow:hidden}
+.scale .ticks{position:absolute;left:10px;right:10px;bottom:0;top:12px;border-radius:140px 140px 0 0;border:2px dashed #B7C055;border-bottom:none}
+.scale .needle{position:absolute;left:50%;bottom:2px;width:2px;height:80px;background:#D7503A;transform-origin:bottom center;transform:rotate(26deg)}
+.scale .pin{position:absolute;left:50%;bottom:-3px;width:9px;height:9px;border-radius:50%;background:#336832;transform:translateX(-50%)}
+.scale .w{position:absolute;bottom:6px;left:0;right:0;text-align:center;font-family:'Obviously';font-weight:900;font-size:15px;color:#336832}
+.scale .plate{height:14px;background:linear-gradient(#9bb24a,#5e7a2e);border-radius:3px;margin-top:-1px;box-shadow:0 7px 13px rgba(0,0,0,.22)}
+.plu{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#F6D24E,#F2C230);color:#21340f;border:2px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 6px 12px rgba(0,0,0,.25)}
+.plu .n{font-family:'Obviously';font-weight:900;font-size:13px}.plu .s{font-family:var(--mono);font-size:7px;letter-spacing:.04em}
+
+/* ===== Maple signatures (Showa kissaten) ===== */
+.cup{width:158px;height:128px;position:relative}
+.cup .saucer{position:absolute;bottom:0;left:0;width:158px;height:30px;border-radius:50%;background:linear-gradient(#fbf6ea,#e3d6bd);box-shadow:0 12px 18px rgba(0,0,0,.2)}
+.cup .body{position:absolute;bottom:14px;left:27px;width:104px;height:84px;background:linear-gradient(#fbf6ea,#ece0c9);border-radius:8px 8px 46px 46px/8px 8px 30px 30px;box-shadow:inset -12px -8px 16px rgba(0,0,0,.08)}
+.cup .body::before{content:"";position:absolute;top:9px;left:9px;right:9px;height:16px;border-radius:50%;background:radial-gradient(circle,#5a3411,#381B00)}
+.cup .handle{position:absolute;bottom:48px;right:18px;width:28px;height:36px;border:8px solid #ece0c9;border-left:none;border-radius:0 16px 16px 0}
+.cup .ki{position:absolute;bottom:34px;left:27px;width:104px;text-align:center;font-family:'Obviously';font-weight:900;font-size:21px;color:#8E5320}
+.cup .steam{position:absolute;top:-6px;left:27px;width:104px;text-align:center;color:#b98448;opacity:.55;font-size:18px;font-family:var(--jpserif)}
+.driptin{width:122px;height:152px;border-radius:8px;position:relative;overflow:hidden;box-shadow:0 12px 22px rgba(0,0,0,.3);background:linear-gradient(90deg,#5e3712,#B98448 42%,#cda66a 60%,#5e3712)}
+.driptin .lid{position:absolute;top:0;left:0;right:0;height:14px;background:linear-gradient(90deg,#8a8a8a,#e2e2e2 50%,#8a8a8a)}
+.driptin .band{position:absolute;top:42px;left:0;right:0;height:64px;background:#fbf6ea;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 0 2px #633203}
+.driptin .band .jp{font-family:var(--jpserif);font-weight:900;font-size:18px;color:#633203}
+.driptin .band .en{font-family:'Obviously Cond';font-weight:900;font-size:11px;color:#8E5320;letter-spacing:.1em}
+.brewtimer{width:122px;height:122px;border-radius:50%;background:#fbf6ea;border:5px solid #633203;position:relative;box-shadow:0 10px 18px rgba(0,0,0,.25)}
+.brewtimer .face{position:absolute;inset:9px;border-radius:50%;border:2px dashed #B98448}
+.brewtimer .hand{position:absolute;left:calc(50% - 1.5px);bottom:50%;width:3px;height:44px;background:#2E8B7A;transform-origin:bottom center;transform:rotate(128deg)}
+.brewtimer .c{position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;background:#633203;transform:translate(-50%,-50%)}
+.brewtimer .t{position:absolute;bottom:15px;left:0;right:0;text-align:center;font-family:'Obviously';font-weight:900;font-size:12px;color:#633203}
+.menucard{width:202px;background:#fbf6ea;border:2px solid #633203;border-radius:3px;padding:13px 15px;box-shadow:0 12px 22px rgba(0,0,0,.2)}
+.menucard .h{text-align:center;font-family:var(--jpserif);font-weight:900;font-size:20px;color:#633203;border-bottom:2px solid #B98448;padding-bottom:6px}
+.menucard .li{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:#5a3a16;padding:5px 0;border-bottom:1px dotted #cbb084}
+.jukebox{width:142px;height:184px;border-radius:62px 62px 10px 10px;position:relative;overflow:hidden;border:2px solid #cda66a;box-shadow:0 14px 24px rgba(0,0,0,.35);background:linear-gradient(#8E5320,#4a2600)}
+.jukebox .arch{position:absolute;top:14px;left:14px;right:14px;height:52px;border-radius:40px 40px 6px 6px;background:repeating-linear-gradient(90deg,#2E8B7A 0 7px,#cda66a 7px 14px);opacity:.9}
+.jukebox .screen{position:absolute;top:76px;left:18px;right:18px;height:40px;background:#1a0f04;border-radius:4px;color:#cda66a;font-family:var(--mono);font-size:8px;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px;letter-spacing:.05em}
+.jukebox .jbtns{position:absolute;bottom:14px;left:18px;right:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.jukebox .jbtns i{height:13px;background:#cda66a;border-radius:2px}
+
+/* ===== Satsuma signatures (retro space pulp) ===== */
+@keyframes hover{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.ufofloat{animation:hover 3.6s ease-in-out infinite}
+.comic{width:232px;background:#fff;border:3px solid #3E1B12;box-shadow:0 13px 26px rgba(0,0,0,.32)}
+.comic .p{height:146px;position:relative;overflow:hidden;background:#F7932C;background-image:radial-gradient(#3E1B12 1.5px,transparent 1.7px);background-size:8px 8px}
+.comic .p::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(252,209,10,.92),rgba(247,147,44,0) 62%)}
+.comic .bubble{position:absolute;top:13px;left:13px;background:#fff;border:2px solid #3E1B12;border-radius:14px;padding:4px 11px;font-family:'Obviously';font-weight:900;font-size:15px;color:#E91D8F;z-index:2}
+.comic .ki{position:absolute;bottom:6px;right:12px;font-family:'Obviously';font-weight:900;font-size:42px;color:#fff;text-shadow:2px 2px 0 #E91D8F;z-index:2}
+.comic .cap{padding:7px 11px;font-family:var(--jpserif);font-weight:900;font-size:13px;color:#3E1B12;background:#FCD10A;border-top:3px solid #3E1B12;letter-spacing:.04em}
+.starburst{width:80px;height:80px;background:#E91D8F;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Obviously';font-weight:900;font-size:16px;text-align:center;line-height:1;box-shadow:0 6px 12px rgba(0,0,0,.3);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);z-index:8000;background:rgba(10,9,8,.85);
+  color:var(--cream);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:8px 16px;border-radius:100px;pointer-events:none;transition:opacity .6s;opacity:1}
+</style>
+</head>
+<body>
+<svg id="grain" xmlns="http://www.w3.org/2000/svg"><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0"/></filter><rect width="100%" height="100%" filter="url(#gr)"/></svg>
+
+<div id="topbar">
+  <span>気 &nbsp;KI &nbsp;·&nbsp; NICOTINE POUCHES</span>
+  <nav><a data-go="3">Tokyo Cola</a><a data-go="4">Hokkaido</a><a data-go="5">Yuzu</a><a data-go="6">Maple</a><a data-go="7">Satsuma</a></nav>
+  <span class="r">UK · 18+ · SWOP v2</span>
+</div>
+
+<div id="wrap"><div id="frame"><div id="stage">
+
+<!-- ============ 00 · MASTHEAD ============ -->
+<section class="mast" data-sec>
+  <div class="sechead"><span>気 — The World of Ki</span><span>Field Guide № 01</span><span>Impossible Outcomes × Madwell</span></div>
+  <div class="mast-kanji">気</div>
+  <div class="mast-mid">
+    <div class="eyebrow2">Precision · Purity · Sustainability · Sophistication</div>
+    <img class="mast-logo" src="assets/logo/Ki_Logo_Black.svg" alt="Ki">
+    <div class="mast-tag">Unlock Your Mind</div>
+  </div>
+
+  <div class="art pk" style="left:259px;top:446px" data-art><img src="assets/img/pucks/hok.png" alt=""><div class="l"><b>Hokkaido Mint</b>北海道ミント</div></div>
+  <div class="art pk" style="left:417px;top:446px" data-art><img src="assets/img/pucks/yuzu.png" alt=""><div class="l"><b>Yuzu Mint</b>ユズミント</div></div>
+  <div class="art pk" style="left:575px;top:446px" data-art><img src="assets/img/pucks/maple.png" alt=""><div class="l"><b>Maple Coffee</b>メープルコーヒー</div></div>
+  <div class="art pk" style="left:733px;top:446px" data-art><img src="assets/img/pucks/cola.png" alt=""><div class="l"><b>Tokyo Cola</b>東京コーラ</div></div>
+  <div class="art pk" style="left:891px;top:446px" data-art><img src="assets/img/pucks/sat.png" alt=""><div class="l"><b>Satsuma Citrus</b>薩摩柑橘</div></div>
+
+  <div class="art mast-warn" style="left:392px;top:690px" data-art><span class="dot"></span><b>Warning</b> Contains nicotine. Nicotine is an addictive chemical. · 18+ · U.K.</div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<section class="ticker" data-sec>
+  <div class="run" id="tickrun"></div>
+</section>
+
+<!-- ============ 01 · THE LINE-UP ============ -->
+<section class="ground-cream" style="height:980px" data-sec>
+  <div class="sechead"><span>01 — The Line-up</span><span>UK launch · 5 flavors × 3 MG / 9 MG</span><span>61 × 61 mm</span></div>
+  <div class="secnum">01</div>
+  <div class="sectitle" style="top:64px;font-size:78px;color:var(--ink)">THE<br>LINE-UP</div>
+  <div class="fn" style="top:150px;left:300px;max-width:300px">FIG. 01 — Five UK flavours. Place-name or ingredient + flavour. Japanese set on artwork; accent = each puck's hero ramp.</div>
+
+  <div class="art puck" style="left:40px;top:250px" data-art data-flavor="hokkaido">
+    <img class="tin" src="assets/img/pucks/hok.png" alt="Hokkaido Mint tin">
+    <div class="nm">Hokkaido Mint</div><div class="kata">北海道ミント</div>
+    <div class="meta"><span class="str">3 MG / 9 MG</span><span class="px" style="color:var(--hok3)">FINAL · CLP</span></div>
+    <div class="ramp"><i style="background:var(--hok1)"></i><i style="background:var(--hok2)"></i><i style="background:var(--hok3)"></i><i style="background:var(--hok4)"></i></div>
+  </div>
+
+  <div class="art puck" style="left:310px;top:300px" data-art data-flavor="yuzu">
+    <img class="tin" src="assets/img/pucks/yuzu.png" alt="Yuzu Mint tin">
+    <div class="nm">Yuzu Mint</div><div class="kata">ユズミント</div>
+    <div class="meta"><span class="str">3 MG / 9 MG</span><span class="px" style="color:var(--yuzu3)">FINAL · CLP</span></div>
+    <div class="ramp"><i style="background:var(--yuzu1)"></i><i style="background:var(--yuzu2)"></i><i style="background:var(--yuzu3)"></i><i style="background:var(--yuzu4)"></i></div>
+  </div>
+
+  <div class="art puck" style="left:580px;top:250px" data-art data-flavor="maple">
+    <img class="tin" src="assets/img/pucks/maple.png" alt="Maple Coffee tin">
+    <div class="nm">Maple Coffee</div><div class="kata">メープルコーヒー</div>
+    <div class="meta"><span class="str">3 MG / 9 MG</span><span class="px">£6.50</span></div>
+    <div class="ramp"><i style="background:var(--map1)"></i><i style="background:var(--map2)"></i><i style="background:var(--map3)"></i><i style="background:var(--map4)"></i></div>
+  </div>
+
+  <div class="art puck" style="left:850px;top:300px" data-art data-flavor="cola">
+    <img class="tin" src="assets/img/pucks/cola.png" alt="Tokyo Cola tin">
+    <div class="nm">Tokyo Cola</div><div class="kata">東京コーラ</div>
+    <div class="meta"><span class="str">3 MG / 9 MG</span><span class="px" style="color:var(--cola2)">PENDING CLP</span></div>
+    <div class="ramp"><i style="background:var(--cola1)"></i><i style="background:var(--cola2)"></i><i style="background:var(--cola3)"></i><i style="background:var(--cola4)"></i></div>
+  </div>
+
+  <div class="art puck" style="left:1010px;top:560px;z-index:14" data-art data-flavor="satsuma">
+    <img class="tin" src="assets/img/pucks/sat.png" alt="Satsuma Citrus tin">
+    <div class="nm">Satsuma Citrus</div><div class="kata">薩摩柑橘</div>
+    <div class="meta"><span class="str">3 MG / 9 MG</span><span class="px" style="color:var(--sat3)">LOCKED · LIVE</span></div>
+    <div class="ramp"><i style="background:var(--sat1)"></i><i style="background:var(--sat2)"></i><i style="background:var(--sat3)"></i><i style="background:var(--sat4)"></i></div>
+  </div>
+
+  <div class="art sticky" style="left:120px;top:640px" data-art>
+    <div class="pin"></div>
+    “Satsuma Citrus” is final —<br>‘Satsuma Orange’ in the<br>March doc is stale. ✕<br><span style="font-family:var(--mono);font-size:9px;letter-spacing:.05em">— brief context §15</span>
+  </div>
+
+  <div class="art washi" style="left:430px;top:720px;transform:rotate(-5deg)" data-art>北海道 · 東京 · 薩摩</div>
+
+  <div class="art scrap" style="left:600px;top:680px" data-art>
+    monk-fruit sweetener · natural<br>ingredients · chef-crafted ·<br>“Kaizen quality” · UK-only<br><span class="prov">SRC · FAQ / Our Story</span>
+  </div>
+</section>
+
+<!-- ============ WORLD · TOKYO COLA ============ -->
+<section class="world-cola" style="height:900px" data-sec data-world="cola">
+  <svg class="wf" viewBox="0 0 1280 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="1280" height="900" fill="#EEEDE7"/>
+    <path fill="#F0A0A2" d="M0,150 C300,108 520,176 770,150 1010,126 1150,120 1280,142 L1280,900 0,900 Z"/>
+    <circle cx="1018" cy="214" r="84" fill="#48A0D9"/>
+    <path fill="#E33D41" d="M0,300 C250,256 560,330 820,292 1080,256 1180,272 1280,296 L1280,900 0,900 Z"/>
+    <path fill="none" stroke="#48A0D9" stroke-width="3" d="M0,300 C250,256 560,330 820,292 1080,256 1180,272 1280,296"/>
+    <path fill="#C82033" d="M0,452 C300,410 540,486 800,452 1080,416 1170,432 1280,456 L1280,900 0,900 Z"/>
+    <path fill="#7C1320" d="M0,602 C280,566 560,632 820,600 1080,570 1170,584 1280,606 L1280,900 0,900 Z"/>
+    <path fill="#5A0D20" d="M0,726 C300,702 560,756 820,726 1080,700 1170,712 1280,730 L1280,900 0,900 Z"/>
+    <path fill="#270F14" d="M0,818 C320,800 560,832 820,818 1080,806 1170,812 1280,824 L1280,900 0,900 Z"/>
+  </svg>
+  <div class="sechead" style="color:#efd2d3"><span>東京コーラ — Tokyo Cola</span><span>City-pop · 3 MG / 9 MG</span><span>HERO #E33D41 · ACCENT #48A0D9</span></div>
+  <div class="sectitle" style="top:54px;font-size:78px;color:#fff;text-shadow:3px 3px 0 #48A0D9">TOKYO COLA</div>
+  <div style="position:absolute;left:40px;top:140px;font-family:var(--jpserif);font-weight:900;font-size:46px;color:#48A0D9;z-index:6">東京コーラ</div>
+
+  <!-- kanban standing sign -->
+  <div class="art kanban" style="left:476px;top:150px" data-art>
+    <div class="jp">東京コーラ</div>
+    <div class="ki">気</div>
+    <div class="en">UNLOCK</div>
+  </div>
+
+  <!-- hero tin (real render) floating on the Tanaka wave-field -->
+  <div class="art" style="left:616px;top:188px;width:382px;filter:drop-shadow(0 26px 30px rgba(0,0,0,.4))" data-art>
+    <img src="assets/img/pucks/hero-cola.png" style="width:382px" alt="Tokyo Cola tin">
+  </div>
+
+  <!-- red vinyl, electric-blue label -->
+  <div class="art vinyl" style="left:988px;top:132px" data-art>
+    <div class="sheen"></div>
+    <div class="lab"><div class="t">東京コーラ</div><div class="s">CITY POP · VOL.1</div></div>
+    <div class="hole"></div>
+  </div>
+
+  <!-- vending machine -->
+  <div class="art" style="left:1006px;top:432px;width:196px;height:392px;background:linear-gradient(#E33D41,#C82033);border-radius:12px;padding:9px;border:2px solid #48A0D9;box-shadow:0 18px 30px rgba(0,0,0,.45)" data-art>
+    <div style="background:#06243a;border-radius:6px;color:#9fdcff;font-family:var(--jpserif);font-weight:900;font-size:17px;text-align:center;padding:6px 0;letter-spacing:.12em">東京コーラ</div>
+    <div style="background:#0c0305;border-radius:5px;margin-top:7px;height:124px;padding:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+      <div class="vm-can">気</div><div class="vm-can">気</div><div class="vm-can">気</div>
+      <div class="vm-can">気</div><div class="vm-can">気</div><div class="vm-can">気</div>
+    </div>
+    <div style="background:#48A0D9;color:#06243a;border-radius:4px;margin-top:7px;font-family:var(--mono);font-size:8.5px;text-align:center;padding:5px;letter-spacing:.06em">¥ 気 · UNLOCK YOUR MIND</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:7px">
+      <div class="vm-btn"></div><div class="vm-btn"></div><div class="vm-btn"></div><div class="vm-btn"></div>
+    </div>
+    <div style="margin-top:8px;background:#0c0305;border:1px solid #48A0D9;border-radius:4px;height:34px"></div>
+  </div>
+
+  <!-- boombox (interactive) -->
+  <div class="art boom" style="left:40px;top:452px" data-art>
+    <div class="handle"></div>
+    <div class="spk l"><div class="cone"></div></div>
+    <div class="spk r"><div class="cone"></div></div>
+    <div class="center">
+      <div class="disp" id="fmdisp" title="tap to change station"><span class="st" id="fmname">CITY POP FM</span><span class="fm" id="fmfreq">88.5</span></div>
+      <div class="dial"><div class="scale"></div><div class="needle" id="fmneedle" style="left:62%"></div></div>
+      <div class="cass"><span class="lbl">気 TOKYO COLA · 60</span><span class="reel"></span><span class="reel"></span></div>
+      <div class="row2">
+        <div class="vu" id="vu"></div>
+        <div class="btns"><b></b><b></b><b></b></div>
+      </div>
+    </div>
+  </div>
+  <div class="note-lbl" style="left:40px;top:712px;color:#7d8ba0">気-BOOMBOX · tap the dial to tune</div>
+
+  <!-- cassette -->
+  <div class="art cassette" style="left:62px;top:282px" data-art>
+    <div class="top"><div class="t">UNLOCK YOUR MIND</div><div class="s">東京コーラ · MIXTAPE Vol.1 · 60 MIN</div></div>
+    <div class="win"><span class="r"></span><span class="tape"></span><span class="r"></span></div>
+    <div class="ft"><span>SIDE A · CITY POP</span><span>気 2026</span></div>
+  </div>
+
+  <!-- seal -->
+  <div class="art seal" style="left:392px;top:700px" data-art>
+    <div class="ring"></div>
+    <div class="arc t">★ TOKYO COLA ★</div>
+    <div class="ki">気</div>
+    <div class="arc b">3MG · EST 2026</div>
+    <div class="star" style="left:9px">★</div><div class="star" style="right:9px">★</div>
+  </div>
+
+  <!-- transit ticket -->
+  <div class="art ticket" style="left:614px;top:710px" data-art>
+    <div class="stub"></div>
+    <div class="hd"><span class="jp">気メトロ</span><span class="en">TOKYO COLA LINE</span></div>
+    <div class="bd">
+      <div>渋谷 SHIBUYA → 青山 AOYAMA</div>
+      <div class="big">¥ 気</div>
+      <div>ADULT · 18+ · ONE WAY</div>
+      <div>2026 · CITY-POP LINE</div>
+    </div>
+    <div class="stubcol">気 · TOKYO COLA</div>
+  </div>
+
+  <div class="art tagsticker" style="left:250px;top:648px;background:#48A0D9;color:#06243a;transform:rotate(-5deg)" data-art>CITY POP '88</div>
+
+  <!-- telephone card (テレカ) -->
+  <div class="art telecard" style="left:300px;top:296px;transform:rotate(-3deg)" data-art>
+    <div class="chip"></div>
+    <div class="jp">気 テレカ</div>
+    <div style="font-family:var(--mono);font-size:8px;letter-spacing:.1em;margin-top:4px;color:#ffd9da">東京コーラ · TOKYO</div>
+    <div class="v">¥1000</div><div class="u">105 度</div>
+  </div>
+
+  <!-- matchbook -->
+  <div class="art matchbook" style="left:482px;top:372px;transform:rotate(4deg)" data-art>
+    <div class="flap"></div>
+    <div class="ki">気</div>
+    <div class="t">東京コーラ<br>CITY-POP BAR</div>
+    <div class="strike"></div>
+  </div>
+
+  <!-- arcade token -->
+  <div class="art token" style="left:556px;top:642px" data-art>気</div>
+</section>
+
+<!-- ============ WORLD · HOKKAIDO MINT ============ -->
+<section style="height:900px;background:#EAF2EC;color:#0c2b22;position:relative;overflow:hidden" data-sec data-world="hok">
+  <svg class="wf" viewBox="0 0 1280 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="1280" height="900" fill="#EAF2EC"/>
+    <path fill="#CFE6D8" d="M0,150 C300,108 520,176 770,150 1010,126 1150,120 1280,142 L1280,900 0,900 Z"/>
+    <circle cx="1018" cy="208" r="84" fill="#FBFEFC"/><circle cx="1018" cy="208" r="84" fill="none" stroke="#8DCAA7" stroke-width="2"/>
+    <path fill="#9FD3B6" d="M0,300 C250,256 560,330 820,292 1080,256 1180,272 1280,296 L1280,900 0,900 Z"/>
+    <path fill="none" stroke="#072538" stroke-width="2" opacity=".35" d="M0,300 C250,256 560,330 820,292 1080,256 1180,272 1280,296"/>
+    <path fill="#5E9C82" d="M0,452 C300,410 540,486 800,452 1080,416 1170,432 1280,456 L1280,900 0,900 Z"/>
+    <path fill="#2A624F" d="M0,602 C280,566 560,632 820,600 1080,570 1170,584 1280,606 L1280,900 0,900 Z"/>
+    <path fill="#14463A" d="M0,726 C300,702 560,756 820,726 1080,700 1170,712 1280,730 L1280,900 0,900 Z"/>
+    <path fill="#072538" d="M0,818 C320,800 560,832 820,818 1080,806 1170,812 1280,824 L1280,900 0,900 Z"/>
+  </svg>
+  <div class="sechead" style="color:#5a8a76"><span>北海道ミント — Hokkaido Mint</span><span>Snow country · 3 MG / 9 MG</span><span>FINAL · CLP · #8DCAA7</span></div>
+  <div class="sectitle" style="top:52px;font-size:72px;color:#072538;line-height:.92">HOKKAIDO<br><span style="color:#2A624F">MINT</span></div>
+  <div style="position:absolute;left:40px;top:200px;font-family:var(--jpserif);font-weight:900;font-size:40px;color:#2A624F;z-index:6">北海道ミント</div>
+
+  <!-- snow globe -->
+  <div class="art snowglobe" style="left:42px;top:296px" data-art>
+    <div class="dome">
+      <svg viewBox="0 0 186 186" style="position:absolute;inset:0"><path fill="#8DCAA7" d="M0,120 C40,100 70,128 110,116 150,104 170,112 186,120 L186,186 0,186Z"/><path fill="#2A624F" d="M0,150 C50,138 90,160 130,150 160,143 176,148 186,154 L186,186 0,186Z"/><path fill="#fff" d="M58,96 76,116 40,116Z M120,86 146,120 96,120Z"/></svg>
+      <div class="snow">
+        <i style="left:14%;animation-duration:4s;animation-delay:-1s"></i><i style="left:30%;animation-duration:5s"></i><i style="left:46%;animation-duration:3.5s;animation-delay:-2s"></i><i style="left:62%;animation-duration:4.5s;animation-delay:-1.5s"></i><i style="left:78%;animation-duration:5.5s;animation-delay:-3s"></i><i style="left:88%;animation-duration:4s;animation-delay:-2.5s"></i><i style="left:22%;animation-duration:6s;animation-delay:-4s"></i><i style="left:54%;animation-duration:4.2s;animation-delay:-3.5s"></i>
+      </div>
+    </div>
+    <div class="base">気 北海道</div>
+  </div>
+
+  <!-- Sapporo enamel seal -->
+  <div class="art wseal" style="left:78px;top:556px;--s1:#8DCAA7;--s2:#E5F1DC;--s3:#072538" data-art>
+    <div class="ring"></div><div class="t">★ HOKKAIDO MINT ★</div><div class="ki" style="color:#fff">気</div><div class="b">3MG · 北海道</div>
+    <div class="star" style="left:9px">❄</div><div class="star" style="right:9px">❄</div>
+  </div>
+
+  <!-- spec doc -->
+  <div class="art specdoc" style="left:40px;top:726px" data-art>
+    <div class="h"><b>北海道ミント</b><span style="align-self:flex-end">UK · 61×61mm</span></div>
+    <div class="li"><span><span class="sw" style="background:#E5F1DC"></span>Pale Sage · sky</span><span>#E5F1DC</span></div>
+    <div class="li"><span><span class="sw" style="background:#8DCAA7"></span>Soft Mint · accent</span><span>#8DCAA7</span></div>
+    <div class="li"><span><span class="sw" style="background:#2A624F"></span>Deep Teal</span><span>#2A624F</span></div>
+    <div class="li"><span><span class="sw" style="background:#072538"></span>Deep Navy</span><span>#072538</span></div>
+    <div class="li" style="border:none"><span>Strength</span><span>3 MG / 9 MG</span></div>
+  </div>
+
+  <!-- ski-lift pass -->
+  <div class="art wpass" style="left:296px;top:286px;transform:rotate(-2deg);--p1:#2A624F" data-art>
+    <div class="stub"></div>
+    <div class="hd"><span class="jp">北海道リフト</span><span class="en">1-DAY PASS</span></div>
+    <div class="bd"><div>ニセコ NISEKO · 気 RESORT</div><div class="big">▲ 1,308 m</div><div>ADULT · 18+ · ALL LIFTS</div><div>2026 SEASON</div></div>
+    <div class="sc">気 · LIFT PASS</div>
+  </div>
+
+  <!-- thermometer -->
+  <div class="art thermo" style="left:330px;top:474px" data-art>
+    <div class="v">−3°</div><div class="lab">FROST</div>
+    <div class="tube"><div class="hg"></div></div><div class="bulb"></div>
+  </div>
+
+  <!-- onsen token -->
+  <div class="art" style="left:474px;top:640px;width:66px;height:66px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#bfe0d2,#8DCAA7 60%,#2A624F);border:3px solid #fff;box-shadow:0 7px 14px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-family:var(--jpserif);font-weight:900;font-size:30px;color:#072538" data-art>湯</div>
+
+  <!-- onsen sign (warm-red surprise pop) -->
+  <div class="art wkanban" style="left:486px;top:150px;--k1:linear-gradient(#D7503A,#b53c29);--k2:#fff" data-art>
+    <div class="jp">温泉</div><div class="ki" style="color:#D7503A">ゆ</div><div class="en">ONSEN</div>
+  </div>
+
+  <!-- hero tin -->
+  <div class="art" style="left:614px;top:190px;width:382px;filter:drop-shadow(0 26px 28px rgba(7,37,56,.28))" data-art>
+    <img src="assets/img/pucks/hero-hok.png" style="width:382px" alt="Hokkaido Mint tin">
+  </div>
+
+  <!-- winter postcard -->
+  <div class="art" style="left:612px;top:710px;width:196px" data-art>
+    <div style="background:#fff;padding:6px;box-shadow:0 12px 24px rgba(0,0,0,.18)">
+      <div style="height:96px;background:linear-gradient(#dff0ea,#8DCAA7);position:relative;overflow:hidden">
+        <svg viewBox="0 0 184 96" style="position:absolute;inset:0;width:100%;height:100%"><path fill="#fff" d="M30,40 58,84 2,84Z M96,28 140,84 52,84Z M150,50 184,90 116,90Z"/><path fill="#2A624F" d="M0,80 C50,70 120,90 184,78 L184,96 0,96Z"/></svg>
+        <div style="position:absolute;right:6px;top:6px;width:30px;height:36px;background:#fff;border:1px solid #2A624F;display:flex;align-items:center;justify-content:center;font-family:'Obviously';font-weight:900;color:#2A624F">気</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:6px 7px 2px;font-family:var(--mono);font-size:8px;color:#2A624F"><span>北海道より · WISH YOU WERE HERE</span><span>気</span></div>
+    </div>
+  </div>
+
+  <!-- hot/cold vending -->
+  <div class="art wvend" style="left:1010px;top:300px;--v1:#2A624F;--v2:#8DCAA7;--v3:#5E9C82" data-art>
+    <div class="vh" style="color:#072538">気マート</div>
+    <div class="vg"><i>気</i><i>気</i><i>気</i><i>気</i><i>気</i><i>気</i></div>
+    <div class="vd">あたたかい · つめたい</div>
+    <div class="vb"><i></i><i></i><i></i><i></i></div>
+    <div class="vslot"></div>
+  </div>
+
+  <div style="position:absolute;left:250px;top:200px;font-size:22px;color:#8DCAA7;opacity:.6;z-index:1">❄</div>
+  <div style="position:absolute;left:940px;top:150px;font-size:16px;color:#8DCAA7;opacity:.55;z-index:1">❄</div>
+  <div style="position:absolute;left:560px;top:560px;font-size:18px;color:#2A624F;opacity:.4;z-index:1">❄</div>
+</section>
+
+<!-- ============ WORLD · YUZU MINT ============ -->
+<section style="height:900px;background:#F2F5E9;color:#212A15;position:relative;overflow:hidden" data-sec data-world="yuzu">
+  <svg class="wf" viewBox="0 0 1280 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="1280" height="900" fill="#F2F5E9"/>
+    <path fill="#DCE6A8" d="M0,150 C300,108 520,176 770,150 1010,126 1150,120 1280,142 L1280,900 0,900 Z"/>
+    <circle cx="1018" cy="206" r="82" fill="#F2C230"/>
+    <path fill="#B7C055" d="M0,300 C250,256 560,330 820,292 1080,256 1180,272 1280,296 L1280,900 0,900 Z"/>
+    <path fill="none" stroke="#336832" stroke-width="2" opacity=".4" d="M0,300 C250,256 560,330 820,292 1080,256 1180,272 1280,296"/>
+    <path fill="#7C9D3D" d="M0,452 C300,410 540,486 800,452 1080,416 1170,432 1280,456 L1280,900 0,900 Z"/>
+    <path fill="#4F7A2E" d="M0,602 C280,566 560,632 820,600 1080,570 1170,584 1280,606 L1280,900 0,900 Z"/>
+    <path fill="#336832" d="M0,726 C300,702 560,756 820,726 1080,700 1170,712 1280,730 L1280,900 0,900 Z"/>
+    <path fill="#212A15" d="M0,818 C320,800 560,832 820,818 1080,806 1170,812 1280,824 L1280,900 0,900 Z"/>
+  </svg>
+  <div class="sechead" style="color:#5e7a2e"><span>ユズミント — Yuzu Mint</span><span>Citrus market · 3 MG / 9 MG</span><span>FINAL · CLP · #B7C055</span></div>
+  <div class="sectitle" style="top:52px;font-size:72px;color:#212A15;line-height:.92">YUZU<br><span style="color:#4F7A2E">MINT</span></div>
+  <div style="position:absolute;left:40px;top:200px;font-family:var(--jpserif);font-weight:900;font-size:40px;color:#4F7A2E;z-index:6">ユズミント</div>
+
+  <!-- crate label -->
+  <div class="art crate" style="left:40px;top:288px" data-art>
+    <div class="top">柚子 YUZU</div>
+    <div class="ill">
+      <svg viewBox="0 0 238 118" style="width:100%;height:100%"><g><ellipse cx="86" cy="74" rx="44" ry="42" fill="#C9D06A"/><ellipse cx="78" cy="64" rx="14" ry="11" fill="#e3e89a" opacity=".7"/><ellipse cx="150" cy="60" rx="34" ry="33" fill="#B7C055"/><path d="M120 36 Q150 10 180 30 Q150 34 120 36Z" fill="#4F7A2E"/><path d="M40 40 Q66 18 92 34 Q64 40 40 40Z" fill="#7C9D3D"/></g></svg>
+    </div>
+    <div class="ft"><span>気 FARM · 北海道</span><span>GRADE A · 柑橘</span></div>
+  </div>
+
+  <!-- greengrocer scale -->
+  <div class="art scale" style="left:74px;top:556px" data-art>
+    <div class="dial"><div class="ticks"></div><div class="needle"></div><div class="pin"></div><div class="w">柚子 0.6kg</div></div>
+    <div class="plate"></div>
+  </div>
+
+  <!-- spec doc -->
+  <div class="art specdoc" style="left:40px;top:726px" data-art>
+    <div class="h"><b>ユズミント</b><span style="align-self:flex-end">UK · 61×61mm</span></div>
+    <div class="li"><span><span class="sw" style="background:#B7C055"></span>Chartreuse · hero</span><span>#B7C055</span></div>
+    <div class="li"><span><span class="sw" style="background:#7C9D3D"></span>Leaf Green</span><span>#7C9D3D</span></div>
+    <div class="li"><span><span class="sw" style="background:#336832"></span>Forest Green</span><span>#336832</span></div>
+    <div class="li"><span><span class="sw" style="background:#212A15"></span>Deep Base</span><span>#212A15</span></div>
+    <div class="li" style="border:none"><span>Strength</span><span>3 MG / 9 MG</span></div>
+  </div>
+
+  <!-- botanical plate -->
+  <div class="art" style="left:300px;top:286px;width:222px;background:#fbf8ec;border:2px solid #336832;border-radius:5px;padding:11px;box-shadow:0 12px 24px rgba(0,0,0,.18)" data-art>
+    <div style="font-family:var(--mono);font-size:8px;color:#336832;letter-spacing:.12em;text-transform:uppercase">柚子 · Citrus junos · Pl. I</div>
+    <svg viewBox="0 0 200 140" style="width:100%;margin-top:4px">
+      <path d="M40 130 Q90 70 120 30" fill="none" stroke="#4F7A2E" stroke-width="3"/>
+      <ellipse cx="120" cy="70" rx="40" ry="38" fill="#C9D06A"/><ellipse cx="110" cy="58" rx="13" ry="10" fill="#e6ea9e"/>
+      <circle cx="120" cy="38" r="4" fill="#4F7A2E"/>
+      <path d="M70 96 Q40 84 28 110 Q62 112 70 96Z" fill="#7C9D3D"/><path d="M78 60 Q96 30 128 36 Q98 64 78 60Z" fill="#7C9D3D"/>
+      <path d="M70 96 Q49 96 28 110" fill="none" stroke="#336832" stroke-width="1.2"/>
+    </svg>
+  </div>
+
+  <!-- juice carton -->
+  <div class="art carton" style="left:336px;top:500px" data-art>
+    <div class="gable"></div><div class="cap"></div>
+    <div class="body"><div class="jp">柚子</div><div class="en">YUZU 100%</div><div class="ki">気</div><div class="u">1 L · NO SUGAR</div></div>
+  </div>
+
+  <!-- 八百屋 greengrocer sign -->
+  <div class="art wkanban" style="left:486px;top:150px;--k1:linear-gradient(#7C9D3D,#4F7A2E);--k2:#F2C230" data-art>
+    <div class="jp">八百屋</div><div class="ki" style="color:#4F7A2E">気</div><div class="en">MARKET</div>
+  </div>
+
+  <!-- hero tin -->
+  <div class="art" style="left:614px;top:190px;width:382px;filter:drop-shadow(0 26px 28px rgba(33,42,21,.26))" data-art>
+    <img src="assets/img/pucks/hero-yuzu.png" style="width:382px" alt="Yuzu Mint tin">
+  </div>
+
+  <!-- consignment slip -->
+  <div class="art receipt" style="left:800px;top:606px" data-art>
+    <div class="c b" style="font-size:14px">気 八百屋</div>
+    <div class="c" style="font-size:8.5px;letter-spacing:.14em">GREENGROCER · CONSIGNMENT</div>
+    <div class="rule"></div>
+    <div class="li"><span>柚子 YUZU</span><span>×6</span></div>
+    <div class="li"><span>GRADE</span><span>A · 北海道</span></div>
+    <div class="li"><span>STRENGTH</span><span>3 / 9 MG</span></div>
+    <div class="rule"></div>
+    <div class="c" style="letter-spacing:.1em">FINAL · CLP · 18+ UK</div>
+    <div class="bc">KIYUZU</div>
+    <div class="c" style="font-size:8.5px">ありがとうございました</div>
+    <div class="perf"></div>
+  </div>
+
+  <!-- seal -->
+  <div class="art wseal" style="left:566px;top:700px;--s1:#B7C055;--s2:#F2C230;--s3:#212A15" data-art>
+    <div class="ring"></div><div class="t">★ YUZU MINT ★</div><div class="ki" style="color:#fff">気</div><div class="b">柑橘 · 3MG</div>
+    <div class="star" style="left:9px">柚</div><div class="star" style="right:9px">柚</div>
+  </div>
+
+  <!-- juice vending -->
+  <div class="art wvend" style="left:1010px;top:300px;--v1:#4F7A2E;--v2:#B7C055;--v3:#7C9D3D" data-art>
+    <div class="vh" style="color:#212A15">気マート</div>
+    <div class="vg"><i>気</i><i>気</i><i>気</i><i>気</i><i>気</i><i>気</i></div>
+    <div class="vd" style="color:#212A15">柚子 100% · つめたい</div>
+    <div class="vb"><i></i><i></i><i></i><i></i></div>
+    <div class="vslot"></div>
+  </div>
+
+  <div class="art plu" style="left:250px;top:470px" data-art><div class="n">4959</div><div class="s">気 YUZU</div></div>
+  <div class="art plu" style="left:930px;top:648px" data-art><div class="n">柚子</div><div class="s">GRADE A</div></div>
+</section>
+
+<!-- ============ WORLD · MAPLE COFFEE ============ -->
+<section style="height:900px;background:#F0E7D6;color:#381B00;position:relative;overflow:hidden" data-sec data-world="maple">
+  <svg class="wf" viewBox="0 0 1280 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="1280" height="900" fill="#F0E7D6"/>
+    <path fill="#DFC59A" d="M0,150 C300,108 520,176 770,150 1010,126 1150,120 1280,142 L1280,900 0,900 Z"/>
+    <circle cx="1018" cy="206" r="82" fill="#F3E6C6"/>
+    <path fill="#B98448" d="M0,300 C250,256 560,330 820,292 1080,256 1180,272 1280,296 L1280,900 0,900 Z"/>
+    <path fill="none" stroke="#2E8B7A" stroke-width="2.5" opacity=".7" d="M0,300 C250,256 560,330 820,292 1080,256 1180,272 1280,296"/>
+    <path fill="#8E5320" d="M0,452 C300,410 540,486 800,452 1080,416 1170,432 1280,456 L1280,900 0,900 Z"/>
+    <path fill="#633203" d="M0,602 C280,566 560,632 820,600 1080,570 1170,584 1280,606 L1280,900 0,900 Z"/>
+    <path fill="#4A2600" d="M0,726 C300,702 560,756 820,726 1080,700 1170,712 1280,730 L1280,900 0,900 Z"/>
+    <path fill="#381B00" d="M0,818 C320,800 560,832 820,818 1080,806 1170,812 1280,824 L1280,900 0,900 Z"/>
+  </svg>
+  <div class="sechead" style="color:#9a6a34"><span>メープルコーヒー — Maple Coffee</span><span>Showa kissaten · 3 MG / 9 MG</span><span>PENDING CLP · #B98448</span></div>
+  <div class="sectitle" style="top:52px;font-size:68px;color:#381B00;line-height:.92">MAPLE<br><span style="color:#8E5320">COFFEE</span></div>
+  <div style="position:absolute;left:40px;top:198px;font-family:var(--jpserif);font-weight:900;font-size:36px;color:#8E5320;z-index:6">メープルコーヒー</div>
+
+  <!-- coffee cup -->
+  <div class="art cup" style="left:44px;top:296px" data-art>
+    <div class="steam">～</div><div class="saucer"></div><div class="body"></div><div class="handle"></div><div class="ki">気</div>
+  </div>
+
+  <!-- drip tin -->
+  <div class="art driptin" style="left:54px;top:520px" data-art>
+    <div class="lid"></div>
+    <div class="band"><div class="jp">気 珈琲</div><div class="en">MAPLE · DRIP</div></div>
+  </div>
+
+  <!-- spec doc -->
+  <div class="art specdoc" style="left:40px;top:726px" data-art>
+    <div class="h"><b>メープルコーヒー</b><span style="align-self:flex-end">UK · 61×61mm</span></div>
+    <div class="li"><span><span class="sw" style="background:#B98448"></span>Caramel · hero</span><span>#B98448</span></div>
+    <div class="li"><span><span class="sw" style="background:#8E5320"></span>Roast Brown</span><span>#8E5320</span></div>
+    <div class="li"><span><span class="sw" style="background:#633203"></span>Deep Brown</span><span>#633203</span></div>
+    <div class="li"><span><span class="sw" style="background:#381B00"></span>Espresso · base</span><span>#381B00</span></div>
+    <div class="li" style="border:none"><span>Strength</span><span>3 MG / 9 MG</span></div>
+  </div>
+
+  <!-- menu card -->
+  <div class="art menucard" style="left:296px;top:286px;transform:rotate(-1.5deg)" data-art>
+    <div class="h">喫茶 気</div>
+    <div class="li"><span>ブレンド · BLEND</span><span>気</span></div>
+    <div class="li"><span>メープル · MAPLE</span><span>£6.50</span></div>
+    <div class="li"><span>ドリップ · DRIP</span><span>3 MG</span></div>
+    <div class="li" style="border:none"><span>深煎り · DARK</span><span>9 MG</span></div>
+  </div>
+
+  <!-- brew-timer -->
+  <div class="art brewtimer" style="left:300px;top:540px" data-art>
+    <div class="face"></div><div class="hand"></div><div class="c"></div><div class="t">4:00 抽出</div>
+  </div>
+
+  <!-- jukebox -->
+  <div class="art jukebox" style="left:454px;top:520px" data-art>
+    <div class="arch"></div>
+    <div class="screen">気 JUKEBOX<br>CITY POP · B-12</div>
+    <div class="jbtns"><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <!-- 喫茶 sign -->
+  <div class="art wkanban" style="left:486px;top:150px;--k1:linear-gradient(#8E5320,#4a2600);--k2:#2E8B7A" data-art>
+    <div class="jp">喫茶</div><div class="ki" style="color:#8E5320">気</div><div class="en">KISSATEN</div>
+  </div>
+
+  <!-- hero tin -->
+  <div class="art" style="left:614px;top:190px;width:382px;filter:drop-shadow(0 26px 28px rgba(56,27,0,.3))" data-art>
+    <img src="assets/img/pucks/hero-maple.png" style="width:382px" alt="Maple Coffee tin">
+  </div>
+
+  <!-- seal -->
+  <div class="art wseal" style="left:614px;top:700px;--s1:#B98448;--s2:#F3E6C6;--s3:#381B00" data-art>
+    <div class="ring"></div><div class="t">★ MAPLE COFFEE ★</div><div class="ki" style="color:#fff">気</div><div class="b">珈琲 · 3MG</div>
+    <div class="star" style="left:9px">☕</div><div class="star" style="right:9px">☕</div>
+  </div>
+
+  <!-- canned-coffee vending -->
+  <div class="art wvend" style="left:1010px;top:300px;--v1:#633203;--v2:#B98448;--v3:#8E5320" data-art>
+    <div class="vh" style="color:#381B00">気マート</div>
+    <div class="vg"><i>気</i><i>気</i><i>気</i><i>気</i><i>気</i><i>気</i></div>
+    <div class="vd" style="color:#381B00">あったか · HOT 珈琲</div>
+    <div class="vb"><i></i><i></i><i></i><i></i></div>
+    <div class="vslot"></div>
+  </div>
+
+  <!-- matchbook (kissaten) -->
+  <div class="art" style="left:820px;top:636px;width:80px;height:106px;border-radius:4px;background:linear-gradient(#8E5320,#4a2600);padding:8px;text-align:center;box-shadow:0 9px 18px rgba(0,0,0,.4);overflow:hidden;position:relative" data-art>
+    <div style="position:absolute;top:0;left:0;right:0;height:34px;background:#2E8B7A;border-bottom:2px dashed #F3E6C6"></div>
+    <div style="position:relative;font-family:'Obviously';font-weight:900;font-size:20px;color:#fff;margin-top:5px">気</div>
+    <div style="position:relative;font-family:var(--mono);font-size:7px;color:#F3E6C6;margin-top:24px;letter-spacing:.06em">喫茶 気<br>SHOWA · BAR</div>
+    <div style="position:absolute;bottom:8px;left:8px;right:8px;height:9px;background:repeating-linear-gradient(90deg,#cda66a 0 3px,#8E5320 3px 6px);border-radius:2px"></div>
+  </div>
+
+  <div style="position:absolute;left:250px;top:210px;font-size:18px;color:#8E5320;opacity:.5;z-index:1;font-family:var(--jpserif)">☕</div>
+</section>
+
+<!-- ============ WORLD · SATSUMA CITRUS ============ -->
+<section style="height:900px;background:#FFF3D6;color:#3E1B12;position:relative;overflow:hidden" data-sec data-world="sat">
+  <svg class="wf" viewBox="0 0 1280 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="1280" height="900" fill="#FFF3D6"/>
+    <path fill="#FCD10A" d="M0,150 C300,108 520,176 770,150 1010,126 1150,120 1280,142 L1280,900 0,900 Z"/>
+    <circle cx="1018" cy="204" r="90" fill="#F7932C"/><circle cx="1018" cy="204" r="90" fill="none" stroke="#E91D8F" stroke-width="3"/>
+    <path fill="#F7932C" d="M0,300 C250,256 560,330 820,292 1080,256 1180,272 1280,296 L1280,900 0,900 Z"/>
+    <path fill="none" stroke="#E91D8F" stroke-width="2.5" d="M0,300 C250,256 560,330 820,292 1080,256 1180,272 1280,296"/>
+    <path fill="#ED722D" d="M0,452 C300,410 540,486 800,452 1080,416 1170,432 1280,456 L1280,900 0,900 Z"/>
+    <path fill="#C0481E" d="M0,602 C280,566 560,632 820,600 1080,570 1170,584 1280,606 L1280,900 0,900 Z"/>
+    <path fill="#7A2E12" d="M0,726 C300,702 560,756 820,726 1080,700 1170,712 1280,730 L1280,900 0,900 Z"/>
+    <path fill="#3E1B12" d="M0,818 C320,800 560,832 820,818 1080,806 1170,812 1280,824 L1280,900 0,900 Z"/>
+  </svg>
+  <div class="sechead" style="color:#b3632b"><span>薩摩柑橘 — Satsuma Citrus</span><span>Space pulp · 3 MG / 9 MG</span><span>LOCKED · LIVE · #F7932C</span></div>
+  <div class="sectitle" style="top:52px;font-size:66px;color:#3E1B12;line-height:.92">SATSUMA<br><span style="color:#ED722D">CITRUS</span></div>
+  <div style="position:absolute;left:40px;top:196px;font-family:var(--jpserif);font-weight:900;font-size:40px;color:#ED722D;z-index:6">薩摩柑橘</div>
+
+  <!-- cat-astronaut pulp cover (real art) -->
+  <div class="art" style="left:40px;top:288px;width:236px;background:#fff;border:3px solid #3E1B12;box-shadow:0 14px 30px rgba(0,0,0,.34)" data-art>
+    <div style="background:#E91D8F;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:6px 10px;font-family:'Obviously Cond';font-weight:900;font-size:15px;letter-spacing:.06em"><span>気 SPACE PULP</span><span>№1</span></div>
+    <img src="assets/img/catstronaut.png" style="width:100%;display:block">
+    <div style="position:absolute;right:8px;bottom:8px;width:42px;height:42px;border-radius:50%;background:#FCD10A;border:2px solid #3E1B12;display:flex;align-items:center;justify-content:center;font-family:'Obviously';font-weight:900;font-size:11px;color:#3E1B12;text-align:center;line-height:.9">25¢</div>
+  </div>
+
+  <!-- UFO (real art, hovering) -->
+  <div class="art" style="left:294px;top:284px;width:224px;filter:drop-shadow(0 0 40px rgba(233,29,143,.4))" data-art>
+    <img class="ufofloat" src="assets/img/ufo.png" style="width:224px">
+  </div>
+
+  <!-- ray-gun -->
+  <div class="art" style="left:296px;top:474px;width:212px;filter:drop-shadow(0 12px 14px rgba(0,0,0,.3))" data-art>
+    <svg viewBox="0 0 220 130" style="width:212px">
+      <path d="M58,70 L86,70 L98,122 L70,122 Z" fill="#7A2E12"/>
+      <path d="M70,78 q4,24 28,24" fill="none" stroke="#3E1B12" stroke-width="3"/>
+      <rect x="40" y="38" width="112" height="38" rx="15" fill="#ED722D" stroke="#3E1B12" stroke-width="3"/>
+      <path d="M46,38 L22,14 L62,38 Z" fill="#FCD10A" stroke="#3E1B12" stroke-width="2"/>
+      <rect x="142" y="42" width="56" height="30" rx="13" fill="#F7932C" stroke="#3E1B12" stroke-width="3"/>
+      <circle cx="150" cy="57" r="5" fill="#FCD10A"/>
+      <circle cx="64" cy="40" r="8" fill="#FCD10A" stroke="#3E1B12" stroke-width="2"/>
+      <circle cx="200" cy="57" r="17" fill="#E91D8F"/><circle cx="200" cy="57" r="9" fill="#fff" opacity=".75"/>
+    </svg>
+  </div>
+
+  <!-- launch pass -->
+  <div class="art wpass" style="left:300px;top:632px;--p1:#ED722D" data-art>
+    <div class="stub"></div>
+    <div class="hd"><span class="jp">気 宇宙港</span><span class="en">LAUNCH PASS</span></div>
+    <div class="bd"><div>薩摩 SATSUMA → 軌道 ORBIT</div><div class="big">🚀 GATE 9</div><div>ADULT · 18+ · ONE WAY</div><div>MISSION 気-2026</div></div>
+    <div class="sc">気 · SPACEPORT</div>
+  </div>
+
+  <!-- 宇宙 sign -->
+  <div class="art wkanban" style="left:486px;top:150px;--k1:linear-gradient(#F7932C,#ED722D);--k2:#E91D8F" data-art>
+    <div class="jp">宇宙</div><div class="ki" style="color:#ED722D">気</div><div class="en">LAUNCH</div>
+  </div>
+
+  <!-- hero tin -->
+  <div class="art" style="left:614px;top:190px;width:382px;filter:drop-shadow(0 26px 28px rgba(62,27,18,.3))" data-art>
+    <img src="assets/img/pucks/hero-sat.png" style="width:382px" alt="Satsuma Citrus tin">
+  </div>
+
+  <!-- mission badge -->
+  <div class="art wseal" style="left:560px;top:712px;--s1:#F7932C;--s2:#FCD10A;--s3:#3E1B12" data-art>
+    <div class="ring"></div><div class="t" style="color:#fff">SATSUMA SPACE</div><div class="ki" style="color:#fff">気</div><div class="b">薩摩 · 3MG</div>
+    <div class="star" style="left:8px;color:#E91D8F">★</div><div class="star" style="right:8px;color:#E91D8F">★</div>
+  </div>
+
+  <!-- comic panel -->
+  <div class="art comic" style="left:806px;top:706px" data-art>
+    <div class="p"><div class="bubble">気！</div><div class="ki">薩</div></div>
+    <div class="cap">薩摩柑橘 · UNLOCK YOUR MIND！</div>
+  </div>
+
+  <!-- space vending -->
+  <div class="art wvend" style="left:1010px;top:300px;--v1:#ED722D;--v2:#F7932C;--v3:#C0481E" data-art>
+    <div class="vh" style="color:#3E1B12">気マート</div>
+    <div class="vg"><i>気</i><i>気</i><i>気</i><i>気</i><i>気</i><i>気</i></div>
+    <div class="vd" style="color:#3E1B12">薩摩 · つめたい</div>
+    <div class="vb"><i></i><i></i><i></i><i></i></div>
+    <div class="vslot"></div>
+  </div>
+
+  <!-- spec doc (with Harajuku Bloom pop) -->
+  <div class="art specdoc" style="left:40px;top:726px" data-art>
+    <div class="h"><b>薩摩柑橘</b><span style="align-self:flex-end">UK · 61×61mm</span></div>
+    <div class="li"><span><span class="sw" style="background:#FCD10A"></span>Neon Yolk · hero</span><span>#FCD10A</span></div>
+    <div class="li"><span><span class="sw" style="background:#F7932C"></span>Sunset Tangerine</span><span>#F7932C</span></div>
+    <div class="li"><span><span class="sw" style="background:#ED722D"></span>Tokyo Persimmon</span><span>#ED722D</span></div>
+    <div class="li"><span><span class="sw" style="background:#E91D8F"></span>Harajuku Bloom</span><span>#E91D8F</span></div>
+    <div class="li" style="border:none"><span>Strength</span><span>3 MG / 9 MG</span></div>
+  </div>
+
+  <div class="art starburst" style="left:248px;top:240px" data-art>気！</div>
+  <div style="position:absolute;left:948px;top:646px;color:#E91D8F;font-size:22px;z-index:1">✦</div>
+  <div style="position:absolute;left:560px;top:540px;color:#FCD10A;font-size:18px;z-index:1">✦</div>
+</section>
+
+<!-- =END SECTIONS= --></div></div></div>
+
+<div class="hint" id="hint">↔ drag anything · this is a world, poke around</div>
+
+<script>
+/* ---------- scale the 1280 stage to the viewport ---------- */
+const stage=document.getElementById('stage'),frame=document.getElementById('frame');
+let scale=1;
+function fit(){
+  const vw=document.documentElement.clientWidth;
+  scale=Math.min(1, vw/1280);
+  stage.style.transform='scale('+scale+')';
+  frame.style.width=(1280*scale)+'px';
+  frame.style.height=(stage.offsetHeight*scale)+'px';
+}
+window.addEventListener('resize',fit);
+
+/* ---------- ticker (real metrics, looped twice for seamless scroll) ---------- */
+const metrics=[['461','assets catalogued'],['2 GB','master repo'],['87','font files'],['5','UK flavours'],['10','SKUs'],['3 MG / 9 MG','strengths'],['61×61 mm','label'],['99','audit changes'],['64','image URLs'],['15','pages crawled'],['£6.50','Maple Coffee'],['free','over £40'],['SWOP v2','colour profile'],['Δ21','vs FOGRA39 Δ181']];
+const tr=document.getElementById('tickrun');
+const one=metrics.map(m=>`<b>${m[0]}</b><span><em>·</em> ${m[1]}</span>`).join('');
+tr.innerHTML=one+one;
+
+/* ---------- drag engine (scale-aware, click-suppressing) ---------- */
+let dz=60;
+function dragify(el){
+  el.addEventListener('pointerdown',e=>{
+    if(e.target.closest('button,input,select,a,canvas')) return;
+    const sl=el.offsetLeft, st=el.offsetTop, sx=e.clientX, sy=e.clientY;
+    let moved=false;
+    el.setPointerCapture(e.pointerId);
+    el.style.zIndex=(++dz);
+    el.style.right='auto'; el.style.bottom='auto';
+    const mv=ev=>{
+      const dx=(ev.clientX-sx)/scale, dy=(ev.clientY-sy)/scale;
+      if(Math.abs(dx)>3||Math.abs(dy)>3) moved=true;
+      el.style.left=(sl+dx)+'px'; el.style.top=(st+dy)+'px';
+    };
+    const up=ev=>{
+      el.releasePointerCapture(e.pointerId);
+      el.removeEventListener('pointermove',mv); el.removeEventListener('pointerup',up);
+      if(moved) el.addEventListener('click',c=>{c.stopPropagation();c.preventDefault();},{once:true,capture:true});
+    };
+    el.addEventListener('pointermove',mv); el.addEventListener('pointerup',up);
+  });
+}
+document.querySelectorAll('[data-art]').forEach(dragify);
+
+/* ---------- topbar nav: scroll to section ---------- */
+const secs=[...document.querySelectorAll('[data-sec]')];
+document.querySelectorAll('#topbar nav a').forEach(a=>{
+  a.onclick=()=>{const i=+a.dataset.go, t=secs[i]?secs[i].offsetTop*scale:0; window.scrollTo({top:t,behavior:'smooth'});};
+});
+
+/* ---------- colour engine: real named swatches (SWOP v2 -> sRGB chip) ---------- */
+const SW=[
+ ['Neon Yolk','Satsuma','1 · 16 · 99 · 0','#FCD10A'],
+ ['Golden Lantern','Satsuma','1 · 35 · 99 · 0','#F9AF1A'],
+ ['Sunset Tangerine','Satsuma','0 · 51 · 93 · 0','#F7932C'],
+ ['Tokyo Persimmon','Satsuma','3 · 68 · 93 · 0','#ED722D'],
+ ['Harajuku Bloom','Satsuma','2 · 96 · 1 · 0','#E91D8F'],
+ ['Roasted Chestnut','Satsuma','47 · 78 · 78 · 71','#3E1B12'],
+ ['Tokyo Glow','Tokyo Cola','5 · 91 · 78 · 0','#E33D41'],
+ ['Neon Cola','Tokyo Cola','15 · 100 · 87 · 5','#C82033'],
+ ['Electric Aoyama','Tokyo Cola','67 · 24 · 0 · 0','#48A0D9'],
+ ['Shibuya Rouge','Tokyo Cola','38 · 96 · 72 · 57','#5A0D20'],
+ ['Midnight Tokyo','Tokyo Cola','60 · 77 · 64 · 79','#270F14'],
+];
+const sel=document.getElementById('swsel');
+if(sel){
+  SW.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=s[1]+' — '+s[0];sel.appendChild(o);});
+  const paint=()=>{const s=SW[sel.value];document.getElementById('swchip').style.background=s[3];
+    document.getElementById('swname').textContent=s[0];document.getElementById('swcmyk').textContent='C'+s[2].split(' · ').join(' M').replace('M',' M').replace(/M(\d)/,'M$1');
+    document.getElementById('swcmyk').textContent=s[2];
+    document.getElementById('swhex').textContent=s[3];};
+  sel.addEventListener('change',paint);sel.addEventListener('pointerdown',e=>e.stopPropagation());paint();
+}
+
+/* ---------- Tokyo Cola boombox: VU bars + tap-to-tune ---------- */
+const vu=document.getElementById('vu');
+if(vu){for(let i=0;i<11;i++){const b=document.createElement('i');b.style.animationDelay=(-Math.random()*1).toFixed(2)+'s';b.style.animationDuration=(0.6+Math.random()*0.7).toFixed(2)+'s';vu.appendChild(b);}}
+const FM=[['CITY POP FM','88.5','62%'],['東京 TOWER','79.5','41%'],['SHIBUYA AM','103.2','83%'],['気 RADIO','90.1','67%'],['AOYAMA JAZZ','81.3','47%']];
+const fmd=document.getElementById('fmdisp');let fmi=0;
+if(fmd){fmd.addEventListener('pointerdown',e=>e.stopPropagation());
+  fmd.addEventListener('click',()=>{fmi=(fmi+1)%FM.length;document.getElementById('fmname').textContent=FM[fmi][0];
+    document.getElementById('fmfreq').textContent=FM[fmi][1];document.getElementById('fmneedle').style.left=FM[fmi][2];});}
+
+/* hide hint after a bit */
+setTimeout(()=>{const h=document.getElementById('hint');if(h)h.style.opacity='0';},5200);
+
+/* console easter egg — in-world, factual */
+console.log('%c気 KI','font:900 42px Obviously,sans-serif;color:#8DCAA7','');
+console.log('%cUnlock Your Mind. 461 assets · 5 flavours · SWOP v2 (Δ21 vs FOGRA39 Δ181). 18+ UK.','font-family:monospace;color:#B88448');
+
+fit();
+window.addEventListener('load',fit);
+</script>
+</body>
+</html>
