@@ -1,17 +1,15 @@
 # 気 — Ideas
 
-A running wishlist of little Ki things worth building. The bar is low on purpose: one page, one
+A running list of little Ki things worth building, maybe. The bar is low on purpose: one page, one
 idea, weird is welcome. Steal from the brand world — 気, the flavor ramps, Obviously, the landscapes,
 the pucks, the konbini. Cross one off by shipping it.
 
 ## Generators (type a thing → get a thing)
 
 - **Hanko / 気-stamp maker** — type a word, get a red circular Ki seal as a transparent PNG.
-- **Puck builder** — pick a flavor ramp + name it (kanji + latin) → downloadable puck render.
-- **Postcard-from-Ki** — choose a landscape + a caption → shareable "wish you were here" card. (`assets/img/postcard.png` already exists.)
 - **Konbini receipt** — build a fake Ki konbini haul → printable receipt with barcode.
 - **Boarding pass / "A Gift of Presence" card** — a little branded card generator.
-- **QR-puck** — branded QR codes that sit inside a puck lid (you already do filled-rect QR for street team).
+
 
 ## Type & colour toys
 
