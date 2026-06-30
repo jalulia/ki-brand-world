@@ -1,3 +1,8 @@
 .DS_Store
 *.backup-*.html
 ki-world.backup-*.html
+
+# large source art — web-optimized copies live in assets/img/worlds + assets/img/posters
+/*.png
+/*.jpg
+/*.jpeg
