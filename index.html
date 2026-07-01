@@ -140,6 +140,125 @@ footer .soon{color:var(--ink3)}
   .lede{max-width:none}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ================================================================
+   EDIT MODE — everything below only shows when unlocked via #edit
+   ================================================================ */
+body.edit .dir .row{cursor:default}
+body.edit .row{grid-template-columns:auto auto auto 1fr auto;align-items:start}
+body.edit .row:hover{background:transparent;padding-left:6px}
+body.edit .row:hover .thumb{transform:none;box-shadow:0 5px 16px rgba(20,14,8,.10)}
+body.edit .row:hover .arrow{transform:none;color:var(--ink3)}
+
+.drag-handle{
+  display:none;align-self:center;cursor:grab;color:var(--ink4);
+  font-size:20px;line-height:1;padding:0 2px;user-select:none;
+}
+body.edit .drag-handle{display:block}
+.drag-handle:active{cursor:grabbing}
+.sortable-ghost{opacity:.35}
+.sortable-chosen{background:#F4F1EA;border-radius:6px}
+
+body.edit .thumb{position:relative;cursor:pointer}
+body.edit .thumb::after{
+  content:"change";position:absolute;inset:auto 0 0 0;
+  font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;
+  text-align:center;padding:2px 0;color:#fff;background:rgba(10,9,8,.55);
+}
+body.edit .num{align-self:start;padding-top:8px}
+
+/* editable text fields */
+body.edit [contenteditable]{
+  outline:none;border-radius:4px;
+  transition:background .15s ease,box-shadow .15s ease;
+}
+body.edit [contenteditable]:hover{background:#F4F1EA}
+body.edit [contenteditable]:focus{background:#fff;box-shadow:0 0 0 2px var(--gold);padding:1px 4px;margin:-1px -4px}
+body.edit .name[contenteditable]{min-width:2ch}
+
+/* per-row controls (link + delete) shown under the meta */
+.rowctl{display:none;gap:14px;margin-top:10px}
+body.edit .rowctl{display:flex;flex-wrap:wrap;align-items:center}
+.rowctl button{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  background:none;border:1px solid var(--line2);border-radius:20px;padding:5px 12px;
+  color:var(--ink3);cursor:pointer;transition:all .15s ease;
+}
+.rowctl button:hover{border-color:var(--gold);color:var(--gold)}
+.rowctl .del:hover{border-color:var(--red);color:var(--red)}
+.rowctl .lnk{color:var(--ink2)}
+.rowctl .lnk-val{font-size:10.5px;color:var(--ink4);letter-spacing:.02em;max-width:46ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.edit .dest{display:none}
+body.edit .arrow{align-self:center}
+
+/* ===== edit toolbar (floating) ===== */
+.editbar{
+  display:none;position:fixed;left:50%;bottom:22px;transform:translateX(-50%);
+  z-index:50;align-items:center;gap:10px;
+  background:var(--ink);color:#fff;border-radius:16px;
+  padding:12px 14px;box-shadow:0 18px 46px rgba(10,9,8,.32);
+  font-family:var(--mono);font-size:12px;max-width:calc(100vw - 28px);flex-wrap:wrap;justify-content:center;
+}
+body.edit .editbar{display:flex}
+.editbar .tag{letter-spacing:.14em;text-transform:uppercase;font-size:10px;color:var(--mint);padding-right:4px}
+.editbar button{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;
+  border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.06);color:#fff;
+  border-radius:10px;padding:8px 13px;cursor:pointer;transition:all .15s ease;
+}
+.editbar button:hover{background:rgba(255,255,255,.16)}
+.editbar button.primary{background:var(--gold);border-color:var(--gold);color:#1a1207;font-weight:600}
+.editbar button.primary:hover{filter:brightness(1.08)}
+.editbar .sep{width:1px;height:22px;background:rgba(255,255,255,.16)}
+.editbar .status{color:var(--mint);font-size:10.5px;letter-spacing:.02em;max-width:30ch}
+
+/* ===== modal ===== */
+.modal-back{
+  display:none;position:fixed;inset:0;z-index:100;
+  background:rgba(10,9,8,.42);backdrop-filter:blur(2px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.modal-back.on{display:flex}
+.modal{
+  background:var(--paper);border-radius:16px;width:min(460px,100%);
+  padding:26px 26px 22px;box-shadow:0 30px 80px rgba(10,9,8,.4);
+  border:1px solid var(--line2);
+}
+.modal h3{
+  font-family:'Obviously',sans-serif;font-weight:700;font-size:22px;
+  letter-spacing:-.01em;margin-bottom:4px;color:var(--ink);
+}
+.modal p.sub{font-family:var(--mono);font-size:11.5px;color:var(--ink3);margin-bottom:16px;line-height:1.5}
+.modal label{
+  display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3);margin:12px 0 5px;
+}
+.modal input[type=text],.modal input[type=password]{
+  width:100%;font-family:var(--mono);font-size:13px;color:var(--ink);
+  border:1px solid var(--line2);border-radius:9px;padding:11px 12px;background:#fff;
+}
+.modal input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(184,132,72,.2)}
+.modal .toggle{display:flex;gap:8px;margin-top:8px}
+.modal .toggle button{
+  flex:1;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;
+  border:1px solid var(--line2);background:#fff;color:var(--ink3);border-radius:9px;padding:9px;cursor:pointer;
+}
+.modal .toggle button.on{border-color:var(--gold);color:var(--gold-d);background:#FBF3E8}
+.modal .row-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:22px}
+.modal .row-actions button{
+  font-family:var(--mono);font-size:12px;border-radius:10px;padding:10px 16px;cursor:pointer;border:1px solid var(--line2);
+  background:#fff;color:var(--ink2);transition:all .15s ease;
+}
+.modal .row-actions .go{background:var(--ink);color:#fff;border-color:var(--ink)}
+.modal .row-actions .go:hover{background:var(--gold);border-color:var(--gold);color:#1a1207}
+.modal .hint{font-family:var(--mono);font-size:10.5px;color:var(--ink4);margin-top:8px;line-height:1.5}
+.modal .err{font-family:var(--mono);font-size:11px;color:var(--red);margin-top:10px;min-height:14px}
+.modal .filebtn{
+  display:inline-block;font-family:var(--mono);font-size:11.5px;border:1px dashed var(--line2);
+  border-radius:9px;padding:10px 14px;cursor:pointer;color:var(--ink2);width:100%;text-align:center;background:#fff;
+}
+.modal .filebtn:hover{border-color:var(--gold);color:var(--gold-d)}
+.modal .or{text-align:center;font-family:var(--mono);font-size:10px;color:var(--ink4);letter-spacing:.14em;text-transform:uppercase;margin:12px 0}
 </style>
 </head>
 <body>
@@ -150,7 +269,7 @@ footer .soon{color:var(--ink3)}
     <div class="eyebrow">
       <span>The World of Ki</span><span class="dot"></span>
       <span>Index</span><span class="dot"></span>
-      <span class="live">4 live</span>
+      <span class="live" id="liveCount">— live</span>
     </div>
     <h1><span class="ki">気</span> The World<br>of Ki</h1>
     <p class="lede">A living index of small Ki experiments. Management accepts proposals Tuesday & Wednesday from 1:40am-1:20am</p>
@@ -159,58 +278,544 @@ footer .soon{color:var(--ink3)}
   <hr class="rule">
   <div class="sectionlabel"><span>Live now</span><span class="count">/ index</span></div>
 
-  <nav class="dir">
-
-    <a class="row" href="https://jalulia.github.io/Ki-Landscapes/" target="_blank" rel="noopener">
-      <span class="thumb"><img src="assets/img/landscape.png" alt="Rolling matcha-and-gold hills" loading="lazy"></span>
-      <span class="num">01</span>
-      <span class="meta">
-        <span class="name">Ki-Landscapes</span>
-        <span class="kind">generative landscape visualizer · rolling worlds</span>
-      </span>
-      <span class="dest">jalulia.github.io/Ki-Landscapes</span>
-      <span class="arrow">↗</span>
-    </a>
-
-    <a class="row" href="https://jalulia.github.io/ki-sell-sheet/" target="_blank" rel="noopener">
-      <span class="thumb"><img src="assets/img/pucks/hero-hok.png" alt="Hokkaido Mint puck" loading="lazy"></span>
-      <span class="num">02</span>
-      <span class="meta">
-        <span class="name">Sell Sheets</span>
-        <span class="kind">UK trade one-pagers · product line</span>
-      </span>
-      <span class="dest">jalulia.github.io/ki-sell-sheet</span>
-      <span class="arrow">↗</span>
-    </a>
-
-    <a class="row" href="ki-world.html" data-internal>
-      <span class="thumb"><img src="assets/img/kitsune-poster.png" alt="Kitsune poster" loading="lazy"></span>
-      <span class="num">03</span>
-      <span class="meta">
-        <span class="name">World of Ki</span>
-        <span class="kind">scrollable artifact world · the brand in context</span>
-      </span>
-      <span class="dest">/ki-world.html</span>
-      <span class="arrow">→</span>
-    </a>
-
-    <a class="row" href="tokusatsu-rtb.html" data-internal>
-      <span class="thumb"><img src="assets/img/worlds/satsuma.jpg" alt="Satsuma orchard at golden hour" loading="lazy"></span>
-      <span class="num">04</span>
-      <span class="meta">
-        <span class="name">Tokusatsu RTB Brief</span>
-        <span class="kind">creative brief · five ingredient worlds</span>
-      </span>
-      <span class="dest">/tokusatsu-rtb.html</span>
-      <span class="arrow">→</span>
-    </a>
-
-  </nav>
+  <nav class="dir" id="dir"><!-- rows render here --></nav>
 
   <footer>
     <span><span class="k">気</span>&nbsp;&nbsp;ki-brand-world</span>
     <span class="soon">More in the workshop · 2026</span>
   </footer>
 </div>
+
+<!-- Fallback data so the page still renders if data.json can't be fetched
+     (e.g. opened from disk). On the live site, data.json is the source of truth. -->
+<script id="ki-data-fallback" type="application/json">
+{
+  "config": {
+    "repo": "jalulia/ki-brand-world",
+    "branch": "main",
+    "editPassphraseSha256": "034471d9fc375c1aa15d477c3c78c68728963bacb1837b2e16e10bbcb4a99321",
+    "liveLabel": "live"
+  },
+  "items": [
+    {"name":"Ki-Landscapes","kind":"generative landscape visualizer · rolling worlds","href":"https://jalulia.github.io/Ki-Landscapes/","dest":"jalulia.github.io/Ki-Landscapes","img":"assets/img/landscape.png","alt":"Rolling matcha-and-gold hills","internal":false},
+    {"name":"Sell Sheets","kind":"UK trade one-pagers · the Origin Collection","href":"sell-sheets/","dest":"/sell-sheets","img":"assets/img/pucks/hero-hok.png","alt":"Hokkaido Mint puck","internal":true},
+    {"name":"World of Ki","kind":"scrollable artifact world · the brand in context","href":"ki-world.html","dest":"/ki-world.html","img":"assets/img/kitsune-poster.png","alt":"Kitsune poster","internal":true},
+    {"name":"Tokusatsu RTB Brief","kind":"creative brief · five ingredient worlds","href":"tokusatsu-rtb.html","dest":"/tokusatsu-rtb.html","img":"assets/img/worlds/satsuma.jpg","alt":"Satsuma orchard at golden hour","internal":true}
+  ]
+}
+</script>
+
+<!-- edit toolbar -->
+<div class="editbar" id="editbar">
+  <span class="tag">Edit</span>
+  <button id="btnAdd">+ Tool</button>
+  <span class="sep"></span>
+  <button id="btnSettings">Settings</button>
+  <button class="primary" id="btnSave">Save</button>
+  <span class="sep"></span>
+  <button id="btnExit">Done</button>
+  <span class="status" id="editStatus"></span>
+</div>
+
+<!-- reusable modal -->
+<div class="modal-back" id="modalBack">
+  <div class="modal" id="modalBox"></div>
+</div>
+
+<script>
+/* =====================================================================
+   THE WORLD OF KI — data-driven index + #edit WYSIWYG editor
+   - Public link shows a clean read-only list.
+   - Add #edit to the URL + enter the passphrase to unlock editing.
+   - Save: commits to GitHub if a token is stored, else downloads data.json.
+   ===================================================================== */
+(function(){
+  "use strict";
+
+  var LS_TOKEN = "ki-world-gh-token";   // GitHub PAT (this browser only, never published)
+  var SS_UNLOCK = "ki-world-edit-ok";   // per-session unlock flag
+  var state = { config:{}, items:[], pendingImages:{} }; // pendingImages: dataURL -> {name,ext,base64}
+
+  var $  = function(s,el){return (el||document).querySelector(s);};
+  var $$ = function(s,el){return Array.prototype.slice.call((el||document).querySelectorAll(s));};
+  var esc = function(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");};
+
+  /* ---------- tiny SHA-256 (works everywhere incl. file://) ---------- */
+  function sha256(ascii){
+    function rr(v,n){return (v>>>n)|(v<<(32-n));}
+    var mathPow=Math.pow, maxWord=mathPow(2,32), result="";
+    var words=[], asciiBitLength=ascii.length*8;
+    var hash=sha256.h=sha256.h||[], k=sha256.k=sha256.k||[], primeCounter=k.length;
+    var isComposite={};
+    for(var candidate=2;primeCounter<64;candidate++){
+      if(!isComposite[candidate]){
+        for(var i=0;i<313;i+=candidate) isComposite[i]=candidate;
+        hash[primeCounter]=(mathPow(candidate,.5)*maxWord)|0;
+        k[primeCounter++]=(mathPow(candidate,1/3)*maxWord)|0;
+      }
+    }
+    ascii+="\x80";
+    while(ascii.length%64-56) ascii+="\x00";
+    for(i=0;i<ascii.length;i++){
+      var j=ascii.charCodeAt(i);
+      if(j>>8) return; // ascii only (we hash utf-8 bytes, see wrapper)
+      words[i>>2]|=j<<((3-i)%4)*8;
+    }
+    words[words.length]=(asciiBitLength/maxWord)|0;
+    words[words.length]=asciiBitLength;
+    for(j=0;j<words.length;){
+      var w=words.slice(j,j+=16), oldHash=hash;
+      hash=hash.slice(0,8);
+      for(i=0;i<64;i++){
+        var w15=w[i-15], w2=w[i-2];
+        var a=hash[0], e=hash[4];
+        var temp1=hash[7]+(rr(e,6)^rr(e,11)^rr(e,25))+((e&hash[5])^(~e&hash[6]))+k[i]+
+          (w[i]=(i<16)?w[i]:(w[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+w[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10)))|0);
+        var temp2=(rr(a,2)^rr(a,13)^rr(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));
+        hash=[(temp1+temp2)|0].concat(hash);
+        hash[4]=(hash[4]+temp1)|0;
+      }
+      for(i=0;i<8;i++) hash[i]=(hash[i]+oldHash[i])|0;
+    }
+    for(i=0;i<8;i++)
+      for(j=3;j+1;j--){
+        var b=(hash[i]>>(j*8))&255;
+        result+=((b<16)?0:"")+b.toString(16);
+      }
+    return result;
+  }
+  function sha256utf8(str){
+    // encode to utf-8 bytes as a binary string so multi-byte passphrases hash correctly
+    var utf8=unescape(encodeURIComponent(str));
+    return sha256(utf8);
+  }
+
+  /* ---------- data loading ---------- */
+  function loadFallback(){
+    try{ return JSON.parse($("#ki-data-fallback").textContent); }
+    catch(e){ return {config:{},items:[]}; }
+  }
+  function loadData(){
+    return fetch("data.json",{cache:"no-store"})
+      .then(function(r){ if(!r.ok) throw new Error("no data.json"); return r.json(); })
+      .catch(function(){ return loadFallback(); });
+  }
+
+  /* ---------- rendering ---------- */
+  function pad(n){ return (n<10?"0":"")+n; }
+
+  function renderView(){
+    var dir=$("#dir"); dir.innerHTML="";
+    state.items.forEach(function(it,i){
+      var a=document.createElement("a");
+      a.className="row";
+      a.href=it.href||"#";
+      if(it.internal){ a.setAttribute("data-internal",""); }
+      else { a.target="_blank"; a.rel="noopener"; }
+      a.innerHTML=
+        '<span class="thumb"><img src="'+esc(it.img)+'" alt="'+esc(it.alt||"")+'" loading="lazy"></span>'+
+        '<span class="num">'+pad(i+1)+'</span>'+
+        '<span class="meta"><span class="name">'+esc(it.name)+'</span>'+
+        '<span class="kind">'+esc(it.kind)+'</span></span>'+
+        '<span class="dest">'+esc(it.dest||"")+'</span>'+
+        '<span class="arrow">'+(it.internal?"→":"↗")+'</span>';
+      dir.appendChild(a);
+    });
+    updateCount();
+  }
+
+  function renderEdit(){
+    var dir=$("#dir"); dir.innerHTML="";
+    state.items.forEach(function(it,i){
+      var row=document.createElement("div");
+      row.className="row";
+      row.setAttribute("data-i",i);
+      if(it.internal) row.setAttribute("data-internal","");
+      row.innerHTML=
+        '<span class="drag-handle" title="Drag to reorder">⠿</span>'+
+        '<span class="thumb" data-act="img"><img src="'+esc(it.img)+'" alt="'+esc(it.alt||"")+'"></span>'+
+        '<span class="num">'+pad(i+1)+'</span>'+
+        '<span class="meta">'+
+          '<span class="name" contenteditable data-f="name">'+esc(it.name)+'</span>'+
+          '<span class="kind" contenteditable data-f="kind">'+esc(it.kind)+'</span>'+
+          '<span class="rowctl">'+
+            '<button class="lnk" data-act="link">Link</button>'+
+            '<span class="lnk-val">'+esc(it.href||"—")+'</span>'+
+            '<button class="del" data-act="del">Delete</button>'+
+          '</span>'+
+        '</span>'+
+        '<span class="arrow">'+(it.internal?"→":"↗")+'</span>';
+      dir.appendChild(row);
+    });
+    updateCount();
+    wireEditRows();
+    initSortable();
+  }
+
+  function updateCount(){
+    var n=state.items.length;
+    $("#liveCount").textContent=n+" "+(state.config.liveLabel||"live");
+  }
+
+  /* ---------- edit interactions ---------- */
+  function wireEditRows(){
+    // inline text editing
+    $$("#dir [contenteditable]").forEach(function(el){
+      el.addEventListener("input",function(){
+        var row=el.closest(".row"), i=+row.getAttribute("data-i");
+        state.items[i][el.getAttribute("data-f")]=el.textContent;
+      });
+      el.addEventListener("keydown",function(e){
+        if(e.key==="Enter"){ e.preventDefault(); el.blur(); }
+      });
+    });
+    // thumb -> change image, link, delete
+    $$("#dir [data-act]").forEach(function(el){
+      el.addEventListener("click",function(e){
+        e.preventDefault();
+        var row=el.closest(".row"), i=+row.getAttribute("data-i");
+        var act=el.getAttribute("data-act");
+        if(act==="img") changeImage(i);
+        else if(act==="link") editLink(i);
+        else if(act==="del") deleteItem(i);
+      });
+    });
+  }
+
+  var sortable=null;
+  function initSortable(){
+    if(typeof Sortable==="undefined") return;
+    if(sortable){ try{sortable.destroy();}catch(e){} }
+    sortable=Sortable.create($("#dir"),{
+      handle:".drag-handle", animation:160,
+      ghostClass:"sortable-ghost", chosenClass:"sortable-chosen",
+      onEnd:function(){
+        var order=$$("#dir .row").map(function(r){return +r.getAttribute("data-i");});
+        state.items=order.map(function(idx){return state.items[idx];});
+        renderEdit();
+        flash("Reordered");
+      }
+    });
+  }
+
+  function deleteItem(i){
+    if(!confirm('Remove "'+(state.items[i].name||"this tool")+'" from the index?')) return;
+    state.items.splice(i,1);
+    renderEdit();
+    flash("Removed");
+  }
+
+  function addItem(){
+    state.items.push({
+      name:"New tool", kind:"what it is · one line", href:"#", dest:"",
+      img:"assets/img/landscape.png", alt:"", internal:true
+    });
+    renderEdit();
+    // scroll to & focus the new name
+    var rows=$$("#dir .row"); var last=rows[rows.length-1];
+    if(last){ last.scrollIntoView({behavior:"smooth",block:"center"}); var nm=$(".name",last); if(nm){ nm.focus(); document.execCommand&&document.execCommand("selectAll",false,null);} }
+  }
+
+  /* ---------- image change ---------- */
+  function changeImage(i){
+    var picked=null; // set only if a file is chosen during THIS modal session
+    openModal({
+      title:"Image",
+      sub:"Upload a new image, or point to one already in the repo.",
+      body:
+        '<span class="filebtn" id="upBtn">Upload an image file…</span>'+
+        '<input type="file" id="upFile" accept="image/*" style="display:none">'+
+        '<div class="or">or</div>'+
+        '<label>Asset path in the repo</label>'+
+        '<input type="text" id="assetPath" placeholder="assets/img/your-image.png" value="'+esc(/^data:/.test(state.items[i].img)?"":state.items[i].img)+'">'+
+        '<label>Alt text (describe the image)</label>'+
+        '<input type="text" id="assetAlt" value="'+esc(state.items[i].alt||"")+'">'+
+        '<div class="hint">Uploaded files are added to <b>assets/img/uploads/</b> on save (or embedded in the file if you don’t use a GitHub token).</div>',
+      actions:[
+        {label:"Cancel",cls:"",fn:closeModal},
+        {label:"Apply",cls:"go",fn:function(){
+          state.items[i].alt=$("#assetAlt").value.trim();
+          if(picked){
+            state.items[i].img=picked; // freshly uploaded data URL
+          } else {
+            var path=$("#assetPath").value.trim();
+            if(path) state.items[i].img=path;
+          }
+          closeModal(); renderEdit(); flash("Image updated");
+        }}
+      ],
+      after:function(){
+        $("#upBtn").addEventListener("click",function(){ $("#upFile").click(); });
+        $("#upFile").addEventListener("change",function(e){
+          var f=e.target.files[0]; if(!f) return;
+          var reader=new FileReader();
+          reader.onload=function(){
+            var dataUrl=reader.result;
+            picked=dataUrl;
+            // register pending upload so a GitHub save can turn it into a real asset file
+            var ext=(f.name.split(".").pop()||"png").toLowerCase().replace(/[^a-z0-9]/g,"");
+            state.pendingImages[dataUrl]={ext:ext,base64:dataUrl.split(",")[1]};
+            $("#assetPath").value="(uploaded: "+f.name+")";
+            $("#assetPath").disabled=true;
+          };
+          reader.readAsDataURL(f);
+        });
+      }
+    });
+  }
+
+  /* ---------- link edit ---------- */
+  function editLink(i){
+    var it=state.items[i];
+    openModal({
+      title:"Link",
+      sub:"Where this row goes when clicked.",
+      body:
+        '<label>URL or path</label>'+
+        '<input type="text" id="lnkHref" value="'+esc(it.href||"")+'" placeholder="https://…  or  sub-page/  or  page.html">'+
+        '<label>Type</label>'+
+        '<div class="toggle" id="lnkType">'+
+          '<button data-v="internal" class="'+(it.internal?"on":"")+'">Internal → (this repo)</button>'+
+          '<button data-v="external" class="'+(it.internal?"":"on")+'">External ↗ (other site)</button>'+
+        '</div>'+
+        '<label>Caption shown on the right</label>'+
+        '<input type="text" id="lnkDest" value="'+esc(it.dest||"")+'" placeholder="/sub-page  or  domain.com/thing">'+
+        '<div class="hint">Internal links live inside this repo (a file or folder here). External links open in a new tab. To add a whole sub-page folder, drop it in the repo and point an internal link at it, e.g. <b>my-tool/</b>.</div>',
+      actions:[
+        {label:"Cancel",cls:"",fn:closeModal},
+        {label:"Apply",cls:"go",fn:function(){
+          it.href=$("#lnkHref").value.trim();
+          it.dest=$("#lnkDest").value.trim();
+          var on=$("#lnkType .on"); it.internal=(on&&on.getAttribute("data-v")==="internal");
+          if(!it.dest){ it.dest=it.internal?("/"+it.href.replace(/^\//,"")):it.href.replace(/^https?:\/\//,"").replace(/\/$/,""); }
+          closeModal(); renderEdit(); flash("Link updated");
+        }}
+      ],
+      after:function(){
+        $$("#lnkType button").forEach(function(b){
+          b.addEventListener("click",function(){
+            $$("#lnkType button").forEach(function(x){x.classList.remove("on");});
+            b.classList.add("on");
+            // auto-fill dest suggestion if empty
+            var href=$("#lnkHref").value.trim(), dv=$("#lnkDest");
+            if(!dv.value.trim()&&href){
+              dv.value=b.getAttribute("data-v")==="internal"?("/"+href.replace(/^\//,"")):href.replace(/^https?:\/\//,"").replace(/\/$/,"");
+            }
+          });
+        });
+      }
+    });
+  }
+
+  /* ---------- settings (token + passphrase) ---------- */
+  function openSettings(){
+    var hasTok=!!localStorage.getItem(LS_TOKEN);
+    openModal({
+      title:"Settings",
+      sub:"GitHub token stays in this browser only — it is never written into the site.",
+      body:
+        '<label>GitHub token '+(hasTok?"— saved ✓":"— optional")+'</label>'+
+        '<input type="password" id="setTok" placeholder="'+(hasTok?"•••••• (leave blank to keep)":"github_pat_… (leave blank to save by download)")+'">'+
+        '<div class="hint">With a token, <b>Save</b> commits straight to GitHub. Without one, <b>Save</b> downloads data.json for you to commit. Use a fine-grained token with <b>Contents: Read &amp; write</b> on <b>'+esc(state.config.repo||"the repo")+'</b>.</div>'+
+        '<label style="margin-top:16px">Change edit passphrase (optional)</label>'+
+        '<input type="text" id="setPass" placeholder="new passphrase — leave blank to keep">'+
+        '<div class="hint">Saved (hashed) into data.json on next Save, so it protects the live site for everyone.</div>'+
+        (hasTok?'<div class="hint" style="margin-top:14px"><a href="#" id="clrTok" style="color:var(--gold);text-decoration:underline">Forget the saved token on this browser</a></div>':''),
+      actions:[
+        {label:"Close",cls:"",fn:closeModal},
+        {label:"Save settings",cls:"go",fn:function(){
+          var t=$("#setTok").value.trim();
+          if(t) localStorage.setItem(LS_TOKEN,t);
+          var p=$("#setPass").value.trim();
+          if(p){
+            state.config.editPassphraseSha256=sha256utf8(p);
+            flash("Passphrase set — Save to publish it");
+          }
+          closeModal();
+        }}
+      ],
+      after:function(){
+        var c=$("#clrTok"); if(c) c.addEventListener("click",function(e){e.preventDefault();localStorage.removeItem(LS_TOKEN);closeModal();flash("Token forgotten");});
+      }
+    });
+  }
+
+  /* ---------- SAVE ---------- */
+  function slugify(s){ return String(s||"tool").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40)||"tool"; }
+
+  function b64utf8(str){ return btoa(unescape(encodeURIComponent(str))); }
+
+  function ghHeaders(tok){ return {Authorization:"token "+tok,Accept:"application/vnd.github+json"}; }
+
+  function ghGetSha(repo,path,branch,tok){
+    return fetch("https://api.github.com/repos/"+repo+"/contents/"+path+"?ref="+branch,{headers:ghHeaders(tok)})
+      .then(function(r){ if(r.status===200) return r.json().then(function(j){return j.sha;}); return null; });
+  }
+  function ghPut(repo,path,branch,tok,contentB64,message,sha){
+    var body={message:message,content:contentB64,branch:branch};
+    if(sha) body.sha=sha;
+    return fetch("https://api.github.com/repos/"+repo+"/contents/"+path,{
+      method:"PUT",headers:ghHeaders(tok),body:JSON.stringify(body)
+    }).then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.message||("HTTP "+r.status)); return j; }); });
+  }
+
+  function buildDataForSave(embedImages){
+    var out={config:state.config,items:[]};
+    out.items=state.items.map(function(it){
+      var o={name:it.name,kind:it.kind,href:it.href,dest:it.dest,img:it.img,alt:it.alt||"",internal:!!it.internal};
+      return o;
+    });
+    return out;
+  }
+
+  function save(){
+    var tok=localStorage.getItem(LS_TOKEN);
+    if(tok) saveViaGitHub(tok); else saveViaDownload();
+  }
+
+  function saveViaGitHub(tok){
+    var repo=state.config.repo, branch=state.config.branch||"main";
+    if(!repo){ flash("No repo set in data.json"); return; }
+    setStatus("Uploading images…");
+    // 1) upload any pending (data-URL) images, rewrite their img paths
+    var uploads=[];
+    state.items.forEach(function(it){
+      if(/^data:/.test(it.img)){
+        var pend=state.pendingImages[it.img]||{ext:"png",base64:it.img.split(",")[1]};
+        var path="assets/img/uploads/"+slugify(it.name)+"-"+Date.now().toString(36)+"."+(pend.ext||"png");
+        uploads.push({it:it,path:path,base64:pend.base64});
+      }
+    });
+    var chain=Promise.resolve();
+    uploads.forEach(function(u){
+      chain=chain.then(function(){
+        return ghGetSha(repo,u.path,branch,tok).then(function(sha){
+          return ghPut(repo,u.path,branch,tok,u.base64,"World of Ki: add image "+u.path.split("/").pop(),sha);
+        }).then(function(){ u.it.img=u.path; });
+      });
+    });
+    // 2) commit data.json
+    chain.then(function(){
+      setStatus("Saving list…");
+      var json=JSON.stringify(buildDataForSave(),null,2)+"\n";
+      return ghGetSha(repo,"data.json",branch,tok).then(function(sha){
+        return ghPut(repo,"data.json",branch,tok,b64utf8(json),"World of Ki: update index",sha);
+      });
+    }).then(function(){
+      state.pendingImages={};
+      renderEdit();
+      setStatus("Saved to GitHub ✓  (live in ~1 min)");
+    }).catch(function(err){
+      var m=String(err.message||err);
+      if(/401|Bad credentials/i.test(m)) m="Token rejected — check it in Settings.";
+      else if(/403|rate/i.test(m)) m="GitHub refused (403). Token needs Contents: write on this repo.";
+      setStatus("");
+      alert("Save failed: "+m+"\n\nTip: you can still use Settings → leave token blank to Save by download.");
+    });
+  }
+
+  function saveViaDownload(){
+    var json=JSON.stringify(buildDataForSave(),null,2)+"\n";
+    var blob=new Blob([json],{type:"application/json"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url; a.download="data.json"; document.body.appendChild(a); a.click();
+    setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},400);
+    setStatus("Downloaded data.json — commit it to the repo");
+    var embedded=state.items.some(function(it){return /^data:/.test(it.img);});
+    if(embedded) setTimeout(function(){ alert("Heads up: your uploaded image(s) are embedded inside data.json, so committing that one file is enough — no separate image files needed.\n\n(Add a GitHub token in Settings if you'd rather images become real files in assets/img/.)"); },300);
+  }
+
+  /* ---------- modal plumbing ---------- */
+  function openModal(cfg){
+    var box=$("#modalBox");
+    var acts=(cfg.actions||[]).map(function(a,idx){
+      return '<button data-mi="'+idx+'" class="'+(a.cls||"")+'">'+esc(a.label)+'</button>';
+    }).join("");
+    box.innerHTML='<h3>'+esc(cfg.title)+'</h3>'+(cfg.sub?'<p class="sub">'+esc(cfg.sub)+'</p>':'')+
+      '<div class="mbody">'+(cfg.body||"")+'</div>'+
+      '<div class="err" id="modalErr"></div>'+
+      '<div class="row-actions">'+acts+'</div>';
+    (cfg.actions||[]).forEach(function(a,idx){
+      $('[data-mi="'+idx+'"]',box).addEventListener("click",function(){ a.fn&&a.fn(); });
+    });
+    $("#modalBack").classList.add("on");
+    if(cfg.after) cfg.after();
+  }
+  function closeModal(){ $("#modalBack").classList.remove("on"); }
+  $("#modalBack").addEventListener("click",function(e){ if(e.target===this) closeModal(); });
+
+  /* ---------- status ---------- */
+  var statusTimer=null;
+  function setStatus(t){ $("#editStatus").textContent=t; }
+  function flash(t){ setStatus(t); clearTimeout(statusTimer); statusTimer=setTimeout(function(){ if($("#editStatus").textContent===t) setStatus(""); },2600); }
+
+  /* ---------- unlock / gate ---------- */
+  function wantsEdit(){ return /(?:^|[#&?])edit(?:$|[=&])/.test(location.hash) || location.hash.replace("#","")==="edit"; }
+
+  function loadSortableThen(cb){
+    if(typeof Sortable!=="undefined") return cb();
+    var s=document.createElement("script");
+    s.src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js";
+    s.onload=cb; s.onerror=cb; // if CDN blocked, editor still works minus drag
+    document.head.appendChild(s);
+  }
+
+  function enterEdit(){
+    document.body.classList.add("edit");
+    loadSortableThen(function(){ renderEdit(); });
+    wireToolbar();
+  }
+
+  function gate(){
+    if(sessionStorage.getItem(SS_UNLOCK)==="1"){ enterEdit(); return; }
+    openModal({
+      title:"Edit mode",
+      sub:"Enter the passphrase to edit the index.",
+      body:'<label>Passphrase</label><input type="password" id="passIn" autofocus>',
+      actions:[
+        {label:"Cancel",cls:"",fn:function(){ closeModal(); history.replaceState(null,"",location.pathname+location.search); }},
+        {label:"Unlock",cls:"go",fn:tryPass}
+      ],
+      after:function(){
+        var inp=$("#passIn"); inp.focus();
+        inp.addEventListener("keydown",function(e){ if(e.key==="Enter") tryPass(); });
+      }
+    });
+    function tryPass(){
+      var v=$("#passIn").value;
+      var want=state.config.editPassphraseSha256;
+      var ok = want ? (sha256utf8(v)===want) : (v.length>0); // if no hash configured, any non-empty allows (first-run)
+      if(ok){ sessionStorage.setItem(SS_UNLOCK,"1"); closeModal(); enterEdit(); }
+      else { $("#modalErr").textContent="Nope — try again."; $("#passIn").value=""; $("#passIn").focus(); }
+    }
+  }
+
+  function wireToolbar(){
+    $("#btnAdd").onclick=addItem;
+    $("#btnSave").onclick=save;
+    $("#btnSettings").onclick=openSettings;
+    $("#btnExit").onclick=function(){
+      document.body.classList.remove("edit");
+      history.replaceState(null,"",location.pathname+location.search);
+      renderView();
+    };
+  }
+
+  /* ---------- boot ---------- */
+  loadData().then(function(d){
+    state.config=d.config||{};
+    state.items=(d.items||[]).map(function(x){return x;});
+    renderView();
+    if(wantsEdit()) gate();
+    window.addEventListener("hashchange",function(){
+      if(wantsEdit() && !document.body.classList.contains("edit")) gate();
+    });
+  });
+
+  // expose a little for verification / console use
+  window.__ki = { state:state, sha256utf8:sha256utf8, renderView:renderView };
+})();
+</script>
 </body>
 </html>
