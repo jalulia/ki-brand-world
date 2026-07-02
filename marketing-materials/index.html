@@ -167,6 +167,9 @@ a{color:inherit}
 .spage .num{font-weight:500;letter-spacing:.04em;color:#15110D}
 .spage .lbl{font-weight:500;text-transform:uppercase;letter-spacing:.15em;color:#706B63}
 .spage .sec{font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:#15110D}
+.spage .ey{font-weight:600;text-transform:uppercase;letter-spacing:.16em;color:#B88448}
+.spage .sub{font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#15110D}
+.spage .slbl{font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:#706B63}
 .spage .mgt{font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#FCFBF8;background:#B88448;
   border-radius:20px;padding:1.5px 6px;font-size:6.6px;display:inline-block}
 .spage .attrs{font-weight:500;text-transform:uppercase;letter-spacing:.15em;color:#3B362F;font-size:8.5px}
@@ -329,6 +332,40 @@ const PRODUCTS = [
 ];
 const PROD = Object.fromEntries(PRODUCTS.map(p=>[p.key,p]));
 
+/* per-flavour trade-back copy (backdata.py — extracted from the original FrontBack sheet) */
+const TRADE = {
+  cola:{aroma:'Cola · Cinnamon · Vanilla Taffy',
+    taste:'Cola · Vanilla · Orange Zest · Ginger · Cinnamon Spice',
+    fb:'Small-batch Japanese craft cola comes to life through a balance of citrus, spice and botanical depth. Bright yuzu lifts the darker cola notes, while hints of vanilla smooth the profile.',
+    subs:[{t:'Cola Spice',d:'Cinnamon, clove, nutmeg, coriander and vanilla deliver the signature warmth of traditional cola.'},
+          {t:'Yuzu Citrus',d:'Yuzu and citrus peel introduce a delicate lift that brightens the spice profile.'},
+          {t:'Fresh Ginger',d:'Fresh ginger provides a subtle warmth and aromatic finish that lingers gently on the palate.'}]},
+  hok:{aroma:'Fresh Mint · Spearmint · Menthol',
+    taste:'Menthol · Fresh Mint · Umami',
+    fb:'Our Hokkaido mint boasts the world’s highest menthol content for a pronounced cooling sensation, while a light touch of sweetness softens the intensity into a balanced profile.',
+    subs:[{t:'High Menthol',d:'An icy burst of premium mint, delivering ultra-high menthol for an intense awakening effect.'},
+          {t:'Herbal Notes',d:'Underlying herbal tones add a natural, green freshness that keeps the profile grounded and balanced.'},
+          {t:'Monk Fruit',d:'A light note of monk fruit introduces a subtle sweetness that eases the brightness of the mint.'}]},
+  maple:{aroma:'Roasted Coffee · Notes of Chocolate · Hint of Maple',
+    taste:'Dark Chocolate · Maple Syrup · Coffee · Hints of Cream · Hazelnut',
+    fb:'The bold aroma of coffee meets the comforting sweetness of maple, designed for a smooth, sustained sense of warmth — a companion for an intentional morning or an easy afternoon.',
+    subs:[{t:'Rich Coffee',d:'Deep, roasted coffee notes deliver a bold, aromatic richness that satisfies with every use.'},
+          {t:'Sweet Maple',d:'Velvety maple adds a natural, caramelized depth for a decadent touch without overpowering.'},
+          {t:'Savoury Tamari',d:'Tamari brings a deep, savoury umami richness designed to linger — in a good way.'}]},
+  sat:{aroma:'Lime Zest · Orange Juice',
+    taste:'Satsuma Mandarin · Honey · Orange Zest · Marmalade',
+    fb:'The natural sweetness and low acidity of satsuma mandarins sit at the heart of this flavour, while delicate peel oils bring aroma and brightness for a clean, vibrant citrus experience.',
+    subs:[{t:'Sweet Mandarin',d:'Fresh satsuma mandarin delivers naturally sweet citrus with soft acidity and bright fruit character.'},
+          {t:'Peel Oils',d:'Aromatic mandarin peel oils introduce a gentle citrus lift that enhances the fruit’s natural freshness.'},
+          {t:'Honeyed Finish',d:'A soft, honey-kissed finish rounds out the brightness and lingers without rushing to leave.'}]},
+  yuzu:{aroma:'Fresh Mint · Lime Zest · Menthol',
+    taste:'Citrus Zest · Fresh Mint · Umami · Yuzu Juice · Menthol',
+    fb:'Herbaceous mint meets yuzu’s nuanced floral citrus to land bright on the palate. A meticulously crafted blend that represents Japan’s exacting flavour standards. Exactly.',
+    subs:[{t:'Cooling Mint',d:'A crisp, cooling sensation spreads across the palate, building immediately and holding steady.'},
+          {t:'Yuzu Citrus',d:'Japan’s prized citrus — the perfect balance of zest and sophistication with a uniquely refreshing twist.'},
+          {t:'Floral Notes',d:'Subtle floral undertones lend an aromatic depth that elevates every note.'}]}
+};
+
 const COPY = {
   eyebrow:'The Origin Collection',
   headline:'Taste that teleports',
@@ -356,9 +393,9 @@ const OFFICIALS = [
    format:'11 × 8.5 in', orient:'land', pages:2},
   ...PRODUCTS.map(p=>({
     id:'uk26-ind-'+p.key, family:'individual', product:p.key,
-    title:p.name+' — Flavour Sheet', version:'V02', finalized:'2026-07-01',
-    pdf:'pdf/Ki_UK_'+p.name.replace(/ /g,'_')+'_V02.pdf',
-    format:'8.5 × 11 in', orient:'port', pages:1}))
+    title:p.name+' — Trade Sheet', version:'V07', finalized:'2026-07-02',
+    pdf:'pdf/Ki_UK_'+p.name.replace(/ /g,'_')+'_FrontBack_V07.pdf',
+    format:'8.5 × 11 in', orient:'port', pages:2}))
 ];
 
 /* ---------- default (official) editable state builders ---------- */
@@ -381,13 +418,25 @@ function defaultLineState(productKeys, strengths){
   };
 }
 function defaultIndivState(key, strengths){
-  const p = PROD[key];
+  const p = PROD[key], tc = TRADE[key] || TRADE.cola;
   return {
-    meta:{eyebrow:COPY.eyebrow},
+    meta:{headerL1:'Ki · Trade Sell Sheet', headerL2:p.name+' · '+(strengths.length>1?'3 & 9 mg':strengths[0]+' mg')},
+    front:'assets/fronts/'+key+'.jpg',
+    duo:'assets/duo/'+key+'.jpg',
     product:productState(p, strengths),
+    trade:clone(tc),
+    specs:{label:COPY.specsLabel, rows:[
+      {k:'Strength', v:strengths.length>1?'3 mg & 9 mg':strengths[0]+' mg'},
+      {k:'Pouches',  v:'18 per tin'},
+      {k:'Can',      v:'18 pouches · 25 g · 70 × 20 mm'},
+      {k:'Sleeve',   v:'5 cans · 125 g · 70 × 100 mm'},
+      {k:'Case',     v:'40 sleeves · 5150 g · 359 × 291 × 204 mm'},
+      {k:'RRP',      v:'£6.50'}
+    ]},
     orderLabel:'Order',
-    specs:{label:COPY.specsLabel, attrs:COPY.attrs, cols:clone(COPY.pack)},
-    footer:{legal:COPY.legal, contact:COPY.contact},
+    rtb:COPY.attrs,
+    footer:{left:'Trade enquiries — Ki Bio Ltd. · Kevin Shillito · 07906 663030 · kevin@ki.bio',
+            right:'Nicotine is an addictive substance. 18+ · www.ki.bio'},
     fs:{}
   };
 }
@@ -602,40 +651,82 @@ function tplLineBackRows(){
   return `<div class="spage land" data-pg="1">${b}</div>`;
 }
 
-/* ----- individual flavour sheet (build_indiv2.page_flavour) ----- */
-function tplIndividual(){
-  const W=816, H=1056, M=54, p=T_ST.product, P='product', cx=W/2;
-  let b = `<div style="position:absolute;left:0;right:0;top:52px;text-align:center"><img src="${CREST}" style="width:46px;height:${Math.round(46*CREST_AR)}px;display:inline-block"></div>`
-    + ed('div','eyebrow','meta.eyebrow',11,'position:absolute;left:0;right:0;top:124px;text-align:center')
-    + `<div style="position:absolute;left:0;right:0;top:144px;text-align:center">`
-    + ed('span','headline',P+'.name',42,'display:inline-block')
+/* ----- individual trade sheet · FRONT (V07: full-bleed original art, replaceable) ----- */
+function tplIndivFront(){
+  return `<div class="spage port" data-pg="0">`
+    + `<img class="slot" data-p="front" src="${esc(T_ST.front)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`
+    + `</div>`;
+}
+
+/* ----- individual trade sheet · BACK (V07 system — build_back3 + final clean header) ----- */
+function tplIndivBack(){
+  const W=816, H=1056, M=54, p=T_ST.product, P='product', c=T_ST.trade;
+  /* header */
+  let b = `<div style="position:absolute;left:${M}px;top:42px"><img src="${CREST}" style="width:32px;height:${Math.round(32*CREST_AR)}px"></div>`
+    + `<div style="position:absolute;right:${M}px;top:50px;text-align:right">`
+    + ed('div','','meta.headerL1',8.5,'font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:#706B63')
+    + ed('div','','meta.headerL2',8.5,'font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#B88448;margin-top:8px')
     + `</div>`
-    + `<div style="position:absolute;left:${cx-16}px;top:202px;width:32px;height:3px;background:${esc(p.accent)};border-radius:2px"></div>`
-    + `<div style="position:absolute;left:0;right:0;top:216px;text-align:center">`+ed('span','kanji',P+'.kanji',15,'')+`</div>`
-    + `<div style="position:absolute;left:0;right:0;top:242px;text-align:center">`+ed('span','descr',P+'.descriptor',8.5,'')+`</div>`;
-  b += `<div style="position:absolute;left:0;right:0;top:284px;text-align:center">`
-    + `<img class="slot" data-p="${P}.puck" src="${esc(p.puck)}" style="width:296px;margin:0 auto;filter:drop-shadow(0 18px 26px rgba(22,18,12,.20))"></div>`;
-  b += ed('div','body',P+'.note',12,`position:absolute;left:${cx-300}px;top:610px;width:600px;text-align:center;text-wrap:balance;line-height:1.5`);
-  const oy=724;
-  b += `<div class="hr" style="left:${M}px;top:${oy}px;width:${W-2*M}px"></div>`
-    + `<div style="position:absolute;left:${M}px;top:${oy+15}px">`+ed('span','sec','orderLabel',8,'')+`</div>`;
+    + `<div class="hr" style="left:${M}px;top:104px;width:${W-2*M}px"></div>`;
+  /* left editorial column */
+  const LX=M, LW=372;
+  b += `<div style="position:absolute;left:${LX}px;top:150px;width:${LW}px">`
+    + ed('div','kanji',P+'.kanji',15,'')
+    + ed('div','headline',P+'.name',35,'margin-top:8px;line-height:.96;letter-spacing:-.012em')
+    + ed('div','body',P+'.note',11.5,'line-height:1.6;margin-top:17px')
+    + `</div>`;
+  b += `<div style="position:absolute;left:${LX}px;top:364px;width:${LW}px">`
+    + `<div style="display:flex;gap:14px;margin-bottom:14px"><div class="ey" style="font-size:7.5px;width:46px;flex:none">Aroma</div>`
+    + ed('div','','trade.aroma',10,'font-weight:500;color:#15110D;flex:1;line-height:1.35')
+    + `</div><div style="display:flex;gap:14px"><div class="ey" style="font-size:7.5px;width:46px;flex:none">Taste</div>`
+    + ed('div','','trade.taste',10,'font-weight:500;color:#15110D;flex:1;line-height:1.35')
+    + `</div></div>`;
+  const fy=452;
+  b += `<div class="hr" style="left:${LX}px;top:${fy}px;width:${LW}px"></div>`
+    + `<div style="position:absolute;left:${LX}px;top:${fy+22}px;width:${LW}px">`
+    + `<div class="ey" style="font-size:8.5px">Features &amp; Benefits</div>`
+    + `</div>`
+    + ed('div','body','trade.fb',10,`position:absolute;left:${LX}px;top:${fy+51}px;width:${LW}px;line-height:1.5`);
+  c.subs.forEach((s,i)=>{
+    const yy=Math.round(592+i*92.5);
+    b += `<div style="position:absolute;left:${LX}px;top:${yy}px;width:${LW}px">`
+      + ed('div','sub','trade.subs.'+i+'.t',10.5,'')
+      + ed('div','body','trade.subs.'+i+'.d',9.5,'line-height:1.42;color:#706B63;margin-top:5px')
+      + `</div>`;
+  });
+  /* right panel — duo-tin render occupies the full panel width (V07 box: 452..762 × 172..505) */
+  const RX=452, RW=W-M-RX;
+  b += `<img class="slot" data-p="duo" src="${esc(T_ST.duo)}" style="position:absolute;left:${RX}px;top:172px;width:${RW}px">`;
+  const spy=513;
+  b += `<div class="hr" style="left:${RX}px;top:${spy}px;width:${RW}px"></div>`
+    + `<div style="position:absolute;left:${RX}px;top:${spy+6}px">`+ed('span','ey','specs.label',8,'color:#15110D')+`</div>`;
+  T_ST.specs.rows.forEach((r,i)=>{
+    const yy=spy+31+i*30;
+    b += `<div style="position:absolute;left:${RX}px;top:${yy}px;width:${RW}px;display:flex;justify-content:space-between;align-items:baseline;gap:8px">`
+      + ed('span','slbl','specs.rows.'+i+'.k',7.5,'flex:none')
+      + ed('span','num','specs.rows.'+i+'.v',9,'font-weight:600;text-align:right')
+      + `</div><div class="hr" style="left:${RX}px;top:${yy+23}px;width:${RW}px"></div>`;
+  });
+  const oy=spy+31+T_ST.specs.rows.length*30+23;
+  b += `<div style="position:absolute;left:${RX}px;top:${oy}px">`+ed('span','ey','orderLabel',8,'color:#15110D')+`</div>`;
   p.strengths.forEach((s,j)=>{
-    const bx=M+18+j*352, S=P+'.strengths.'+j;
-    b += `<div style="position:absolute;left:${bx}px;top:${oy+44}px;width:320px">`
-      + `<div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">`
-      + ed('span','mgt',S+'.tag',6.6,'') + ed('span','num',S+'.code',12,'')
-      + `</div><div style="display:flex;gap:16px">`
-      + bcell('Individual · EAN-13','ean13',S+'.ean13',104,26,7.6,5.8)
-      + bcell('Case · ITF-14','itf14',S+'.gtin14',104,26,7.6,5.8)
+    const S=P+'.strengths.'+j;
+    b += `<div style="position:absolute;left:${RX}px;top:${oy+20+j*82}px">`
+      + `<div style="display:flex;align-items:center;gap:7px;margin-bottom:11px">`
+      + ed('span','mgt',S+'.tag',6.6,'') + ed('span','num',S+'.code',11,'')
+      + `</div><div style="display:flex;gap:14px">`
+      + bcell('Individual · EAN-13','ean13',S+'.ean13',104,23,7.4,5.6)
+      + bcell('Case · ITF-14','itf14',S+'.gtin14',104,23,7.4,5.6)
       + `</div></div>`;
   });
-  if(p.strengths.length>1)
-    b += `<div style="position:absolute;left:${cx.toFixed(0)}px;top:${oy+44}px;width:1px;height:82px;background:#E5E5E5"></div>`;
-  b += specBlock(890, W, M, {rowTop:52, colPad:16, divX:8, divH:44});
-  b += `<div class="hr" style="left:${M}px;top:${H-70}px;width:${W-2*M}px"></div>`
-    + `<div style="position:absolute;left:${M}px;top:${H-52}px">`+ed('span','body','footer.legal',8.5,'color:#706B63;white-space:nowrap')+`</div>`
-    + `<div style="position:absolute;right:${M}px;top:${H-52}px;text-align:right">`+ed('span','body','footer.contact',8.5,'color:#706B63')+`</div>`;
-  return `<div class="spage port" data-pg="0">${b}</div>`;
+  /* RTB strip + footer */
+  const ry=H-96;
+  b += `<div class="hr" style="left:${M}px;top:${ry}px;width:${W-2*M}px"></div>`
+    + `<div style="position:absolute;left:0;right:0;top:${ry+17}px;text-align:center">`+ed('span','attrs','rtb',8.5,'')+`</div>`
+    + `<div class="hr" style="left:${M}px;top:${H-52}px;width:${W-2*M}px"></div>`
+    + `<div style="position:absolute;left:${M}px;top:${H-36}px">`+ed('span','body','footer.left',8,'color:#706B63;white-space:nowrap')+`</div>`
+    + `<div style="position:absolute;right:${M}px;top:${H-36}px;text-align:right">`+ed('span','body','footer.right',8,'color:#706B63')+`</div>`;
+  return `<div class="spage port" data-pg="1">${b}</div>`;
 }
 
 /* ----- render dispatch ----- */
@@ -645,7 +736,7 @@ function renderPages(def, state){
   if(def.family==='line'){
     pages = [tplLineCover(), def.layout==='rows' ? tplLineBackRows() : tplLineBackCols()];
   } else {
-    pages = [tplIndividual()];
+    pages = [tplIndivFront(), tplIndivBack()];
   }
   T_ST = null;
   return pages;
@@ -802,6 +893,10 @@ let ED = null;
 function openEditor(id){
   const def = findDef(id); if(!def) return;
   const rec = docRec(id);
+  if(def.family==='individual' && rec.working && !rec.working.state.trade){
+    rec.working = null; save();            /* draft from the superseded portrait template */
+    toast('This document moved to the V07 trade front/back — old draft cleared.', true);
+  }
   ED = {id, def, state: clone(rec.working?.state || defaultStateFor(def)), page:0, zoom:'fit', selSlot:null, selField:null};
   $('#viewLib').hidden = true; $('#foot').hidden = true; $('#viewEd').hidden = false;
   $('#topActions').innerHTML = `<a class="btn ghost sm" href="../index.html">World of Ki ↗</a>`;
@@ -834,7 +929,7 @@ function renderEditor(){
   $('#canvasIn').classList.add('editing');
   activateEditing();
   applyZoom();
-  const tabs = ED.def.family==='line' ? ['Cover','Back'] : [];
+  const tabs = ED.def.family==='line' ? ['Cover','Back'] : ['Front','Back'];
   $('#pgTabs').style.display = tabs.length?'':'none';
   $('#pgTabs').innerHTML = tabs.map((t,i)=>`<button class="${ED.page===i?'on':''}" data-pg="${i}">${t}</button>`).join('');
   $('#edStatus').textContent = edStatusText();
@@ -861,7 +956,10 @@ addEventListener('resize', ()=>{ if(ED && ED.zoom==='fit') applyZoom(); });
 const FIELD_NAMES = {name:'Product name',kanji:'Kanji',descriptor:'Descriptor',note:'Tasting note',
   tag:'Strength pill',code:'Product ID',ean13:'Unit EAN-13',gtin14:'Case GTIN-14',eyebrow:'Eyebrow',
   headline:'Headline',intro:'Intro paragraph',legal:'Legal line',contact:'Contact line',
-  label:'Section label',attrs:'RTB strip',h:'Spec heading',q:'Spec quantity',d:'Spec detail',orderLabel:'Section label'};
+  label:'Section label',attrs:'RTB strip',h:'Spec heading',q:'Spec quantity',d:'Benefit text',
+  orderLabel:'Section label',headerL1:'Header · tool line',headerL2:'Header · product line',
+  aroma:'Aroma',taste:'Taste',fb:'Features & benefits',t:'Benefit title',k:'Spec label',v:'Spec value',
+  rtb:'RTB strip',left:'Footer · trade line',right:'Footer · legal line'};
 function fieldName(p){ return FIELD_NAMES[p.split('.').pop()] || 'Text'; }
 
 function activateEditing(){
@@ -929,7 +1027,7 @@ let pendingImgPath = null;
 function pickImage(path){ pendingImgPath = path; $('#fileImg').value=''; $('#fileImg').click(); }
 $('#fileImg').addEventListener('change', async e=>{
   const f = e.target.files[0]; if(!f || !pendingImgPath || !ED) return;
-  const isHero = pendingImgPath==='hero';
+  const isHero = pendingImgPath==='hero' || pendingImgPath==='front';
   try{
     const url = await downscale(f, isHero?2600:1200, isHero?'image/jpeg':'image/png', .87);
     sp(ED.state, pendingImgPath, url);
@@ -1100,7 +1198,7 @@ function newDocModal(){
     <div class="opts" data-one="tpl">
       <button class="opt on" data-v="line-columns">Line · Columns</button>
       <button class="opt" data-v="line-rows">Line · Rows</button>
-      <button class="opt" data-v="individual">Individual flavour</button>
+      <button class="opt" data-v="individual">Individual trade sheet</button>
     </div>
     <div class="msec">Flavours</div>
     <div class="opts" data-many="prods">${PRODUCTS.map((p,i)=>`<button class="opt on" data-v="${p.key}">${p.name}</button>`).join('')}</div>

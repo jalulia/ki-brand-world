@@ -1,7 +1,9 @@
 # Ki · Marketing Materials
 
 A World of Ki tool: the sell-sheet library + WYSIWYG editor.
-**Live set:** 2026 UK Launch · The Origin Collection — 2 line sheets (Columns / Rows, V08) + 5 individual flavour sheets (V02).
+**Live set:** 2026 UK Launch · The Origin Collection — 2 line sheets (Columns / Rows, V08) +
+5 individual **front/back trade sheets** (V07: original full-bleed flavour front + rebuilt trade back
+with Aroma/Taste, Features & Benefits, spec panel, RRP, dual-strength order codes).
 
 ## What it does
 - **Library** — every approved document with live previews, filters, and one-click download of the
@@ -32,9 +34,11 @@ marketing-materials/
 ## Fidelity lineage
 Sheet templates are 1:1 ports of the finalised build pipeline in
 `Ki Sell Sheets/UK Launch - July 2026/_build/` (`build_back.py` → line backs V08,
-`build_indiv2.py` → individuals V02, `assets.py` → SKU data/copy). Palette + type per
-`Ki_SellSheet_StyleGuide.pdf` (V0.2 · July 2026). If the canonical sheets change,
-re-port the geometry and drop the new PDFs into `pdf/`.
+`build_back3.py` + `backdata.py` → individual trade backs V07, `assets.py` → SKU data/copy).
+Individual fronts are Julia's original full-bleed design (V07 pages are flattened 300 dpi
+rasters, so the editor treats the front as a replaceable image page; the trade back is fully
+editable). Palette + type per `Ki_SellSheet_StyleGuide.pdf` (V0.2 · July 2026).
+If the canonical sheets change, re-port the geometry and drop the new PDFs into `pdf/`.
 
 ## Adding a campaign later (e.g. new market, new strengths)
 1. Add products/SKUs to `PRODUCTS` in `index.html` (or extend an existing product's `skus`).
