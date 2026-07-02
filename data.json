@@ -7,6 +7,15 @@
   },
   "items": [
     {
+      "name": "Emails",
+      "kind": "woo transactional suite · journey library, mockups & handoff",
+      "href": "emails/",
+      "dest": "/emails",
+      "img": "assets/img/emails-tool.png",
+      "alt": "Ki transactional email mockup",
+      "internal": true
+    },
+    {
       "name": "Ki-Landscapes",
       "kind": "generative landscape visualizer · rolling worlds",
       "href": "https://jalulia.github.io/Ki-Landscapes/",
@@ -22,15 +31,6 @@
       "dest": "/marketing-materials",
       "img": "assets/img/pucks/hero-hok.png",
       "alt": "Hokkaido Mint puck",
-      "internal": true
-    },
-    {
-      "name": "Emails",
-      "kind": "woo transactional suite · journey library, mockups & handoff",
-      "href": "emails/",
-      "dest": "/emails",
-      "img": "assets/img/emails-tool.png",
-      "alt": "Ki transactional email mockup",
       "internal": true
     },
     {

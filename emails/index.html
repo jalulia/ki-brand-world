@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ki · Emails</title>
+<style>
+/* ————— Ki tool tokens (per marketing-materials) ————— */
+:root{
+  --paper:#FCFBF8; --canvas:#EFEDE7; --card:#FFFFFF;
+  --ink:#15110D; --body:#3B362F; --mute:#706B63;
+  --gold:#B88448; --red:#DC503C; --rule:#E5E5E5;
+  --shadow:0 14px 40px rgba(21,17,13,.10);
+}
+@font-face{font-family:'Obviously';src:url('../assets/fonts/Obviously-Thin.woff2') format('woff2');font-weight:100;font-display:swap}
+@font-face{font-family:'Obviously';src:url('../assets/fonts/Obviously-Light.woff2') format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Obviously';src:url('../assets/fonts/Obviously-Medium.woff2') format('woff2');font-weight:400 500;font-display:swap}
+@font-face{font-family:'Obviously';src:url('../assets/fonts/Obviously-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Obviously';src:url('../assets/fonts/Obviously-Black.woff2') format('woff2');font-weight:900;font-display:swap}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--canvas);color:var(--body);font:400 15px/1.55 'Obviously',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+a{color:inherit}
+
+/* ————— chrome ————— */
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;padding:14px 26px;background:rgba(252,251,248,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.topbar img.crest{width:30px;height:auto}
+.topbar .wm{font-weight:700;font-size:13.5px;letter-spacing:.02em;color:var(--ink)}
+.topbar .spacer{flex:1}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:999px;padding:8px 16px;font:600 12.5px 'Obviously',sans-serif;letter-spacing:.02em;cursor:pointer;text-decoration:none;transition:.15s}
+.btn:hover{background:#000}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--paper)}
+.btn.sm{padding:6px 12px;font-size:11.5px}
+.btn.gold{background:var(--gold);border-color:var(--gold)}
+.btn.gold:hover{background:#a5763e}
+
+/* ————— hero ————— */
+.hero{max-width:1240px;margin:0 auto;padding:64px 26px 8px}
+.eyebrow{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.hero h1{font:700 clamp(28px,3.4vw,40px)/1.12 'Obviously',sans-serif;letter-spacing:.005em;color:var(--ink);margin:10px 0 14px}
+.hero .sub{max-width:66ch;color:var(--body);font-size:15.5px}
+.hero .sub .jp{color:var(--gold)}
+.counts{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:6px 12px;font-size:11.5px;font-weight:600;color:var(--body)}
+.chip b{color:var(--ink)}
+.chip .dot{width:7px;height:7px;border-radius:50%}
+.dot.gold{background:var(--gold)} .dot.mute{background:#C9C4BB} .dot.red{background:var(--red)} .dot.ink{background:var(--ink)}
+
+/* ————— flow map ————— */
+.flowwrap{max-width:1240px;margin:34px auto 0;padding:0 26px}
+.flowcard{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:20px 22px 22px;overflow-x:auto}
+.flowlabel{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
+.flow{display:flex;align-items:stretch;gap:0;min-width:900px}
+.flow .lane{display:flex;align-items:center}
+.fnode{border:1px solid var(--rule);background:var(--card);border-radius:9px;padding:8px 12px;font-size:11.5px;font-weight:600;color:var(--ink);white-space:nowrap;cursor:pointer;transition:.15s}
+.fnode:hover{border-color:var(--gold);box-shadow:0 4px 14px rgba(21,17,13,.07)}
+.fnode small{display:block;font-weight:400;color:var(--mute);font-size:10px;margin-top:1px}
+.fnode.terminal{border-style:dashed}
+.farrow{color:#C9C4BB;padding:0 9px;font-size:13px;flex:none;align-self:center}
+.fstack{display:flex;flex-direction:column;gap:7px;justify-content:center}
+.flow .branchlbl{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-family:"SF Mono",ui-monospace,monospace;margin:0 0 2px 2px}
+
+/* ————— library ————— */
+.lib{max-width:1240px;margin:0 auto;padding:26px 26px 90px}
+.group{margin-top:44px}
+.group-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:22px}
+.group-head h2{font:700 19px 'Obviously',sans-serif;color:var(--ink);margin:0}
+.group-head .k{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.group-head .n{margin-left:auto;font-family:"SF Mono",ui-monospace,monospace;font-size:10.5px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:14px;overflow:hidden;cursor:pointer;transition:.18s;display:flex;flex-direction:column}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-2px);border-color:#D8D2C8}
+.thumb{position:relative;background:#F1F0EC;overflow:hidden;border-bottom:1px solid var(--rule);padding:12px 12px 0}
+.thumb .twrap{position:relative;width:100%;overflow:hidden;pointer-events:none}
+.thumb iframe{width:720px;border:0;transform-origin:0 0;display:block}
+.thumb.decwrap{padding:0;height:230px}
+.thumb .decis{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:26px;text-align:center;font:600 14.5px/1.5 'Obviously',sans-serif;color:var(--ink);background:repeating-linear-gradient(-45deg,var(--paper) 0 14px,#F5F3EC 14px 28px)}
+.cmeta{padding:13px 16px 15px;display:flex;flex-direction:column;gap:4px}
+.cmeta .t{font-weight:700;font-size:14px;color:var(--ink);display:flex;align-items:center;gap:8px}
+.cmeta .id{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--mute)}
+.status{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:3px 9px;border:1px solid}
+.status.ready{color:var(--gold);border-color:var(--gold)}
+.status.nochange{color:var(--mute);border-color:#D5D0C7}
+.status.cut{color:var(--ink);border-color:var(--ink);text-decoration:line-through}
+.status.open{color:var(--red);border-color:var(--red)}
+
+/* ————— detail overlay ————— */
+.ovl{position:fixed;inset:0;z-index:60;background:rgba(21,17,13,.46);display:none}
+.ovl.on{display:block}
+.panel{position:absolute;inset:3.5vh 3vw;background:var(--canvas);border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) 400px;overflow:hidden}
+.pv{overflow:auto;padding:34px 30px;display:flex;justify-content:center;align-items:flex-start;background:
+    radial-gradient(1200px 500px at 50% -200px, #F6F4EE, var(--canvas))}
+.pv .mockholder{width:770px;max-width:100%;flex:none}
+.pv iframe{width:100%;border:0;background:transparent;display:block}
+.pv .mockcap{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-align:center;margin:12px 0 0}
+.rail{border-left:1px solid var(--rule);background:var(--paper);overflow:auto;padding:26px 24px 30px;display:flex;flex-direction:column;gap:20px}
+.rail h3{font:700 20px 'Obviously',sans-serif;color:var(--ink);margin:0;padding-right:44px}
+.rail .sect > .lbl{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.kv{display:grid;grid-template-columns:112px 1fr;gap:5px 12px;font-size:12px}
+.kv .k{color:var(--mute)}
+.kv .v{color:var(--ink);font-weight:600;word-break:break-word}
+.kv .v.mono{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-weight:500;font-size:11px}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:999px;background:var(--card);padding:3px;gap:3px}
+.seg button{border:0;background:transparent;border-radius:999px;padding:6px 13px;font:600 11.5px 'Obviously',sans-serif;color:var(--mute);cursor:pointer}
+.seg button.on{background:var(--ink);color:#fff}
+.tglrow{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;font-weight:600;color:var(--ink)}
+.switch{position:relative;width:38px;height:22px;border-radius:999px;background:#D8D2C8;border:0;cursor:pointer;transition:.15s;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.15s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.switch.on{background:var(--gold)}
+.switch.on::after{left:19px}
+.areas{display:flex;flex-direction:column;gap:7px}
+.area{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline;font-size:11.5px;padding:7px 10px;background:var(--card);border:1px solid var(--rule);border-radius:8px}
+.area code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--gold);font-weight:600;white-space:nowrap}
+.area span{color:var(--body)}
+.flags{display:flex;flex-direction:column;gap:8px}
+.flag{font-size:12px;line-height:1.5;padding:9px 12px;border-radius:8px;background:#FBF3EA;border:1px solid #EAD9C4;color:var(--body)}
+.flag.devnote{background:var(--card);border-color:var(--rule)}
+.flag b{color:var(--ink)}
+.dl{display:flex;flex-wrap:wrap;gap:8px}
+.qtext{font:600 15px/1.5 'Obviously',sans-serif;color:var(--ink);padding:14px 16px;border:1px dashed var(--red);border-radius:10px;background:#FDF6F4}
+.close{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;border:1px solid var(--rule);background:var(--paper);color:var(--ink);font-size:15px;cursor:pointer;z-index:5}
+.close:hover{background:var(--card)}
+
+/* ————— footer ————— */
+.foot{border-top:1px solid var(--rule);background:var(--paper);padding:26px;text-align:center;color:var(--mute);font-size:11.5px}
+.foot .comp{margin-top:6px;font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.06em}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;font:600 12.5px 'Obviously',sans-serif;padding:10px 18px;border-radius:999px;transition:.25s;z-index:99}
+.toast.on{transform:translateX(-50%) translateY(0)}
+@media(max-width:980px){.panel{grid-template-columns:1fr;inset:2vh 2vw}.rail{border-left:0;border-top:1px solid var(--rule)}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <img class="crest" src="assets/crest.png" alt="Ki crest">
+  <div class="wm">Ki · Emails</div>
+  <div class="spacer"></div>
+  <a class="btn ghost sm" href="../index.html">World of Ki ↗</a>
+  <button class="btn gold sm" id="bundleBtn">⬇ Woo handoff bundle</button>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">気 · World of Ki · WooCommerce suite · UK launch</div>
+  <h1>Transactional emails</h1>
+  <div class="sub">Every email ki.bio sends around an order or an account — the library below follows the customer's actual journey. Copy is placed from the approved review deck; each template ships as Woo-ready HTML plus the shared header/footer layer. Click any email to inspect it, toggle the landscape header, see its template areas, and download its code.</div>
+  <div class="counts" id="counts"></div>
+</div>
+
+<div class="flowwrap">
+  <div class="flowcard">
+    <div class="flowlabel">The flow — where each email fires</div>
+    <div class="flow" id="flow"></div>
+  </div>
+</div>
+
+<div class="lib" id="lib"></div>
+
+<div class="ovl" id="ovl">
+  <div class="panel">
+    <button class="close" id="closeBtn">✕</button>
+    <div class="pv"><div class="mockholder"><iframe id="pvFrame" scrolling="no" title="Email preview"></iframe><div class="mockcap" id="pvCap"></div></div></div>
+    <div class="rail" id="rail"></div>
+  </div>
+</div>
+
+<div class="foot">
+  Ki · Emails — a World of Ki tool · copy per “Ki — Website review · Emails” deck
+  <div class="comp">NICOTINE IS AN ADDICTIVE SUBSTANCE. FOR ADULTS 18+ ONLY. SERIOUSLY.</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═════════════ DATA — copy verbatim from the review deck ═════════════ */
+const FLAVORS = {
+  sat:   {name:'Satsuma Citrus', jp:'薩摩シトラス', img:'assets/pucks/sat.webp'},
+  hok:   {name:'Hokkaido Mint',  jp:'北海道ミント', img:'assets/pucks/hok.webp'},
+  yuzu:  {name:'Yuzu Mint',      jp:'柚子ミント',   img:'assets/pucks/yuzu.webp'},
+  cola:  {name:'Tokyo Cola',     jp:'東京コーラ',   img:'assets/pucks/cola.webp'},
+  maple: {name:'Maple Coffee',   jp:'メープルコーヒー', img:'assets/pucks/maple.webp'}
+};
+/* sample order shown in mockups — product real, prices illustrative */
+const SAMPLE = {
+  name:'John', order:'#1024', date:'2 July 2026',
+  items:[{f:'sat', strength:'3 MG', qty:2, price:'£13.00'},{f:'hok', strength:'9 MG', qty:1, price:'£6.50'}],
+  subtotal:'£19.50', shipping:'Free shipping', total:'£19.50', payment:'Card'
+};
+
+const TAGS = {
+  customer_first_name:'Customer first name',
+  user_login:'Account username',
+  order_number:'Order number',
+  order_date:'Order date',
+  order_table:'Woo order items table',
+  customer_note:'Note content (from admin)',
+  account_url:'My-account URL',
+  reset_url:'Password reset URL',
+  site_url:'ki.bio',
+  contact_block:'Support contact (email / help page)'
+};
+
+const EMAILS = [
+/* ——— account ——— */
+{
+  id:'new-account', group:'account', title:'New account', status:'ready',
+  wooId:'customer_new_account', tpl:'emails/customer-new-account.php',
+  subject:'Your {site_title} account has been created!', subjectNote:'Woo default — subjects not covered in the deck; confirm.',
+  land:'back17', eyebrow:'Account',
+  heading:"Welcome to Ki. The door's open.",
+  preheader:'Your Ki account is ready.',
+  blocks:[
+    {t:'p', x:'Hi {customer_first_name},'},
+    {t:'p', x:"Thanks for becoming a Ki member — it's a good day for it. Your username is <b>{user_login}</b>. Your account is the place to review orders, change passwords and more."},
+    {t:'cta', x:'View your account', href:'{account_url}'},
+    {t:'p', x:"We're looking forward to seeing you soon."}
+  ],
+  table:false,
+  flags:[
+    {k:'copy', x:"Deck reads “We looking forward to seeing you soon.” — rendered here as “We're looking forward…”. Confirm the fix."}
+  ],
+  areas:['customer_first_name','user_login','account_url']
+},
+{
+  id:'reset-password', group:'account', title:'Reset password', status:'ready',
+  wooId:'customer_reset_password', tpl:'emails/customer-reset-password.php',
+  subject:'Password Reset Request for {site_title}', subjectNote:'Woo default — confirm.',
+  land:'back02', eyebrow:'Account',
+  heading:'Password reset coming right up.',
+  preheader:'A password reset was requested for this Ki account.',
+  blocks:[
+    {t:'p', x:'Hi {customer_first_name},'},
+    {t:'p', x:'Someone asked for a new password on this Ki account.'},
+    {t:'p', x:"If that someone was you, follow the link below. If it wasn't, you can safely ignore this email and carry on."},
+    {t:'cta', x:'Click here to reset password', href:'{reset_url}'}
+  ],
+  table:false, flags:[], areas:['customer_first_name','reset_url']
+},
+/* ——— order lifecycle (customer) ——— */
+{
+  id:'processing', group:'order', title:'Processing order', status:'ready',
+  wooId:'customer_processing_order', tpl:'emails/customer-processing-order.php',
+  subject:'Your {site_title} order has been received!', subjectNote:'Woo default — confirm.',
+  land:'back05', eyebrow:'Your order',
+  heading:'Thank you for your order. Wheels are in motion.',
+  preheader:'Order received — the Ki experience is on its way.',
+  blocks:[
+    {t:'p', x:'Hi {customer_first_name},'},
+    {t:'p', x:"Thanks for your order! It's now being processed. Sit tight, the Ki experience is on its way."}
+  ],
+  table:true, flags:[], areas:['customer_first_name','order_number','order_date','order_table']
+},
+{
+  id:'on-hold', group:'order', title:'Order on-hold', status:'ready',
+  wooId:'customer_on_hold_order', tpl:'emails/customer-on-hold-order.php',
+  subject:'Your {site_title} order has been received!', subjectNote:'Woo default — confirm.',
+  land:'back02', eyebrow:'Your order',
+  heading:"Thank you for your order. You clearly know what you're doing.",
+  preheader:'Order received — on hold while payment confirms.',
+  blocks:[
+    {t:'p', x:'Hi {customer_first_name},'},
+    {t:'p', x:"We appreciate your order. It's on-hold until we confirm that payment has been received. Just banks doing their bank thing. In the meantime, here's a reminder of what you ordered:"}
+  ],
+  table:true, flags:[], areas:['customer_first_name','order_number','order_date','order_table']
+},
+{
+  id:'completed', group:'order', title:'Completed order', status:'ready',
+  wooId:'customer_completed_order', tpl:'emails/customer-completed-order.php',
+  subject:'Your {site_title} order is now complete', subjectNote:'Woo default — confirm.',
+  land:'back04', eyebrow:'Your order',
+  heading:'Thank you for your order and your incredibly good taste.',
+  preheader:'Your Ki order is on the move.',
+  blocks:[
+    {t:'p', x:'Hi {customer_first_name},'},
+    {t:'p', x:"Thank you for your purchase! We're getting your order ready to be shipped. We'll be in touch when it's out the door."}
+  ],
+  table:true,
+  flags:[
+    {k:'dev', x:"In Woo, “completed” fires when the order is fulfilled — but this copy reads pre-shipment (“getting your order ready to be shipped”). Confirm whether the copy moves to <b>processing</b> or the trigger mapping changes."}
+  ],
+  areas:['customer_first_name','order_number','order_date','order_table']
+},
+{
+  id:'refunded', group:'order', title:'Refunded order', status:'ready',
+  wooId:'customer_refunded_order', tpl:'emails/customer-refunded-order.php',
+  subject:'Your {site_title} order {order_number} has been refunded', subjectNote:'Woo default — confirm.',
+  land:'back07', eyebrow:'Your order',
+  heading:"You've been refunded.",
+  preheader:'Your Ki order has been refunded — paperwork inside.',
+  blocks:[
+    {t:'p', x:'Hi {customer_first_name},'},
+    {t:'p', x:"Your Ki order has been refunded. Here's the paperwork for your records:"}
+  ],
+  table:true, flags:[], areas:['customer_first_name','order_number','order_date','order_table']
+},
+{
+  id:'cancelled', group:'order', title:'Cancelled order', status:'ready',
+  wooId:'customer_cancelled_order', tpl:'custom — see dev note',
+  subject:'Your {site_title} order has been cancelled', subjectNote:'Proposed — no Woo default exists for a customer cancellation.',
+  land:'back01', eyebrow:'Your order',
+  heading:"Your order was cancelled. We'll get over it.",
+  preheader:'Your Ki order has been cancelled.',
+  blocks:[
+    {t:'p', x:'Hi {customer_first_name},'},
+    {t:'p', x:"We're getting in touch to let you know that your order {order_number} has been cancelled. If you have any questions or need help placing a new order, our team is here to help."},
+    {t:'contact', x:'{contact_block}'}
+  ],
+  table:true,
+  flags:[
+    {k:'dev', x:"Woo core sends <b>cancelled_order</b> to admin only. A customer-facing version needs a small custom email class (or plugin) — flag for the build."},
+    {k:'copy', x:"Deck marks the contact line as <b>&lt;Contact&gt;</b> — rendered here as a support row (email + help). Confirm destination."}
+  ],
+  areas:['customer_first_name','order_number','order_table','contact_block']
+},
+{
+  id:'failed', group:'order', title:'Failed order', status:'ready',
+  wooId:'customer_failed_order', tpl:'custom — see dev note',
+  subject:"Your {site_title} order didn't go through", subjectNote:'Proposed — no Woo default exists for a customer failure.',
+  land:'back08', eyebrow:'Your order',
+  heading:'Oops! Your order hit a snag.',
+  preheader:"We couldn't complete your order — easy to fix.",
+  blocks:[
+    {t:'p', x:'Hi {customer_first_name},'},
+    {t:'p', x:"Unfortunately there's been a small hiccup and we couldn't complete your order due to an issue with payment."},
+    {t:'p', x:"If you'd like to continue with your purchase, please return to ki.bio and have another crack with a different payment method."},
+    {t:'cta', x:'Return to ki.bio', href:'{site_url}'}
+  ],
+  table:true,
+  flags:[
+    {k:'copy', x:'Deck reads “…another crack with different payment method.” — rendered with “a different”. Confirm.'},
+    {k:'copy', x:"CTA button is proposed (the copy points to ki.bio but the deck doesn't specify a button). Confirm."},
+    {k:'dev', x:'Woo core sends <b>failed_order</b> to admin only. A customer-facing version needs a small custom email class — flag for the build.'}
+  ],
+  areas:['customer_first_name','order_table','site_url']
+},
+/* ——— service ——— */
+{
+  id:'customer-note', group:'service', title:'Customer note', status:'ready',
+  wooId:'customer_note', tpl:'emails/customer-note.php',
+  subject:'Note added to your {site_title} order from {order_date}', subjectNote:'Woo default — confirm.',
+  land:'back07', eyebrow:'Your order',
+  heading:'Quick note',
+  preheader:'A note has been added to your Ki order.',
+  blocks:[
+    {t:'p', x:'Hi {customer_first_name},'},
+    {t:'p', x:"A note's been added to your order:"},
+    {t:'note', x:'{customer_note}'},
+    {t:'p', x:"As a reminder, here's your order details:"}
+  ],
+  table:true, flags:[], areas:['customer_first_name','customer_note','order_number','order_table']
+},
+/* ——— admin ——— */
+{
+  id:'new-order-admin', group:'admin', title:'New order — admin', status:'nochange',
+  wooId:'new_order', tpl:'emails/admin-new-order.php',
+  subject:'[{site_title}]: New order {order_number}', subjectNote:'Woo default.',
+  land:null, eyebrow:'Admin',
+  heading:'New order: {order_number}',
+  preheader:'',
+  blocks:[{t:'p', x:"You've received the following order from {customer_full_name}:"}],
+  table:true, adminPlain:true,
+  flags:[{k:'dev', x:'Deck decision: <b>no change</b> — keeps the stock Woo admin template (Ki logo via the shared header).'}],
+  areas:['order_number','order_table']
+},
+{
+  id:'cancelled-admin', group:'admin', title:'Cancelled order — admin', status:'open',
+  wooId:'cancelled_order', tpl:'emails/admin-cancelled-order.php',
+  subject:'[{site_title}]: Order {order_number} has been cancelled', subjectNote:'Woo default.',
+  land:null, eyebrow:'Admin',
+  heading:'Order cancelled: {order_number}',
+  preheader:'',
+  blocks:[{t:'p', x:'The following customer order has been cancelled.'}],
+  table:true, adminPlain:true,
+  question:'Next steps? — the deck leaves the admin follow-up actions open. What should this email tell the team to do?',
+  flags:[],
+  areas:['order_number','order_table']
+},
+{
+  id:'failed-admin', group:'admin', title:'Failed order — admin', status:'nochange',
+  wooId:'failed_order', tpl:'emails/admin-failed-order.php',
+  subject:'[{site_title}]: Order {order_number} has failed', subjectNote:'Woo default.',
+  land:null, eyebrow:'Admin',
+  heading:'Order failed: {order_number}',
+  preheader:'',
+  blocks:[{t:'p', x:'Payment for order {order_number} from {customer_full_name} has failed. The order was as follows:'}],
+  table:true, adminPlain:true,
+  flags:[{k:'dev', x:'Deck decision: <b>no change</b> — keeps the stock Woo admin template.'}],
+  areas:['order_number','order_table']
+},
+/* ——— decisions ——— */
+{
+  id:'order-details', group:'decisions', title:'Order details (invoice)', status:'cut',
+  wooId:'customer_invoice', tpl:'emails/customer-invoice.php',
+  subject:'—', subjectNote:'',
+  land:null, eyebrow:'Decision', heading:'', preheader:'', blocks:[], table:false, decision:true,
+  question:"Deck decision: “Let's cut this email as it can be covered by the completed order email.”",
+  flags:[{k:'dev', x:'Careful when disabling: <b>customer_invoice</b> is also the “pay for this order” email Woo sends for pending-payment orders and manual invoices. If those flows are used, it needs a designed version rather than a cut.'}],
+  areas:[]
+},
+{
+  id:'pos-completed', group:'decisions', title:'POS completed order', status:'open',
+  wooId:'pos (plugin) — completed', tpl:'—',
+  subject:'—', subjectNote:'',
+  land:null, eyebrow:'Decision', heading:'', preheader:'', blocks:[], table:false, decision:true,
+  question:'Deck question: “Can this email be covered by the completed order email too?”',
+  flags:[{k:'dev', x:"Depends on the POS plugin — most reuse Woo's <b>customer_completed_order</b>, in which case the designed template above covers it automatically. Confirm which POS system is in play."}],
+  areas:[]
+},
+{
+  id:'pos-refunded', group:'decisions', title:'POS refunded order', status:'open',
+  wooId:'pos (plugin) — refunded', tpl:'—',
+  subject:'—', subjectNote:'',
+  land:null, eyebrow:'Decision', heading:'', preheader:'', blocks:[], table:false, decision:true,
+  question:'Deck question: “How is this different from the refunded order email?”',
+  flags:[{k:'dev', x:"If the POS refund routes through Woo's <b>customer_refunded_order</b>, the designed template covers it. Confirm with the POS setup."}],
+  areas:[]
+}
+];
+
+const GROUPS = [
+  {id:'account',  k:'01', name:'Account',                  sub:'joining & access'},
+  {id:'order',    k:'02', name:'Order lifecycle',          sub:'customer-facing, in journey order'},
+  {id:'service',  k:'03', name:'Service',                  sub:'human touches on an order'},
+  {id:'admin',    k:'04', name:'Admin',                    sub:'internal notifications'},
+  {id:'decisions',k:'05', name:'Open decisions',           sub:'cut / to resolve from the deck'}
+];
+</script>
+
+<script>
+/* ═════════════ EMAIL RENDERER — one source of truth for previews & exports ═════════════ */
+const ABS = rel => new URL(rel, location.href).href;
+const FONT_CSS =
+  "@font-face{font-family:'Obviously';src:url('"+ABS('../assets/fonts/Obviously-Medium.woff2')+"') format('woff2');font-weight:400 500;font-display:swap}"+
+  "@font-face{font-family:'Obviously';src:url('"+ABS('../assets/fonts/Obviously-Bold.woff2')+"') format('woff2');font-weight:700;font-display:swap}"+
+  "@font-face{font-family:'Obviously';src:url('"+ABS('../assets/fonts/Obviously-Black.woff2')+"') format('woff2');font-weight:800 900;font-display:swap}";
+const STACK   = "'Obviously','Helvetica Neue',Helvetica,Arial,sans-serif";
+const JPSTACK = "'Hiragino Kaku Gothic ProN','Yu Gothic','Noto Sans JP',sans-serif";
+const MONO    = "'SF Mono',ui-monospace,Menlo,Consolas,monospace";
+
+const SAMPLE_VALS = {
+  customer_first_name:'John', user_login:'johndoe', customer_full_name:'John Doe',
+  order_number:'#1024', order_date:'2 July 2026', site_title:'Ki',
+  account_url:'https://ki.bio/my-account/', reset_url:'https://ki.bio/reset', site_url:'https://ki.bio',
+  customer_note:'Your order will ship tomorrow with tracked delivery.',
+  contact_block:''
+};
+
+function tagSpan(tag, val, mode, areas){
+  if(mode==='export') return '{'+tag+'}';
+  if(areas) return '<span style="outline:1.5px dashed #B88448;outline-offset:2px;background:rgba(184,132,72,.10);border-radius:2px" title="{'+tag+'}">'+val+'</span>';
+  return val;
+}
+function fillTags(str, mode, areas){
+  return str.replace(/\{([a-z_]+)\}/g, (m,t)=> tagSpan(t, SAMPLE_VALS[t] ?? m, mode, areas));
+}
+
+/* ——— the order card: bordered, product tiles, totals block ——— */
+function orderTable(mode, areas){
+  const tile = f => '<table role="presentation" cellpadding="0" cellspacing="0"><tr><td bgcolor="#F5F3EC" align="center" width="62" height="62" style="width:62px;height:62px;border-radius:12px;background:#F5F3EC">'+
+    '<img src="'+ABS(FLAVORS[f].img)+'" width="50" height="50" alt="'+FLAVORS[f].name+' tin" style="display:block;width:50px;height:50px;margin:0 auto"></td></tr></table>';
+  const rows = SAMPLE.items.map((it,i) => {
+    const F = FLAVORS[it.f];
+    return '<tr>'+
+      '<td width="62" style="padding:14px 14px 14px 0'+(i?';border-top:1px solid #EFECE4':'')+'">'+tile(it.f)+'</td>'+
+      '<td style="padding:14px 10px 14px 0'+(i?';border-top:1px solid #EFECE4':'')+';font-family:'+STACK+'">'+
+        '<div style="font-weight:700;font-size:13.5px;color:#15110D">'+F.name+'</div>'+
+        '<div style="font-family:'+JPSTACK+';font-size:11px;color:#B88448;margin-top:2px">'+F.jp+'</div>'+
+        '<div style="margin-top:6px"><span style="font-family:'+MONO+';font-size:8.5px;letter-spacing:.1em;color:#706B63;border:1px solid #E0DCD3;border-radius:999px;padding:2px 8px">'+it.strength+'</span></div>'+
+      '</td>'+
+      '<td align="right" style="padding:14px 0'+(i?';border-top:1px solid #EFECE4':'')+';font-family:'+MONO+';font-size:11.5px;color:#706B63" width="36">×'+it.qty+'</td>'+
+      '<td align="right" style="padding:14px 0 14px 14px'+(i?';border-top:1px solid #EFECE4':'')+';font-family:'+STACK+';font-weight:700;font-size:13.5px;color:#15110D" width="66">'+it.price+'</td>'+
+    '</tr>';
+  }).join('');
+  const srow = (k,v)=>'<tr><td style="padding:3px 0;font-family:'+STACK+';font-size:12.5px;color:#706B63">'+k+'</td>'+
+    '<td align="right" style="padding:3px 0;font-family:'+STACK+';font-size:12.5px;font-weight:600;color:#3B362F;white-space:nowrap">'+v+'</td></tr>';
+  const inner =
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:26px;border:1px solid #E5E2DA;border-radius:14px;background:#FFFFFF">'+
+      '<tr><td style="padding:13px 20px;border-bottom:1px solid #EFECE4">'+
+        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'+
+        '<td style="font-family:'+MONO+';font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#B88448">Order '+tagSpan('order_number',SAMPLE.order,mode,areas)+'</td>'+
+        '<td align="right" style="font-family:'+MONO+';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#706B63">'+tagSpan('order_date',SAMPLE.date,mode,areas)+'</td>'+
+        '</tr></table></td></tr>'+
+      '<tr><td style="padding:2px 20px 4px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">'+rows+'</table></td></tr>'+
+      '<tr><td bgcolor="#FBFAF7" style="padding:14px 20px 15px;border-top:1px solid #EFECE4;background:#FBFAF7;border-radius:0 0 14px 14px">'+
+        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0">'+
+        srow('Subtotal',SAMPLE.subtotal)+srow('Shipping',SAMPLE.shipping)+srow('Payment',SAMPLE.payment)+
+        '<tr><td style="padding:9px 0 0;font-family:'+STACK+';font-size:14px;font-weight:700;color:#15110D;border-top:1px solid #E5E2DA">Total</td>'+
+        '<td align="right" style="padding:9px 0 0;font-family:'+STACK+';font-size:15.5px;font-weight:800;color:#15110D;border-top:1px solid #E5E2DA">'+SAMPLE.total+'</td></tr>'+
+        '</table></td></tr>'+
+    '</table>';
+  if(mode==='export') return '<!-- TEMPLATE AREA {order_table}: replace this sample card with the Woo order items table -->'+inner+'<!-- /TEMPLATE AREA {order_table} -->';
+  if(areas) return '<div style="outline:1.5px dashed #B88448;outline-offset:4px;border-radius:14px" title="{order_table}">'+inner+'</div>';
+  return inner;
+}
+
+/* ——— order progress stepper — gold = the working tick ——— */
+function stepper(steps){
+  const dot = st => st==='current'
+    ? '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#B88448"></span>'
+    : st==='done'
+    ? '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#15110D"></span>'
+    : '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;border:1px solid #C9C4BB"></span>';
+  const cells = steps.map(s=>'<td align="center" style="padding:0 2px">'+dot(s.st)+
+    '<div style="font-family:'+MONO+';font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;margin-top:7px;color:'+(s.st==='current'?'#B88448':s.st==='done'?'#15110D':'#A9A49B')+';white-space:nowrap">'+s.label+'</div></td>').join('<td width="14%" style="vertical-align:top;padding-top:4px"><div style="border-top:1px solid #DAD5CB;font-size:0;line-height:0">&nbsp;</div></td>');
+  return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:20px 0 2px"><tr>'+cells+'</tr></table>';
+}
+
+/* per-email order progress (gold dot = the working tick) */
+const STEPS = {
+  'processing': [['Placed','done'],['Processing','current'],['Shipped','todo']],
+  'on-hold':    [['Placed','done'],['On hold','current'],['Shipped','todo']],
+  'completed':  [['Placed','done'],['Processing','done'],['Shipped','current']]
+};
+const RTB_IDS = ['new-account']; /* emails that close with the range strip */
+
+function renderEmail(E, opts){
+  const {variant='typo', mode='preview', areas=false} = opts||{};
+  const frame = (opts && 'frame' in opts) ? opts.frame : (mode==='preview');
+  const land = (variant==='land' && E.land) ? E.land : null;
+  const P = s => fillTags(s, mode, areas);
+
+  /* body blocks */
+  let body = '';
+  for(const b of E.blocks){
+    if(b.t==='p')   body += '<p style="margin:0 0 15px;font-family:'+STACK+';font-size:14.5px;line-height:1.66;color:#3B362F">'+P(b.x)+'</p>';
+    if(b.t==='cta') body += '<table role="presentation" cellpadding="0" cellspacing="0" style="margin:22px 0 24px"><tr>'+
+      '<td bgcolor="#15110D" style="border-radius:999px;background:#15110D">'+
+      '<a href="'+(mode==='export'?(b.href||'#'):'#')+'" style="display:inline-block;padding:12px 28px;font-family:'+STACK+';font-size:13px;font-weight:700;letter-spacing:.02em;color:#FFFFFF;text-decoration:none;border-radius:999px">'+P(b.x)+'</a></td>'+
+    '</tr></table>';
+    if(b.t==='note') body += '<div style="margin:4px 0 18px;padding:15px 18px;background:#FFFFFF;border:1px solid #E5E2DA;border-left:3px solid #B88448;border-radius:0 10px 10px 0;font-family:'+STACK+';font-size:14px;line-height:1.6;color:#15110D">'+P(b.x)+'</div>';
+    if(b.t==='contact') body += '<p style="margin:4px 0 15px;font-family:'+STACK+';font-size:14.5px;line-height:1.66;color:#3B362F">'+
+      tagSpan('contact_block','<a href="mailto:hello@ki.bio" style="color:#B88448;font-weight:700;text-decoration:none">hello@ki.bio</a> &nbsp;·&nbsp; <a href="#" style="color:#B88448;font-weight:700;text-decoration:none">Help &amp; FAQ</a>', mode, areas)+'</p>';
+  }
+  if(E.table) body += orderTable(mode, areas);
+  if(RTB_IDS.includes(E.id)){
+    const pucksRow = Object.values(FLAVORS).map(F=>'<td align="center" style="padding:0 7px"><img src="'+ABS(F.img)+'" width="40" height="40" alt="'+F.name+'" style="display:block;width:40px;height:40px"></td>').join('');
+    body += '<div style="margin-top:28px;padding-top:22px;border-top:1px solid #E5E2DA">'+
+      '<table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto"><tr>'+pucksRow+'</tr></table>'+
+      '<div style="text-align:center;font-family:'+MONO+';font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#B88448;margin-top:14px">Chef-crafted flavours &nbsp;·&nbsp; Naturally sweetened &nbsp;·&nbsp; Small batch</div>'+
+    '</div>';
+  }
+
+  const preheader = E.preheader ? '<div style="display:none;max-height:0;overflow:hidden;mso-hide:all">'+E.preheader+'</div>' : '';
+
+  /* 1 · header — crest + utility nav on paper */
+  const navL = (t,h)=>'<a href="'+h+'" style="font-family:'+MONO+';font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#15110D;text-decoration:none">'+t+'</a>';
+  const header = '<tr><td bgcolor="#FCFBF8" style="padding:18px 30px;background:#FCFBF8;border-bottom:1px solid #E5E2DA">'+
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'+
+    '<td><a href="https://ki.bio"><img src="'+ABS('assets/crest.png')+'" width="34" alt="Ki 気" style="display:block;width:34px;height:auto;border:0"></a></td>'+
+    '<td align="right">'+navL('Shop','https://ki.bio')+'<span style="color:#C9C4BB">&nbsp;&nbsp;·&nbsp;&nbsp;</span>'+navL('Account','https://ki.bio/my-account/')+'<span style="color:#C9C4BB">&nbsp;&nbsp;·&nbsp;&nbsp;</span>'+navL('Help','mailto:hello@ki.bio')+'</td>'+
+    '</tr></table></td></tr>';
+
+  /* 2 · optional painted band (unique per email) */
+  const bandImg = land ? '<tr><td style="line-height:0;font-size:0"><img src="'+ABS('assets/land/'+land+'.webp')+'" width="600" alt="Ki landscape" style="display:block;width:100%;height:auto"></td></tr>' : '';
+
+  /* 3 · title block — eyebrow, ink headline, stepper, hairline */
+  const steps = STEPS[E.id] ? stepper(STEPS[E.id].map(s=>({label:s[0],st:s[1]}))) : '';
+  const title = '<tr><td bgcolor="#FCFBF8" style="padding:30px 36px 0;background:#FCFBF8">'+
+    (E.eyebrow?'<div style="font-family:'+MONO+';font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:#B88448;padding-bottom:10px">'+E.eyebrow+'</div>':'')+
+    '<div style="font-family:'+STACK+';font-weight:800;font-size:25px;line-height:1.24;color:#15110D">'+P(E.heading)+'</div>'+
+    steps+
+    '<div style="height:1px;background:#E5E2DA;margin:24px 0 0;font-size:0;line-height:0">&nbsp;</div>'+
+  '</td></tr>';
+
+  /* 5 · footer — company left, links right; light compliance strip */
+  const footer =
+    '<tr><td bgcolor="#FCFBF8" style="padding:22px 36px 24px;background:#FCFBF8;border-top:1px solid #E5E2DA">'+
+      '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'+
+      '<td valign="top"><img src="'+ABS('assets/logo-black.png')+'" width="24" alt="Ki" style="display:block;width:24px;height:auto">'+
+        '<div style="font-family:'+STACK+';font-size:10.5px;color:#706B63;margin-top:10px;line-height:1.6">Ki Bio Ltd. · United Kingdom<br><a href="https://www.ki.bio" style="color:#706B63">www.ki.bio</a></div></td>'+
+      '<td valign="top" align="right" style="font-family:'+STACK+';font-size:11.5px;font-weight:700;line-height:2">'+
+        '<a href="https://ki.bio" style="color:#15110D;text-decoration:none">Shop the range</a><br>'+
+        '<a href="https://ki.bio/my-account/" style="color:#15110D;text-decoration:none">Your account</a><br>'+
+        '<a href="mailto:hello@ki.bio" style="color:#15110D;text-decoration:none">Get help</a></td>'+
+      '</tr></table></td></tr>'+
+    '<tr><td bgcolor="#EFEDE7" align="center" style="padding:11px 20px;background:#EFEDE7">'+
+      '<span style="font-family:'+MONO+';font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#706B63">Nicotine is an addictive substance. For adults 18+ only. Seriously.</span>'+
+    '</td></tr>';
+
+  const emailTable =
+    '<table role="presentation" width="600" cellpadding="0" cellspacing="0" align="center" style="width:600px;max-width:100%;border:1px solid #E7E4DC;border-radius:'+(frame?'0':'2px')+';box-shadow:0 10px 34px rgba(21,17,13,.08)">'+
+      header + bandImg + title +
+      '<tr><td bgcolor="#FCFBF8" style="padding:24px 36px 30px;background:#FCFBF8">'+body+'</td></tr>'+
+      footer +
+    '</table>';
+
+  const caption = mode==='preview' && E.table ? '<div style="font-family:'+MONO+';font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#9B958A;padding:14px 0 8px;text-align:center">Sample order data — prices illustrative</div>' : '';
+  const head = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
+    '<style>'+FONT_CSS+' body{margin:0;padding:0} a{color:#B88448}</style></head>';
+
+  if(frame){
+    const to = E.adminPlain ? 'orders@ki.bio' : 'John Doe &lt;john.doe@example.com&gt;';
+    return head+'<body style="margin:0;padding:0;background:#F4F4F2">'+preheader+
+      '<div style="max-width:720px;margin:22px auto 8px;background:#FFFFFF;border:1px solid #E3E2DE;border-radius:12px;overflow:hidden;box-shadow:0 8px 28px rgba(21,17,13,.05)">'+
+        '<div style="padding:15px 22px 13px;border-bottom:1px solid #ECECEA;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif">'+
+          '<div style="font-size:14.5px;font-weight:600;color:#202124">'+P(E.subject)+'</div>'+
+          '<div style="margin-top:6px;font-size:11.5px;color:#5F6368"><span style="color:#202124;font-weight:600">Ki 気</span> &lt;hello@ki.bio&gt; &nbsp;·&nbsp; to '+to+'</div>'+
+        '</div>'+
+        '<div style="background:#EFEDE7;padding:26px 14px">'+emailTable+'</div>'+
+      '</div>'+
+      '<div style="max-width:720px;margin:0 auto">'+caption+'</div>'+
+    '</body></html>';
+  }
+  return head+'<body bgcolor="#EFEDE7" style="margin:0;padding:0;background:#EFEDE7">'+preheader+
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#EFEDE7"><tr><td align="center" style="padding:30px 12px">'+
+    emailTable + caption +
+    '</td></tr></table></body></html>';
+}
+
+/* export wrapper with handoff comment banner */
+function exportEmail(E, variant){
+  const banner = '<!--\n  Ki · '+E.title+'  ·  WooCommerce email: '+E.wooId+'\n'+
+    '  Template override path: '+E.tpl+'\n'+
+    '  Variant: '+(variant==='land'?'landscape header':'typographic')+'\n'+
+    '  Subject ('+(E.subjectNote||'')+'): '+E.subject+'\n'+
+    '  Merge tags kept as {placeholders} — map to Woo values at build time.\n'+
+    '  Assets referenced absolutely from the World of Ki repo; rehost on ki.bio for production sends.\n-->\n';
+  return banner + renderEmail(E, {variant, mode:'export'});
+}
+</script>
+
+<script>
+/* standalone mock mode: ?mock=<id>&v=land&areas=1 renders just the email (previews, screenshots, sharing) */
+const MOCKQ = new URLSearchParams(location.search).get('mock');
+if(MOCKQ){
+  const E = EMAILS.find(e=>e.id===MOCKQ);
+  if(E && !E.decision){
+    const q=new URLSearchParams(location.search);
+    const html = renderEmail(E,{variant:q.get('v')==='land'?'land':'typo', mode:'preview', areas:q.get('areas')==='1', frame:q.get('bare')!=='1'});
+    /* defer past initial parse — document.open() is a no-op while the parser is running */
+    setTimeout(()=>{ document.open(); document.write(html); document.close(); }, 0);
+  }
+}
+
+/* ═════════════ HANDOFF GENERATORS ═════════════ */
+function blocksToText(E){
+  return E.blocks.map(b=>{
+    if(b.t==='cta') return '[BUTTON] '+b.x+'  →  '+(b.href||'');
+    if(b.t==='note') return '[NOTE BLOCK] '+b.x;
+    if(b.t==='contact') return '[CONTACT] {contact_block}';
+    return b.x.replace(/<[^>]+>/g,'');
+  }).join('\n\n') + (E.table ? '\n\n[ORDER TABLE] {order_table}' : '');
+}
+function stringsJSON(){
+  const o = {};
+  EMAILS.filter(e=>!e.decision).forEach(E=>{
+    o[E.wooId] = {
+      title:E.title, status:E.status,
+      subject:E.subject, subject_note:E.subjectNote||'',
+      heading:E.heading, preheader:E.preheader||'',
+      body:blocksToText(E),
+      template_override:E.tpl,
+      landscape_header:E.land ? 'assets/land/'+E.land+'.webp' : null,
+      notes:(E.flags||[]).map(f=>f.x.replace(/<[^>]+>/g,'')),
+      open_question:E.question||null
+    };
+  });
+  EMAILS.filter(e=>e.decision).forEach(E=>{
+    o[E.wooId] = {title:E.title, status:E.status, decision:E.question, notes:(E.flags||[]).map(f=>f.x.replace(/<[^>]+>/g,''))};
+  });
+  return JSON.stringify(o,null,2);
+}
+function readmeMD(){
+  return `# Ki · WooCommerce email handoff
+Generated from the World of Ki → Emails tool (${location.href.split('#')[0]})
+Copy source: "Ki — Website review · Emails" deck. Sample order data in the HTML is illustrative.
+
+## What's in here
+- html/typographic/   full standalone HTML per email — base template (crest + utility nav, ink headline on paper, order card)
+- html/landscape/     same emails with the painted landscape band (customer emails only)
+- php/                WooCommerce template overrides for the SHARED wrapper (header + footer) — drop into yourtheme/woocommerce/emails/
+- strings.json        per-email subject / heading / body copy with {placeholders} — for a settings-level pass or i18n
+- assets/             the real brand binaries used (crest, logos, landscape bands, tin renders)
+
+## Two-layer handoff (choose per build)
+1. WRAPPER LAYER — install php/email-header.php + php/email-footer.php as template overrides.
+   Every Woo email (incl. the "no change" admin ones) instantly gets the Ki shell.
+   Then set per-email subject/heading strings from strings.json in WooCommerce → Settings → Emails.
+2. FULL-TEMPLATE LAYER — use html/ files as the reference build for per-email overrides
+   (or paste into an HTML-email plugin). {placeholders} map 1:1 to Woo values;
+   replace the sample order block with the Woo order items table.
+
+## Notes for the build
+- Woo core sends cancelled_order / failed_order to ADMIN only. The customer-facing
+  Cancelled + Failed emails here need a small custom email class (or plugin) — flagged in-tool.
+- customer_invoice ("Order details") is cut per the deck, BUT it doubles as the
+  "pay for this order" email for pending orders — confirm before disabling.
+- "Completed" copy reads pre-shipment — confirm trigger mapping (see in-tool flag).
+- Subjects marked "Woo default" were not covered in the deck.
+- Fonts: Obviously is @font-face'd from the repo for clients that support web fonts
+  (Apple Mail etc.); everything falls back to Helvetica/Arial cleanly. Rehost fonts +
+  images on ki.bio for production sends.
+- Compliance footer is baked into the wrapper: "Nicotine is an addictive substance. For adults 18+ only. Seriously."
+`;
+}
+function phpHeader(){
+  return `<?php
+/**
+ * Ki · WooCommerce email header override
+ * Place at: yourtheme/woocommerce/emails/email-header.php
+ * Ki shell: canvas field, 600px card, crest header, black heading band.
+ * @var string $email_heading
+ */
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+$crest = 'https://ki.bio/wp-content/uploads/ki/crest.png'; // rehost assets/crest.png
+?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' ); ?>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><?php echo esc_html( get_bloginfo( 'name', 'display' ) ); ?></title>
+  <style>
+    @font-face{font-family:'Obviously';src:url('https://ki.bio/fonts/Obviously-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+    @font-face{font-family:'Obviously';src:url('https://ki.bio/fonts/Obviously-Black.woff2') format('woff2');font-weight:800 900;font-display:swap}
+    body{margin:0;padding:0}
+  </style>
+</head>
+<body bgcolor="#EFEDE7" style="margin:0;padding:0;background:#EFEDE7">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#EFEDE7"><tr><td align="center" style="padding:30px 12px">
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;box-shadow:0 10px 34px rgba(21,17,13,.10)">
+    <tr><td bgcolor="#FCFBF8" align="center" style="padding:30px 0 26px;background:#FCFBF8">
+      <a href="<?php echo esc_url( home_url() ); ?>"><img src="<?php echo esc_url( $crest ); ?>" width="48" alt="Ki" style="display:block;width:48px;height:auto;border:0" /></a>
+    </td></tr>
+    <tr><td bgcolor="#15110D" style="padding:26px 36px 27px;background:#15110D">
+      <div style="font-family:'Obviously','Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:800;font-size:24px;line-height:1.22;color:#FFFFFF"><?php echo esc_html( $email_heading ); ?></div>
+    </td></tr>
+    <tr><td bgcolor="#FCFBF8" style="padding:32px 36px 30px;background:#FCFBF8;font-family:'Obviously','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.62;color:#3B362F">
+`;
+}
+function phpFooter(){
+  return `<?php
+/**
+ * Ki · WooCommerce email footer override
+ * Place at: yourtheme/woocommerce/emails/email-footer.php
+ */
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+$logo = 'https://ki.bio/wp-content/uploads/ki/logo-black.png'; // rehost assets/logo-black.png
+?>
+    </td></tr>
+    <tr><td bgcolor="#F5F3EC" align="center" style="padding:26px 36px 28px;background:#F5F3EC;border-top:1px solid #E5E5E5">
+      <img src="<?php echo esc_url( $logo ); ?>" width="30" alt="Ki" style="display:block;width:30px;height:auto;margin:0 auto 12px" />
+      <div style="font-family:'Obviously','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;color:#15110D">
+        <a href="<?php echo esc_url( home_url() ); ?>" style="color:#15110D;text-decoration:none">ki.bio</a> &nbsp;&middot;&nbsp;
+        <a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" style="color:#15110D;text-decoration:none">Your account</a> &nbsp;&middot;&nbsp;
+        <a href="mailto:hello@ki.bio" style="color:#15110D;text-decoration:none">Help</a>
+      </div>
+      <div style="font-family:'Obviously',Helvetica,Arial,sans-serif;font-size:11px;color:#706B63;margin-top:10px">Ki Bio Ltd. &middot; United Kingdom &middot; <a href="https://www.ki.bio" style="color:#706B63">www.ki.bio</a></div>
+      <div style="font-family:'SF Mono',Menlo,monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#706B63;margin-top:12px">Nicotine is an addictive substance.<br />For adults 18+ only. Seriously.</div>
+    </td></tr>
+  </table>
+</td></tr></table>
+</body>
+</html>
+`;
+}
+
+/* ═════════════ MINIMAL ZIP (store method) ═════════════ */
+const CRC_T = (()=>{let t=[],c;for(let n=0;n<256;n++){c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc32(u8){let c=0xFFFFFFFF;for(let i=0;i<u8.length;i++)c=CRC_T[(c^u8[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
+function makeZip(files){ /* files: [{name, data:Uint8Array}] */
+  const enc=new TextEncoder(); const chunks=[]; const central=[]; let offset=0;
+  const W=(n,v)=>{const a=new Uint8Array(n);for(let i=0;i<n;i++)a[i]=(v>>>(8*i))&0xFF;return a};
+  for(const f of files){
+    const name=enc.encode(f.name), crc=crc32(f.data), sz=f.data.length;
+    const local=[W(4,0x04034b50),W(2,20),W(2,0x0800),W(2,0),W(2,0),W(2,0),W(4,crc),W(4,sz),W(4,sz),W(2,name.length),W(2,0),name,f.data];
+    central.push({name,crc,sz,offset});
+    for(const p of local){chunks.push(p);offset+=p.length}
+  }
+  const cdStart=offset; let cdLen=0;
+  for(const c of central){
+    const rec=[W(4,0x02014b50),W(2,20),W(2,20),W(2,0x0800),W(2,0),W(2,0),W(2,0),W(4,c.crc),W(4,c.sz),W(4,c.sz),W(2,c.name.length),W(2,0),W(2,0),W(2,0),W(2,0),W(4,0),W(4,c.offset),c.name];
+    for(const p of rec){chunks.push(p);cdLen+=p.length}
+  }
+  chunks.push(W(4,0x06054b50),W(2,0),W(2,0),W(2,central.length),W(2,central.length),W(4,cdLen),W(4,cdStart),W(2,0));
+  return new Blob(chunks,{type:'application/zip'});
+}
+async function fetchBytes(rel){ const r=await fetch(rel); if(!r.ok) throw new Error(rel); return new Uint8Array(await r.arrayBuffer()); }
+function dl(name, blob){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),4000); }
+function dlText(name, text, type='text/plain'){ dl(name, new Blob([text],{type})); }
+
+async function buildBundle(){
+  toast('Building bundle…');
+  const enc=new TextEncoder(); const files=[];
+  files.push({name:'README.md', data:enc.encode(readmeMD())});
+  files.push({name:'strings.json', data:enc.encode(stringsJSON())});
+  files.push({name:'php/email-header.php', data:enc.encode(phpHeader())});
+  files.push({name:'php/email-footer.php', data:enc.encode(phpFooter())});
+  for(const E of EMAILS.filter(e=>!e.decision)){
+    files.push({name:'html/typographic/'+E.id+'.html', data:enc.encode(exportEmail(E,'typo'))});
+    if(E.land) files.push({name:'html/landscape/'+E.id+'.html', data:enc.encode(exportEmail(E,'land'))});
+  }
+  const assets=['assets/crest.png','assets/logo-black.png','assets/logo-white.png',
+    ...Object.values(FLAVORS).map(f=>f.img),
+    ...[...new Set(EMAILS.map(e=>e.land).filter(Boolean))].map(l=>'assets/land/'+l+'.webp')];
+  for(const a of assets){ try{ files.push({name:a, data:await fetchBytes(a)}); }catch(e){ console.warn('asset skipped',a); } }
+  dl('Ki_Woo_Emails_Handoff.zip', makeZip(files));
+  toast('Woo handoff bundle downloaded');
+}
+
+/* ═════════════ UI ═════════════ */
+const $=s=>document.querySelector(s);
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('on'),2400); }
+const state={variant:{}, areas:false, open:null};
+EMAILS.forEach(e=>state.variant[e.id]='typo');
+
+/* counts */
+if(!MOCKQ)(function(){
+  const n=s=>EMAILS.filter(e=>e.status===s).length;
+  $('#counts').innerHTML =
+    '<span class="chip"><span class="dot gold"></span><b>'+n('ready')+'</b>&nbsp;designed</span>'+
+    '<span class="chip"><span class="dot mute"></span><b>'+n('nochange')+'</b>&nbsp;no change</span>'+
+    '<span class="chip"><span class="dot ink"></span><b>'+n('cut')+'</b>&nbsp;cut</span>'+
+    '<span class="chip"><span class="dot red"></span><b>'+n('open')+'</b>&nbsp;open questions</span>'+
+    '<span class="chip">600px · table-based · Woo-ready</span>';
+})();
+
+/* flow map */
+if(!MOCKQ)(function(){
+  const node=(id,t,s,cls)=>'<div class="fnode '+(cls||'')+'" data-open="'+id+'">'+t+'<small>'+s+'</small></div>';
+  const arrow='<div class="farrow">→</div>';
+  $('#flow').innerHTML =
+    '<div class="lane">'+node('new-account','New account','joins ki.bio')+'</div>'+arrow+
+    '<div class="lane">'+node('processing','Processing','order placed · paid')+'</div>'+arrow+
+    '<div class="lane fstack"><div>'+node('on-hold','On-hold','awaiting payment')+'</div><div>'+node('customer-note','Customer note','anytime')+'</div></div>'+arrow+
+    '<div class="lane">'+node('completed','Completed','fulfilled')+'</div>'+arrow+
+    '<div class="lane fstack"><div class="branchlbl">if it goes sideways</div><div>'+node('refunded','Refunded','money back','terminal')+'</div><div>'+node('cancelled','Cancelled','order stopped','terminal')+'</div><div>'+node('failed','Failed','payment issue','terminal')+'</div></div>'+
+    '<div class="farrow" style="padding:0 16px">·</div>'+
+    '<div class="lane fstack"><div class="branchlbl">access</div><div>'+node('reset-password','Reset password','on request')+'</div></div>';
+})();
+
+/* library */
+if(!MOCKQ)(function(){
+  const lib=$('#lib');
+  for(const G of GROUPS){
+    const list=EMAILS.filter(e=>e.group===G.id);
+    const sec=document.createElement('div'); sec.className='group';
+    sec.innerHTML='<div class="group-head"><span class="k">'+G.k+'</span><h2>'+G.name+'</h2><span class="n">'+G.sub+' · '+list.length+'</span></div>';
+    const grid=document.createElement('div'); grid.className='grid';
+    for(const E of list){
+      const card=document.createElement('div'); card.className='card'; card.dataset.open=E.id;
+      const chip='<span class="status '+E.status+'">'+({ready:'ready',nochange:'no change',cut:'cut',open:'open'})[E.status]+'</span>';
+      let thumb;
+      if(E.decision){
+        thumb='<div class="thumb"><div class="decis">'+E.question+'</div></div>';
+      } else {
+        thumb='<div class="thumb"><div class="twrap"><iframe loading="lazy" title="'+E.title+'"></iframe></div></div>';
+      }
+      card.innerHTML=thumb+'<div class="cmeta"><div class="t">'+E.title+chip+'</div><div class="id">'+E.wooId+'</div></div>';
+      grid.appendChild(card);
+      if(!E.decision){
+        const fr=card.querySelector('iframe');
+        fr.onload=()=>{ /* scale the full email to fit the card */
+          try{
+            const doc=fr.contentDocument; if(!doc) return;
+            const h=doc.documentElement.scrollHeight||1200;
+            const tw=fr.parentElement.clientWidth||300, s=tw/720;
+            fr.style.height=h+'px'; fr.style.transform='scale('+s+')';
+            fr.parentElement.style.height=Math.ceil(h*s)+'px';
+          }catch(err){}
+        };
+        fr.srcdoc=renderEmail(E,{variant:E.land?'land':'typo', mode:'preview'});
+      }
+    }
+    sec.appendChild(grid); lib.appendChild(sec);
+  }
+})();
+
+/* detail overlay */
+function openDetail(id){
+  const E=EMAILS.find(e=>e.id===id); if(!E) return;
+  state.open=id;
+  try{ history.replaceState(null,'','#e='+id); }catch(e){}
+  $('#ovl').classList.add('on'); document.body.style.overflow='hidden';
+  renderRail(E); renderPreview(E);
+}
+function closeDetail(){ $('#ovl').classList.remove('on'); document.body.style.overflow=''; try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){} }
+function renderPreview(E){
+  const fr=$('#pvFrame');
+  if(E.decision){ fr.srcdoc='<body style="margin:0;display:flex;align-items:center;justify-content:center;min-height:60vh;background:#EFEDE7;font-family:sans-serif;color:#706B63;font-size:13px">No mockup — decision card</body>'; $('#pvCap').textContent='—'; return; }
+  fr.srcdoc=renderEmail(E,{variant:state.variant[E.id], mode:'preview', areas:state.areas});
+  fr.onload=()=>{ try{ fr.style.height=(fr.contentDocument.documentElement.scrollHeight+4)+'px'; }catch(e){ fr.style.height='900px'; } };
+  $('#pvCap').textContent = E.title+' — '+(state.variant[E.id]==='land'?'landscape header':'typographic')+(state.areas?' · template areas shown':'');
+}
+function renderRail(E){
+  const st={ready:'ready',nochange:'no change',cut:'cut',open:'open question'}[E.status];
+  let h='<h3>'+E.title+'</h3>';
+  h+='<div class="sect"><div class="lbl">Woo mapping</div><div class="kv">'+
+     '<div class="k">Email ID</div><div class="v mono">'+E.wooId+'</div>'+
+     '<div class="k">Override</div><div class="v mono">'+E.tpl+'</div>'+
+     '<div class="k">Status</div><div class="v">'+st+'</div>'+
+     (E.subject && E.subject!=='—' ? '<div class="k">Subject</div><div class="v">'+E.subject+(E.subjectNote?' <span style="color:var(--mute);font-weight:400">— '+E.subjectNote+'</span>':'')+'</div>':'')+
+     (E.preheader?'<div class="k">Preheader</div><div class="v" style="font-weight:400">'+E.preheader+'</div>':'')+
+     '</div></div>';
+  if(E.question) h+='<div class="sect"><div class="lbl">Open decision</div><div class="qtext">'+E.question+'</div></div>';
+  if(!E.decision){
+    if(E.land){
+      h+='<div class="sect"><div class="lbl">Header variant</div><div class="seg" id="segVar">'+
+         '<button data-v="typo" class="'+(state.variant[E.id]==='typo'?'on':'')+'">Typographic</button>'+
+         '<button data-v="land" class="'+(state.variant[E.id]==='land'?'on':'')+'">Landscape</button></div>'+
+         '<div style="font-size:11px;color:var(--mute);margin-top:7px">Painted band: <span class="mono" style="font-size:10px">'+E.land+'.webp</span> — unique to this email.</div></div>';
+    } else if(!E.adminPlain){
+      h+='';
+    }
+    h+='<div class="sect"><div class="lbl">Template areas</div><div class="tglrow" style="margin-bottom:10px">Show areas on mockup <button class="switch '+(state.areas?'on':'')+'" id="areaTgl" aria-label="toggle template areas"></button></div><div class="areas">'+
+       E.areas.map(a=>'<div class="area"><code>{'+a+'}</code><span>'+(TAGS[a]||'')+'</span></div>').join('')+'</div></div>';
+  }
+  if(E.flags && E.flags.length){
+    h+='<div class="sect"><div class="lbl">Flags — confirm</div><div class="flags">'+
+       E.flags.map(f=>'<div class="flag'+(f.k==='dev'?' devnote':'')+'"><b>'+(f.k==='dev'?'Dev · ':'Copy · ')+'</b>'+f.x+'</div>').join('')+'</div></div>';
+  }
+  if(!E.decision){
+    h+='<div class="sect"><div class="lbl">Downloads</div><div class="dl">'+
+       '<button class="btn sm" data-dl="html">⬇ '+E.id+'.html</button>'+
+       '<button class="btn sm ghost" data-dl="copyhtml">Copy HTML</button>'+
+       '<button class="btn sm ghost" data-dl="strings">⬇ strings.json (all)</button>'+
+       '</div><div style="font-size:10.5px;color:var(--mute);margin-top:8px">HTML exports the variant currently shown, with {placeholders} intact. Full set + PHP wrapper + assets: “Woo handoff bundle” up top.</div></div>';
+  }
+  $('#rail').innerHTML=h;
+  const seg=$('#segVar');
+  if(seg) seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{ state.variant[E.id]=b.dataset.v; renderRail(E); renderPreview(E); });
+  const tg=$('#areaTgl');
+  if(tg) tg.onclick=()=>{ state.areas=!state.areas; renderRail(E); renderPreview(E); };
+  $('#rail').querySelectorAll('[data-dl]').forEach(b=>b.onclick=()=>{
+    if(b.dataset.dl==='html') dlText(E.id+'.html', exportEmail(E,state.variant[E.id]), 'text/html');
+    if(b.dataset.dl==='copyhtml'){ navigator.clipboard.writeText(exportEmail(E,state.variant[E.id])).then(()=>toast('HTML copied')); }
+    if(b.dataset.dl==='strings') dlText('strings.json', stringsJSON(), 'application/json');
+  });
+}
+if(!MOCKQ){
+  document.addEventListener('click',e=>{
+    const t=e.target.closest('[data-open]'); if(t){ openDetail(t.dataset.open); return; }
+    if(e.target.id==='ovl'||e.target.id==='closeBtn'||e.target.closest('#closeBtn')) closeDetail();
+  });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDetail(); });
+  $('#bundleBtn').onclick=()=>buildBundle().catch(e=>{console.error(e);toast('Bundle failed — see console')});
+  const hm=location.hash.match(/e=([a-z-]+)/) || location.search.match(/[?&]e=([a-z-]+)/); if(hm) openDetail(hm[1]);
+}
+</script>
+</body>
+</html>
