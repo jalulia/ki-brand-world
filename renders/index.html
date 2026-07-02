@@ -33,6 +33,9 @@
   nav.tabs button:hover{background:var(--bg)}
   nav.tabs button.on{background:var(--ink);color:#fff}
   nav.tabs button .k{margin-left:7px;opacity:.55;font-weight:600}
+  nav.tabs button.mng{margin-left:auto;border-style:dashed;color:var(--sub)}
+  nav.tabs button.mng:hover{background:var(--bg);color:var(--ink)}
+  body.manage nav.tabs button.mng{background:var(--ok);border-color:var(--ok);border-style:solid;color:#fff}
 
   /* ---------- sheet ---------- */
   .sheet-wrap{max-width:1360px;margin:26px auto 0;padding:0 28px}
@@ -173,10 +176,7 @@
 
 <footer>
   <span class="oslash">Ø</span> Confidential &amp; proprietary work for Ki Bio
-  <span class="right">
-    <span>Render Sheet Spec · V2 Identity</span>
-    <button class="lock" id="lockBtn">Manage</button>
-  </span>
+  <span class="right"><span>Render Sheet Spec · V2 Identity</span></span>
 </footer>
 
 <script>
@@ -298,7 +298,8 @@ function render(){
   $('#metaFlavor').textContent=fl.name.toUpperCase();
   $('#metaKanji').textContent=fl.kanji;
   $('#metaSheet').textContent=(FLAVORS.indexOf(fl)+1)+' / '+FLAVORS.length;
-  $('#tabs').innerHTML=FLAVORS.map(f=>`<button class="${f.key===current?'on':''}" data-fl="${f.key}">${esc(f.name)}<span class="k">${esc(f.kanji)}</span></button>`).join('');
+  $('#tabs').innerHTML=FLAVORS.map(f=>`<button class="${f.key===current?'on':''}" data-fl="${f.key}">${esc(f.name)}<span class="k">${esc(f.kanji)}</span></button>`).join('')
+    +`<button class="mng" id="lockBtn">${document.body.classList.contains('manage')?'Manage · unlocked':'Manage'}</button>`;
   const rows=current==='line'?LINE_ROWS:ROWS;
   $('#rows').innerHTML=rows.map(r=>`<div class="row ${r.cls}"><div class="rail"><div class="num">${r.num}</div><div class="rlabel">${esc(r.label)}</div></div>
     <div class="cells">${r.slots.map(s=>slotHtml(current,s)).join('')}</div></div>`).join('');
@@ -307,7 +308,8 @@ function render(){
 }
 
 function wire(){
-  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{current=b.dataset.fl;history.replaceState(null,'','#'+current);render();window.scrollTo({top:0});});
+  document.querySelectorAll('#tabs button[data-fl]').forEach(b=>b.onclick=()=>{current=b.dataset.fl;history.replaceState(null,'','#'+current);render();window.scrollTo({top:0});});
+  $('#lockBtn').onclick=toggleManage;
   document.querySelectorAll('.seg').forEach(seg=>seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{
     seg.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
     const box=seg.closest('[data-slotbox]'),sid=seg.dataset.slot,d=slotData(current,sid);
@@ -327,12 +329,12 @@ function wire(){
 
 /* ================= manage ================= */
 async function sha256(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
-$('#lockBtn').onclick=async()=>{
+async function toggleManage(){
   if(document.body.classList.contains('manage')){document.body.classList.remove('manage');localStorage.removeItem('ki-renders-manage');render();return;}
-  const p=prompt('Passphrase');if(!p)return;
+  const p=prompt('Passphrase (same as the index edit mode)');if(!p)return;
   if(await sha256(p)===PASS_HASH){document.body.classList.add('manage');localStorage.setItem('ki-renders-manage','1');render();}
   else alert('Not it.');
-};
+}
 if(localStorage.getItem('ki-renders-manage')==='1')document.body.classList.add('manage');
 
 /* ================= boot ================= */
