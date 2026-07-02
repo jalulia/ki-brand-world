@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ki · Marketing Materials</title>
+<meta name="description" content="Ki sell sheets — download, edit &amp; version. The 2026 UK Launch · Origin Collection.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- fonts: Obviously (repo webfonts) ---------- */
+@font-face{font-family:'Obviously';font-weight:300;font-style:normal;src:url(../assets/fonts/Obviously-Light.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Obviously';font-weight:500;font-style:normal;src:url(../assets/fonts/Obviously-Medium.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Obviously';font-weight:700;font-style:normal;src:url(../assets/fonts/Obviously-Bold.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Obviously';font-weight:800;font-style:normal;src:url(../assets/fonts/Obviously-Black.woff2) format('woff2');font-display:swap}
+
+/* ---------- Ki sell-sheet style-guide palette ---------- */
+:root{
+  --paper:#FCFBF8; --ink:#15110D; --body:#3B362F; --mute:#706B63;
+  --gold:#B88448; --rule:#E5E5E5; --red:#DC503C;
+  --canvas:#EFEDE7; --card:#FFFFFF; --shadow:0 14px 40px rgba(21,17,13,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--paper);color:var(--body);font:500 13.5px/1.5 'Obviously','Noto Sans JP',sans-serif}
+button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
+input,textarea{font:inherit;color:inherit}
+a{color:inherit}
+::selection{background:rgba(184,132,72,.25)}
+
+/* ---------- top bar ---------- */
+#top{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:0 28px;height:62px;background:rgba(252,251,248,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule)}
+#top .tl{display:flex;align-items:center;gap:13px;min-width:0}
+#top .tl img{width:30px;display:block}
+#top .wm{font-weight:800;font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+#top .ws{font-weight:500;font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--mute);margin-top:2px;white-space:nowrap}
+#top .tr{display:flex;align-items:center;gap:9px}
+
+/* ---------- buttons / chips ---------- */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--ink);
+  border-radius:4px;font-weight:700;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink);background:transparent;transition:all .15s;white-space:nowrap;text-decoration:none}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover{background:#000}
+.btn.ghost{border-color:var(--rule);color:var(--body)}
+.btn.ghost:hover{border-color:var(--ink);background:transparent;color:var(--ink)}
+.btn.sm{padding:6px 10px;font-size:8.5px}
+.btn.danger{border-color:var(--red);color:var(--red)}
+.btn.danger:hover{background:var(--red);color:#fff}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;
+  font-weight:700;font-size:8px;letter-spacing:.11em;text-transform:uppercase;white-space:nowrap}
+.chip.official{border:1px solid var(--gold);color:var(--gold)}
+.chip.edited{background:var(--ink);color:var(--paper)}
+.chip.custom{border:1px solid var(--mute);color:var(--mute)}
+.chip.saved{border:1px solid var(--rule);color:var(--mute)}
+
+/* ---------- library ---------- */
+#viewLib{max-width:1280px;margin:0 auto;padding:0 28px 70px}
+.hero{padding:44px 0 8px}
+.hero .eyebrow{font-weight:500;font-size:10.5px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-weight:800;font-size:38px;letter-spacing:-.014em;text-transform:uppercase;color:var(--ink);line-height:1;margin-top:12px}
+.hero p{font-weight:300;font-size:13px;line-height:1.6;color:var(--body);max-width:620px;margin-top:14px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:26px 0 6px;flex-wrap:wrap}
+.fchips{display:flex;gap:8px;flex-wrap:wrap}
+.fchip{padding:7px 13px;border:1px solid var(--rule);border-radius:20px;font-weight:700;font-size:8.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--mute);transition:all .15s}
+.fchip:hover{border-color:var(--mute);color:var(--ink)}
+.fchip.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+#q{width:220px;padding:8px 12px;border:1px solid var(--rule);border-radius:4px;background:var(--card);
+  font-size:12px;color:var(--ink)}
+#q:focus{outline:none;border-color:var(--gold)}
+#q::placeholder{color:var(--mute)}
+.ghead{display:flex;align-items:baseline;gap:14px;margin:34px 0 16px}
+.ghead .gt{font-weight:700;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.ghead .gs{font-weight:500;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
+.ghead .gl{flex:1;height:1px;background:var(--rule)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:6px;overflow:hidden;
+  transition:all .18s;display:flex;flex-direction:column}
+.card:hover{border-color:#D8D2C7;box-shadow:var(--shadow);transform:translateY(-2px)}
+.prev{position:relative;height:238px;background:var(--canvas);overflow:hidden;display:flex;
+  align-items:center;justify-content:center}
+.prev .pw{position:absolute;transition:opacity .25s}
+.prev .pw .spage{box-shadow:0 5px 18px rgba(21,17,13,.14)}
+.prev .pw.p2{opacity:0}
+.card:hover .prev .pw.p2{opacity:1}
+.card:hover .prev .pw.p1.hasflip{opacity:0}
+.prev .pgn{position:absolute;right:10px;bottom:8px;font-weight:700;font-size:7.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute);background:rgba(252,251,248,.85);padding:3px 7px;border-radius:3px}
+.cbody{padding:14px 16px 15px;display:flex;flex-direction:column;gap:9px;flex:1}
+.ct{font-weight:700;font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--ink)}
+.cm{font-weight:500;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.crow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.cact{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:4px}
+.cact .sp{flex:1}
+.menu-b{width:30px;height:30px;border:1px solid var(--rule);border-radius:4px;color:var(--mute);
+  font-size:14px;line-height:1;display:inline-flex;align-items:center;justify-content:center}
+.menu-b:hover{border-color:var(--ink);color:var(--ink)}
+.pmenu{position:absolute;z-index:60;background:var(--card);border:1px solid var(--rule);border-radius:6px;
+  box-shadow:var(--shadow);min-width:200px;padding:5px;display:flex;flex-direction:column}
+.pmenu button{text-align:left;padding:9px 12px;border-radius:4px;font-weight:500;font-size:11px;color:var(--body)}
+.pmenu button:hover{background:var(--paper);color:var(--ink)}
+.pmenu button.danger{color:var(--red)}
+.pmenu .div{height:1px;background:var(--rule);margin:5px 8px}
+#foot{max-width:1280px;margin:0 auto;padding:26px 28px 42px;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-weight:500;font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute)}
+
+/* ---------- editor ---------- */
+#viewEd{display:flex;flex-direction:column;height:calc(100vh - 62px)}
+#viewEd[hidden],#viewLib[hidden],#foot[hidden]{display:none}
+#edBar{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--rule);
+  background:var(--card);flex-wrap:wrap}
+#edTitle{border:none;background:transparent;font-weight:700;font-size:13px;letter-spacing:.03em;
+  text-transform:uppercase;color:var(--ink);min-width:200px;flex:0 1 340px;padding:5px 2px;
+  border-bottom:1px dashed transparent}
+#edTitle:hover,#edTitle:focus{outline:none;border-bottom-color:var(--gold)}
+#edStatus{font-weight:500;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.pgtabs{display:flex;gap:4px;border:1px solid var(--rule);border-radius:4px;padding:3px}
+.pgtabs button{padding:5px 11px;border-radius:3px;font-weight:700;font-size:8.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--mute)}
+.pgtabs button.on{background:var(--ink);color:var(--paper)}
+#zoomSel{padding:6px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--card);
+  font-weight:700;font-size:9px;letter-spacing:.08em;color:var(--body)}
+#edMain{display:flex;flex:1;min-height:0}
+#canvas{flex:1;overflow:auto;background:var(--canvas);display:flex;padding:36px}
+#canvasIn{margin:auto}
+#canvasIn .spage{box-shadow:0 18px 55px rgba(21,17,13,.20)}
+#rail{width:300px;flex:none;border-left:1px solid var(--rule);background:var(--card);overflow-y:auto;
+  display:flex;flex-direction:column}
+.rsec{padding:16px 18px;border-bottom:1px solid var(--rule)}
+.rsec h4{font-weight:700;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:11px}
+.rsec .hint{font-weight:300;font-size:11px;line-height:1.55;color:var(--mute)}
+.rrow{display:flex;align-items:center;gap:8px;margin-top:8px}
+.rrow .lab{font-weight:500;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);flex:1}
+.stepper{display:flex;align-items:center;gap:2px;border:1px solid var(--rule);border-radius:4px}
+.stepper button{width:26px;height:26px;font-weight:700;font-size:12px;color:var(--body)}
+.stepper button:hover{color:var(--ink);background:var(--paper)}
+.stepper .val{min-width:52px;text-align:center;font-weight:700;font-size:10px;color:var(--ink)}
+.vitem{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--rule)}
+.vitem:last-child{border-bottom:none}
+.vitem .vl{flex:1;min-width:0}
+.vitem .vn{font-weight:700;font-size:10.5px;color:var(--ink);letter-spacing:.04em}
+.vitem .vd{font-weight:500;font-size:8.5px;color:var(--mute);margin-top:2px}
+.vitem .vnote{font-weight:300;font-size:10px;color:var(--body);margin-top:3px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-size:10.5px}
+.kv .k{font-weight:500;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.kv .v{font-weight:500;color:var(--ink);text-align:right}
+
+/* ---------- sheet (namespaced) ---------- */
+.spage{position:relative;background:#FCFBF8;overflow:hidden;flex:none;
+  font-family:'Obviously','Noto Sans JP',sans-serif;color:#3B362F}
+.spage,.spage *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.spage.land{width:1056px;height:816px}
+.spage.port{width:816px;height:1056px}
+.spage .eyebrow{font-weight:500;text-transform:uppercase;letter-spacing:.42em;color:#B88448;font-size:10.5px}
+.spage .headline{font-weight:800;text-transform:uppercase;letter-spacing:-.014em;color:#15110D;line-height:.98}
+.spage .pname{font-weight:700;text-transform:uppercase;letter-spacing:.005em;color:#15110D}
+.spage .kanji{font-weight:500;color:#B88448}
+.spage .descr{font-weight:500;text-transform:uppercase;letter-spacing:.13em;color:#706B63}
+.spage .body{font-weight:300;color:#3B362F}
+.spage .num{font-weight:500;letter-spacing:.04em;color:#15110D}
+.spage .lbl{font-weight:500;text-transform:uppercase;letter-spacing:.15em;color:#706B63}
+.spage .sec{font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:#15110D}
+.spage .mgt{font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#FCFBF8;background:#B88448;
+  border-radius:20px;padding:1.5px 6px;font-size:6.6px;display:inline-block}
+.spage .attrs{font-weight:500;text-transform:uppercase;letter-spacing:.15em;color:#3B362F;font-size:8.5px}
+.spage .foot{position:absolute;left:48px;right:48px;bottom:24px;display:flex;justify-content:space-between;
+  font-weight:500;font-size:8.5px;letter-spacing:.05em;color:#706B63}
+.spage .hr{position:absolute;height:1px;background:#E5E5E5}
+.spage img{display:block}
+.spage .ed{outline:none}
+.spage .bcx svg{display:block;width:100%;height:100%}
+
+/* editing affordances (only inside editor canvas) */
+.editing .ed{cursor:text;border-radius:2px}
+.editing .ed:hover{box-shadow:0 0 0 1px #E7E1D5}
+.editing .ed:focus{box-shadow:0 0 0 1.5px rgba(184,132,72,.95);background:rgba(184,132,72,.06)}
+.editing .slot{cursor:pointer}
+.editing .slot:hover{outline:2px dashed rgba(184,132,72,.8);outline-offset:3px}
+.editing .slot.selq{outline:2px solid rgba(184,132,72,.95);outline-offset:3px}
+
+/* ---------- modal / toast ---------- */
+#modalWrap{position:fixed;inset:0;z-index:80;background:rgba(21,17,13,.44);display:flex;
+  align-items:flex-start;justify-content:center;padding:8vh 20px 20px;overflow:auto}
+.modal{background:var(--paper);border-radius:8px;width:540px;max-width:100%;padding:28px;
+  box-shadow:0 30px 80px rgba(21,17,13,.35)}
+.modal h3{font-weight:800;font-size:16px;letter-spacing:.01em;text-transform:uppercase;color:var(--ink)}
+.modal .msub{font-weight:300;font-size:12px;color:var(--mute);margin-top:6px;line-height:1.5}
+.modal .msec{font-weight:700;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);
+  margin:20px 0 9px}
+.modal .opts{display:flex;gap:8px;flex-wrap:wrap}
+.modal .opt{padding:9px 13px;border:1px solid var(--rule);border-radius:4px;font-weight:700;font-size:9px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--mute);transition:all .12s}
+.modal .opt:hover{border-color:var(--mute);color:var(--ink)}
+.modal .opt.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.modal input[type=text]{width:100%;padding:10px 12px;border:1px solid var(--rule);border-radius:4px;
+  background:var(--card);font-size:12.5px;color:var(--ink)}
+.modal input[type=text]:focus{outline:none;border-color:var(--gold)}
+.modal .mact{display:flex;justify-content:flex-end;gap:9px;margin-top:26px}
+#toasts{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:100;display:flex;
+  flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{background:var(--ink);color:var(--paper);padding:11px 18px;border-radius:6px;font-weight:500;
+  font-size:11.5px;letter-spacing:.02em;box-shadow:0 10px 30px rgba(21,17,13,.3);max-width:560px;text-align:center;
+  animation:tin .2s ease}
+.toast.gold{background:var(--gold)}
+@keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- print ---------- */
+#printRoot{display:none}
+@media print{
+  body>*{display:none!important}
+  body,html{background:#fff}
+  #printRoot{display:block!important}
+  #printRoot .spage{box-shadow:none!important;page-break-after:always;break-after:page}
+  #printRoot .spage:last-child{page-break-after:auto;break-after:auto}
+}
+@media (max-width:900px){#rail{display:none}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="tl">
+    <img src="assets/crest.png" alt="Ki heritage crest">
+    <div>
+      <div class="wm">Ki · Marketing Materials</div>
+      <div class="ws">Trade &amp; retail collateral</div>
+    </div>
+  </div>
+  <div class="tr" id="topActions"></div>
+</header>
+
+<div id="viewLib">
+  <section class="hero">
+    <div class="eyebrow">2026 UK Launch · The Origin Collection</div>
+    <h1>Marketing materials</h1>
+    <p>The approved sell-sheet set — download the print-ready PDFs, or open any document to edit,
+       save versions and spin out new iterations. Edits live in this browser until exported.</p>
+  </section>
+  <div class="bar">
+    <div class="fchips" id="filters"></div>
+    <input id="q" type="search" placeholder="Search documents…">
+  </div>
+  <div id="groups"></div>
+</div>
+
+<div id="viewEd" hidden>
+  <div id="edBar">
+    <button class="btn ghost sm" id="backBtn">← Library</button>
+    <input id="edTitle" spellcheck="false">
+    <span id="edStatus"></span>
+    <span style="flex:1"></span>
+    <div class="pgtabs" id="pgTabs"></div>
+    <select id="zoomSel">
+      <option value="fit">Fit</option><option value="0.75">75%</option>
+      <option value="1">100%</option><option value="1.25">125%</option>
+    </select>
+    <button class="btn sm" id="saveVerBtn">Save version</button>
+    <button class="btn primary sm" id="printBtn">Print / PDF</button>
+    <button class="menu-b" id="edMenuBtn" title="More">⋯</button>
+  </div>
+  <div id="edMain">
+    <div id="canvas"><div id="canvasIn"></div></div>
+    <aside id="rail"></aside>
+  </div>
+</div>
+
+<footer id="foot">
+  <span>Ki · Marketing Materials — a World of Ki tool</span>
+  <span>Palette &amp; type per the Sell Sheet Style Guide V0.2 · July 2026</span>
+</footer>
+
+<div id="printRoot"></div>
+<div id="modalMount"></div>
+<div id="toasts"></div>
+<input type="file" id="fileImg" accept="image/png,image/jpeg,image/webp" hidden>
+<input type="file" id="fileJson" accept=".json,application/json" hidden>
+
+<script>
+/* =====================================================================
+   Ki · Marketing Materials
+   Library + WYSIWYG editor for the Ki sell-sheet system.
+   Templates are 1:1 ports of the finalised V08 line-sheet backs
+   (build_back.py) and V02 individual sheets (build_indiv2.py).
+   Saves: localStorage (see STORE_KEY) + JSON export/import handoff.
+   ===================================================================== */
+
+'use strict';
+
+/* ---------- constants ---------- */
+const STORE_KEY = 'ki-marketing-materials/v1';
+const CREST = 'assets/crest.png';
+const CREST_AR = 0.9575;                       // trimmed heritage crest h/w
+const NBSP_DOT = ' · ';
+
+/* ---------- verified SKU + copy data (assets.py / Ki_UK_SKU_Data.csv) ---------- */
+const PRODUCTS = [
+  {key:'hok', no:'01', name:'Hokkaido Mint', kanji:'北海道ミント', accent:'#3E8E7E',
+   descriptor:'Bracing · Clean · Centred',
+   note:'A cooling wave of Hokkaido mint — intensely herbal and brisk, with the highest menthol of the range. Like standing on the top of a snow-capped mountain in the middle of summer.',
+   skus:{'3':{code:'90030302',ean13:'1230000323086',sleeve:'1230000323093',gtin14:'11230000323090'},
+         '9':{code:'90030902',ean13:'1230000323109',sleeve:'1230000323116',gtin14:'11230000323113'}}},
+  {key:'yuzu', no:'02', name:'Yuzu Mint', kanji:'柚子ミント', accent:'#7FA33C',
+   descriptor:'Fresh · Refined · Uplifting',
+   note:'Verdant mint lifted by the delicate citrus of yuzu. Crisp, clean and quietly composed. Like drinking lemon-limeade in a sunshower. With a friend.',
+   skus:{'3':{code:'90010302',ean13:'1230000323000',sleeve:'1230000323017',gtin14:'11230000323014'},
+         '9':{code:'90010902',ean13:'1230000323024',sleeve:'1230000323031',gtin14:'11230000323038'}}},
+  {key:'sat', no:'03', name:'Satsuma Citrus', kanji:'薩摩シトラス', accent:'#E08A2E',
+   descriptor:'Sunlit · Juicy · Honeyed',
+   note:'Bright satsuma mandarin and fragrant peel oils easing into a soft, honey-kissed finish. Like a shot of fresh-squeezed orange juice, a cold plunge, and a cuddle.',
+   skus:{'3':{code:'90230302',ean13:'1230000323161',sleeve:'1230000323178',gtin14:'11230000323175'},
+         '9':{code:'90230902',ean13:'1230000323185',sleeve:'1230000323192',gtin14:'11230000323199'}}},
+  {key:'cola', no:'04', name:'Tokyo Cola', kanji:'東京コーラ', accent:'#B23A48',
+   descriptor:'Spiced · Bright · Nostalgic',
+   note:'Japanese craft cola — traditional spice met with bright yuzu and citrus peel, finished with ginger. Like that time you wandered into an arcade in Tokyo, on the hottest day of the whole year, and were served some homemade, stirred-by-hand cola in a frosty glass.',
+   skus:{'3':{code:'90190302',ean13:'1230000323123',sleeve:'1230000323130',gtin14:'11230000323137'},
+         '9':{code:'90190902',ean13:'1230000323147',sleeve:'1230000323154',gtin14:'11230000323151'}}},
+  {key:'maple', no:'05', name:'Maple Coffee', kanji:'メープルコーヒー', accent:'#8A5A3B',
+   descriptor:'Warm · Deep · Indulgent',
+   note:'Roasted coffee and mellow maple, grounded by a savoury whisper of tamari. Quietly indulgent. Like having a latte, getting ready for work, and going back to bed.',
+   skus:{'3':{code:'90020302',ean13:'1230000323048',sleeve:'1230000323055',gtin14:'11230000323052'},
+         '9':{code:'90020902',ean13:'1230000323062',sleeve:'1230000323079',gtin14:'11230000323076'}}}
+];
+const PROD = Object.fromEntries(PRODUCTS.map(p=>[p.key,p]));
+
+const COPY = {
+  eyebrow:'The Origin Collection',
+  headline:'Taste that teleports',
+  intro:'Each flavour in our inaugural range was crafted to take your tongue on a sensory journey from the familiar to the forgotten to the unknown. Every one of our recipes tastes precisely how you remember “tastes like nothing I’ve ever tasted” tasting.',
+  attrs:'Chef-crafted flavours'+NBSP_DOT+'Naturally sweetened'+NBSP_DOT+'Small batch',
+  legal:'Nicotine is an addictive substance. For adults 18+ only. Seriously.',
+  contact:'Ki Bio Ltd.'+NBSP_DOT+'Kevin Shillito'+NBSP_DOT+'07906 663030'+NBSP_DOT+'kevin@ki.bio'+NBSP_DOT+'www.ki.bio',
+  specsLabel:'Specifications',
+  pack:[
+    {h:'Can',   q:'18 pouches',            d:'25 g  ·  70 × 20 mm'},
+    {h:'Sleeve',q:'5 cans',                d:'125 g  ·  70 × 100 mm'},
+    {h:'Case',  q:'40 sleeves · 200 cans', d:'5150 g  ·  359 × 291 × 204 mm'}
+  ]
+};
+
+/* ---------- official documents (catalog) ---------- */
+const CAMPAIGN = {id:'uk-launch-2026', eyebrow:'2026 UK Launch', collection:'The Origin Collection', market:'UK'};
+
+const OFFICIALS = [
+  {id:'uk26-line-columns', family:'line', layout:'columns', title:'UK Line Sheet — Columns',
+   version:'V08', finalized:'2026-07-01', pdf:'pdf/Ki_UK_Line_Columns_V08.pdf',
+   format:'11 × 8.5 in', orient:'land', pages:2},
+  {id:'uk26-line-rows', family:'line', layout:'rows', title:'UK Line Sheet — Rows',
+   version:'V08', finalized:'2026-07-01', pdf:'pdf/Ki_UK_Line_Rows_V08.pdf',
+   format:'11 × 8.5 in', orient:'land', pages:2},
+  ...PRODUCTS.map(p=>({
+    id:'uk26-ind-'+p.key, family:'individual', product:p.key,
+    title:p.name+' — Flavour Sheet', version:'V02', finalized:'2026-07-01',
+    pdf:'pdf/Ki_UK_'+p.name.replace(/ /g,'_')+'_V02.pdf',
+    format:'8.5 × 11 in', orient:'port', pages:1}))
+];
+
+/* ---------- default (official) editable state builders ---------- */
+const clone = o => JSON.parse(JSON.stringify(o));
+
+function productState(p, strengths){
+  return {key:p.key, name:p.name, kanji:p.kanji, accent:p.accent, descriptor:p.descriptor,
+    note:p.note, puck:'assets/pucks/'+p.key+'.webp',
+    strengths:strengths.map(s=>({tag:s+' MG', code:p.skus[s]?.code||'', ean13:p.skus[s]?.ean13||'',
+      gtin14:p.skus[s]?.gtin14||''}))};
+}
+function defaultLineState(productKeys, strengths){
+  return {
+    meta:{eyebrow:COPY.eyebrow, headline:COPY.headline, intro:COPY.intro},
+    hero:'assets/hero-1d.jpg',
+    products:productKeys.map(k=>productState(PROD[k], strengths)),
+    specs:{label:COPY.specsLabel, attrs:COPY.attrs, cols:clone(COPY.pack)},
+    footer:{legal:COPY.legal, contact:COPY.contact},
+    fs:{}
+  };
+}
+function defaultIndivState(key, strengths){
+  const p = PROD[key];
+  return {
+    meta:{eyebrow:COPY.eyebrow},
+    product:productState(p, strengths),
+    orderLabel:'Order',
+    specs:{label:COPY.specsLabel, attrs:COPY.attrs, cols:clone(COPY.pack)},
+    footer:{legal:COPY.legal, contact:COPY.contact},
+    fs:{}
+  };
+}
+function defaultStateFor(def){
+  if(def.family==='line') return defaultLineState(def.productKeys||PRODUCTS.map(p=>p.key), def.strengths||['3','9']);
+  return defaultIndivState(def.product, def.strengths||['3','9']);
+}
+
+/* ---------- tiny utils ---------- */
+const $  = (s,el=document)=>el.querySelector(s);
+const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fmtTime = t => new Date(t).toLocaleString(undefined,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+function gp(o, path){ return path.split('.').reduce((a,k)=>a?.[k], o); }
+function sp(o, path, v){
+  const ks = path.split('.'); const last = ks.pop();
+  const t = ks.reduce((a,k)=>a[k], o); t[last] = v;
+}
+function toast(msg, gold){
+  const t = document.createElement('div');
+  t.className = 'toast'+(gold?' gold':''); t.textContent = msg;
+  $('#toasts').appendChild(t);
+  setTimeout(()=>{ t.style.transition='opacity .3s'; t.style.opacity='0'; setTimeout(()=>t.remove(),320); }, 2600);
+}
+function download(name, text, type='application/json'){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text],{type}));
+  a.download = name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+}
+
+/* ---------- barcodes: EAN-13 + ITF-14 as inline SVG ---------- */
+const EAN_L = ['0001101','0011001','0010011','0111101','0100011','0110001','0101111','0111011','0110111','0001011'];
+const EAN_G = EAN_L.map(p=>p.split('').reverse().map(b=>b==='1'?'0':'1').join(''));  /* G = mirrored complement */
+const EAN_R = EAN_L.map(p=>p.split('').map(b=>b==='1'?'0':'1').join(''));
+const EAN_PAR = ['LLLLLL','LLGLGG','LLGGLG','LLGGGL','LGLLGG','LGGLLG','LGGGLL','LGLGLG','LGLGGL','LGGLGL'];
+function eanCheck(d12){
+  let s=0; for(let i=0;i<12;i++) s += (+d12[i])*(i%2?3:1);
+  return String((10-(s%10))%10);
+}
+function ean13Modules(code13){
+  const d = code13.slice(0,12)+eanCheck(code13.slice(0,12));
+  let m = '101';
+  const par = EAN_PAR[+d[0]];
+  for(let i=1;i<=6;i++) m += (par[i-1]==='L'?EAN_L:EAN_G)[+d[i]];
+  m += '01010';
+  for(let i=7;i<=12;i++) m += EAN_R[+d[i]];
+  m += '101';
+  return m;
+}
+function svgFromRuns(runs, total){ /* runs: [{x,w}] in module units */
+  const rects = runs.map(r=>`<rect x="${r.x}" y="0" width="${r.w}" height="100" fill="#15110D"/>`).join('');
+  return `<svg viewBox="0 0 ${total} 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">${rects}</svg>`;
+}
+function ean13svg(code){
+  if(!/^\d{13}$/.test(code)) return badBC();
+  const m = ean13Modules(code), Q = 7;
+  const runs=[]; let i=0;
+  while(i<m.length){
+    if(m[i]==='1'){ let j=i; while(j<m.length&&m[j]==='1')j++; runs.push({x:Q+i,w:j-i}); i=j; }
+    else i++;
+  }
+  return svgFromRuns(runs, m.length+2*Q);
+}
+const ITF_P = ['nnwwn','wnnnw','nwnnw','wwnnn','nnwnw','wnwnn','nwwnn','nnnww','wnnwn','nwnwn'];
+function itf14svg(code){
+  if(!/^\d{14}$/.test(code)) return badBC();
+  const N=1, Wd=2.5, Q=10;
+  const seq=[]; /* [width, isBar] */
+  seq.push([N,1],[N,0],[N,1],[N,0]);                       /* start */
+  for(let i=0;i<14;i+=2){
+    const b=ITF_P[+code[i]], s=ITF_P[+code[i+1]];
+    for(let j=0;j<5;j++){ seq.push([b[j]==='w'?Wd:N,1]); seq.push([s[j]==='w'?Wd:N,0]); }
+  }
+  seq.push([Wd,1],[N,0],[N,1]);                            /* stop */
+  let x=Q; const runs=[];
+  for(const [w,bar] of seq){ if(bar) runs.push({x,w}); x+=w; }
+  return svgFromRuns(runs, x+Q);
+}
+function badBC(){
+  return `<svg viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="46" width="100" height="8" fill="#DC503C"/></svg>`;
+}
+function bcSVG(kind, code){ return kind==='itf14' ? itf14svg(code) : ean13svg(code); }
+
+/* ================= sheet templates (ports of the V08 / V02 builds) ================= */
+/* Every editable text node:  class "ed" + data-p="<state path>"
+   Size overrides: state.fs[path] = px  (falls back to template base size)
+   Barcodes: <span class="bcx" data-kind data-src="<path of code>">                    */
+
+let T_ST = null;                 /* state bound while templating */
+const fsz = (path, base) => (T_ST.fs && T_ST.fs[path]!=null ? T_ST.fs[path] : base);
+function ed(tag, cls, path, base, style, extra=''){
+  const size = base!=null ? `font-size:${fsz(path,base)}px;` : '';
+  return `<${tag} class="${cls} ed" data-p="${path}" data-bfs="${base??''}" style="${size}${style||''}" ${extra}>${esc(gp(T_ST,path))}</${tag}>`;
+}
+function bcx(kind, srcPath, w, h, mb=0){
+  return `<span class="bcx" data-kind="${kind}" data-src="${srcPath}" style="display:block;width:${w}px;height:${h}px;${mb?`margin-bottom:${mb}px;`:''}">${bcSVG(kind, gp(T_ST,srcPath))}</span>`;
+}
+
+/* ----- shared: masthead (line back) ----- */
+function mastheadHTML(){
+  return `<div style="position:absolute;left:0;right:0;top:32px;text-align:center"><img src="${CREST}" style="width:44px;height:${Math.round(44*CREST_AR)}px;display:inline-block"></div>`
+  + ed('div','eyebrow','meta.eyebrow',10.5,'position:absolute;left:0;right:0;top:98px;text-align:center')
+  + `<div style="position:absolute;left:0;right:0;top:116px;text-align:center">`
+  +   ed('span','headline','meta.headline',34,'display:inline-block')
+  + `</div>`
+  + ed('div','body','meta.intro',10.5,'position:absolute;left:50%;transform:translateX(-50%);top:170px;width:672px;text-align:center;text-wrap:balance;line-height:1.42');
+}
+
+/* ----- shared: barcode pair cell ----- */
+function bcell(label, kind, codePath, bw, bh, numFs, lblFs=5.4){
+  return `<div style="text-align:left">`
+    + `<div class="lbl" style="font-size:${lblFs}px;margin-bottom:${lblFs>5.5?3:2}px;white-space:nowrap">${label}</div>`
+    + bcx(kind, codePath, bw, bh)
+    + ed('div','num',codePath,numFs,'margin-top:2px')
+    + `</div>`;
+}
+
+/* ----- shared: specifications block ----- */
+function specBlock(top, W, M, v){ /* v: {rowTop, colPad, divX, divH, secFs} line vs indiv variants */
+  const cw = (W-2*M)/3;
+  let out = `<div class="hr" style="left:${M}px;top:${top}px;width:${W-2*M}px"></div>`
+    + `<div style="position:absolute;left:${M}px;top:${top+15}px">`+ed('span','sec','specs.label',8,'')+`</div>`
+    + `<div style="position:absolute;right:${M}px;top:${top+15}px;text-align:right">`+ed('span','attrs','specs.attrs',8.5,'')+`</div>`;
+  T_ST.specs.cols.forEach((c,i)=>{
+    const x = M+i*cw;
+    out += `<div style="position:absolute;left:${x.toFixed(0)}px;top:${top+v.rowTop}px;width:${(cw-v.colPad).toFixed(0)}px">`
+      + ed('div','pname','specs.cols.'+i+'.h',10.5,'text-transform:none;letter-spacing:0')
+      + ed('div','body','specs.cols.'+i+'.q',8,'color:#706B63;margin-top:5px')
+      + ed('div','body','specs.cols.'+i+'.d',9,'margin-top:4px')
+      + `</div>`;
+    if(i>0) out += `<div style="position:absolute;left:${(x-v.divX).toFixed(0)}px;top:${top+v.rowTop}px;width:1px;height:${v.divH}px;background:#E5E5E5"></div>`;
+  });
+  return out;
+}
+
+/* ----- line sheet · cover ----- */
+function tplLineCover(){
+  return `<div class="spage land" data-pg="0">`
+    + `<img class="slot" data-p="hero" src="${esc(T_ST.hero)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`
+    + `</div>`;
+}
+
+/* ----- line sheet · back, COLUMNS (build_back.page_cols) ----- */
+function tplLineBackCols(){
+  const W=1056, M=48, n = T_ST.products.length, cw=(W-2*M)/n;
+  let b = mastheadHTML();
+  b += `<div class="hr" style="left:${M}px;top:230px;width:${W-2*M}px"></div>`;
+  T_ST.products.forEach((p,i)=>{
+    const x=M+i*cw, pad=13, P='products.'+i;
+    b += `<div style="position:absolute;left:${(x+pad).toFixed(1)}px;top:244px;width:${(cw-2*pad).toFixed(1)}px;text-align:center">`
+      + `<img class="slot" data-p="${P}.puck" src="${esc(p.puck)}" style="width:70px;margin:0 auto;filter:drop-shadow(0 6px 10px rgba(22,18,12,.15))"></div>`;
+    b += `<div style="position:absolute;left:${(x+pad).toFixed(1)}px;top:320px;width:${(cw-2*pad).toFixed(1)}px">`
+      + `<div style="width:22px;height:3px;background:${esc(p.accent)};border-radius:2px;margin-bottom:9px"></div>`
+      + ed('div','pname',P+'.name',12.5,'')
+      + ed('div','kanji',P+'.kanji',9.5,'margin-top:4px')
+      + ed('div','descr',P+'.descriptor',6,'margin-top:8px')
+      + ed('div','body',P+'.note',7.9,'line-height:1.42;margin-top:9px')
+      + `</div>`;
+    p.strengths.forEach((s,j)=>{
+      const by=502+j*63, S=P+'.strengths.'+j;
+      b += `<div style="position:absolute;left:${(x+pad).toFixed(1)}px;top:${by}px;width:${(cw-2*pad).toFixed(1)}px">`
+        + `<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">`
+        + ed('span','mgt',S+'.tag',6.6,'') + ed('span','num',S+'.code',9.5,'')
+        + `</div><div style="display:flex;gap:8px">`
+        + bcell('Individual · EAN-13','ean13',S+'.ean13',66,22,6)
+        + bcell('Case · ITF-14','itf14',S+'.gtin14',66,22,6)
+        + `</div></div>`;
+    });
+    if(i>0) b += `<div style="position:absolute;left:${x.toFixed(1)}px;top:244px;width:1px;height:388px;background:#E5E5E5"></div>`;
+  });
+  b += specBlock(636, W, M, {rowTop:60, colPad:24, divX:16, divH:46});
+  b += `<div class="foot">`+ed('span','','footer.legal',8.5,'')+ed('span','','footer.contact',8.5,'text-align:right')+`</div>`;
+  return `<div class="spage land" data-pg="1">${b}</div>`;
+}
+
+/* ----- line sheet · back, ROWS (build_back.page_rows) ----- */
+function strengthBlockRows(P, j){
+  const S=P+'.strengths.'+j;
+  return `<div style="flex:1">`
+    + `<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">`
+    + ed('span','mgt',S+'.tag',6.6,'') + ed('span','num',S+'.code',9.5,'')
+    + `</div><div style="display:flex;gap:10px">`
+    + bcell('Individual · EAN-13','ean13',S+'.ean13',62,20,5.6)
+    + bcell('Case · ITF-14','itf14',S+'.gtin14',62,20,5.6)
+    + `</div></div>`;
+}
+function tplLineBackRows(){
+  const W=1056, M=48, n=T_ST.products.length;
+  let b = mastheadHTML();
+  b += `<div class="hr" style="left:${M}px;top:228px;width:${W-2*M}px"></div>`;
+  let rows='';
+  T_ST.products.forEach((p,i)=>{
+    const P='products.'+i;
+    const border = i===n-1 ? '' : 'border-bottom:1px solid #E5E5E5;';
+    rows += `<div style="display:flex;align-items:center;${border}padding:9px 0">`
+      + `<div style="width:3px;align-self:stretch;background:${esc(p.accent)};border-radius:2px;margin:3px 0"></div>`
+      + `<div style="width:46px;margin-left:13px;flex:none"><img class="slot" data-p="${P}.puck" src="${esc(p.puck)}" style="width:46px;filter:drop-shadow(0 4px 7px rgba(22,18,12,.14))"></div>`
+      + `<div style="width:136px;margin-left:13px;flex:none">`
+      + ed('div','pname',P+'.name',11.5,'')
+      + ed('div','kanji',P+'.kanji',8.5,'margin-top:3px')
+      + ed('div','descr',P+'.descriptor',5.8,'margin-top:5px')
+      + `</div>`
+      + ed('div','body',P+'.note',7.9,'flex:1;margin-left:16px;line-height:1.42')
+      + `<div style="width:296px;margin-left:16px;flex:none;display:flex;gap:14px">`
+      + p.strengths.map((s,j)=>strengthBlockRows(P,j)).join('')
+      + `</div></div>`;
+  });
+  b += `<div style="position:absolute;left:${M}px;top:238px;width:${1056-2*M}px">${rows}</div>`;
+  b += specBlock(633, W, M, {rowTop:60, colPad:24, divX:16, divH:46});
+  b += `<div class="foot">`+ed('span','','footer.legal',8.5,'')+ed('span','','footer.contact',8.5,'text-align:right')+`</div>`;
+  return `<div class="spage land" data-pg="1">${b}</div>`;
+}
+
+/* ----- individual flavour sheet (build_indiv2.page_flavour) ----- */
+function tplIndividual(){
+  const W=816, H=1056, M=54, p=T_ST.product, P='product', cx=W/2;
+  let b = `<div style="position:absolute;left:0;right:0;top:52px;text-align:center"><img src="${CREST}" style="width:46px;height:${Math.round(46*CREST_AR)}px;display:inline-block"></div>`
+    + ed('div','eyebrow','meta.eyebrow',11,'position:absolute;left:0;right:0;top:124px;text-align:center')
+    + `<div style="position:absolute;left:0;right:0;top:144px;text-align:center">`
+    + ed('span','headline',P+'.name',42,'display:inline-block')
+    + `</div>`
+    + `<div style="position:absolute;left:${cx-16}px;top:202px;width:32px;height:3px;background:${esc(p.accent)};border-radius:2px"></div>`
+    + `<div style="position:absolute;left:0;right:0;top:216px;text-align:center">`+ed('span','kanji',P+'.kanji',15,'')+`</div>`
+    + `<div style="position:absolute;left:0;right:0;top:242px;text-align:center">`+ed('span','descr',P+'.descriptor',8.5,'')+`</div>`;
+  b += `<div style="position:absolute;left:0;right:0;top:284px;text-align:center">`
+    + `<img class="slot" data-p="${P}.puck" src="${esc(p.puck)}" style="width:296px;margin:0 auto;filter:drop-shadow(0 18px 26px rgba(22,18,12,.20))"></div>`;
+  b += ed('div','body',P+'.note',12,`position:absolute;left:${cx-300}px;top:610px;width:600px;text-align:center;text-wrap:balance;line-height:1.5`);
+  const oy=724;
+  b += `<div class="hr" style="left:${M}px;top:${oy}px;width:${W-2*M}px"></div>`
+    + `<div style="position:absolute;left:${M}px;top:${oy+15}px">`+ed('span','sec','orderLabel',8,'')+`</div>`;
+  p.strengths.forEach((s,j)=>{
+    const bx=M+18+j*352, S=P+'.strengths.'+j;
+    b += `<div style="position:absolute;left:${bx}px;top:${oy+44}px;width:320px">`
+      + `<div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">`
+      + ed('span','mgt',S+'.tag',6.6,'') + ed('span','num',S+'.code',12,'')
+      + `</div><div style="display:flex;gap:16px">`
+      + bcell('Individual · EAN-13','ean13',S+'.ean13',104,26,7.6,5.8)
+      + bcell('Case · ITF-14','itf14',S+'.gtin14',104,26,7.6,5.8)
+      + `</div></div>`;
+  });
+  if(p.strengths.length>1)
+    b += `<div style="position:absolute;left:${cx.toFixed(0)}px;top:${oy+44}px;width:1px;height:82px;background:#E5E5E5"></div>`;
+  b += specBlock(890, W, M, {rowTop:52, colPad:16, divX:8, divH:44});
+  b += `<div class="hr" style="left:${M}px;top:${H-70}px;width:${W-2*M}px"></div>`
+    + `<div style="position:absolute;left:${M}px;top:${H-52}px">`+ed('span','body','footer.legal',8.5,'color:#706B63;white-space:nowrap')+`</div>`
+    + `<div style="position:absolute;right:${M}px;top:${H-52}px;text-align:right">`+ed('span','body','footer.contact',8.5,'color:#706B63')+`</div>`;
+  return `<div class="spage port" data-pg="0">${b}</div>`;
+}
+
+/* ----- render dispatch ----- */
+function renderPages(def, state){
+  T_ST = state;
+  let pages;
+  if(def.family==='line'){
+    pages = [tplLineCover(), def.layout==='rows' ? tplLineBackRows() : tplLineBackCols()];
+  } else {
+    pages = [tplIndividual()];
+  }
+  T_ST = null;
+  return pages;
+}
+/* ================================ store ================================ */
+function loadStore(){
+  try{ const s = JSON.parse(localStorage.getItem(STORE_KEY)); if(s && s.v===1) return s; }catch(e){}
+  return {v:1, docs:{}, defs:{}};
+}
+let store = loadStore();
+function save(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(store)); }
+  catch(e){ toast('Storage full — export your documents as JSON, then reset some edits.', true); }
+}
+function docRec(id){ return store.docs[id] || (store.docs[id]={working:null, versions:[]}); }
+function allDefs(){ return [...OFFICIALS, ...Object.values(store.defs)]; }
+function findDef(id){ return allDefs().find(d=>d.id===id); }
+function isCustom(def){ return !!store.defs[def.id]; }
+function hasEdits(id){ return !!(store.docs[id] && (store.docs[id].working || store.docs[id].versions.length)); }
+
+/* ================================ library ================================ */
+const FAMS = [['all','All'],['line','Line sheets'],['individual','Flavour sheets'],['mine','My documents']];
+let FILTER = {fam:'all', q:''};
+
+function chipFor(def){
+  const rec = store.docs[def.id];
+  const out = [];
+  if(isCustom(def)) out.push(`<span class="chip custom">Custom</span>`);
+  else out.push(`<span class="chip official">Official ${def.version}</span>`);
+  if(rec?.working) out.push(`<span class="chip edited">Edited</span>`);
+  if(rec?.versions?.length) out.push(`<span class="chip saved">${rec.versions.length} saved</span>`);
+  return out.join('');
+}
+function previewHTML(def){
+  const state = store.docs[def.id]?.working?.state || defaultStateFor(def);
+  const pages = renderPages(def, state);
+  const land = def.orient==='land';
+  const sc = land ? 0.265 : 0.2;
+  const w = (land?1056:816)*sc, h=(land?816:1056)*sc;
+  const wrap = (html,cls) =>
+    `<div class="pw ${cls}${pages.length>1&&cls==='p1'?' hasflip':''}" style="width:${w}px;height:${h}px">`+
+    `<div style="transform:scale(${sc});transform-origin:0 0">${html}</div></div>`;
+  let out = wrap(pages[0],'p1');
+  if(pages.length>1) out += wrap(pages[1],'p2');
+  out += `<div class="pgn">${pages.length>1?'front · hover for back':def.format}</div>`;
+  return out;
+}
+function cardHTML(def){
+  const rec = store.docs[def.id];
+  const meta = [def.version==='D'?'Draft':def.version, def.format, def.pages+(def.pages>1?' pages':' page')].join(' · ');
+  const pdfBtn = def.pdf
+    ? `<a class="btn sm ghost" href="${def.pdf}" download title="Download the approved print PDF">PDF ↓</a>`
+    : `<button class="btn sm ghost" data-act="print" data-id="${def.id}" title="Open print dialog">Print</button>`;
+  return `<div class="card" data-id="${def.id}">
+    <div class="prev">${previewHTML(def)}</div>
+    <div class="cbody">
+      <div class="ct">${esc(def.title)}</div>
+      <div class="cm">${esc(meta)}</div>
+      <div class="crow">${chipFor(def)}</div>
+      <div class="cact">
+        <button class="btn sm primary" data-act="open" data-id="${def.id}">${rec?.working?'Continue editing':'Open'}</button>
+        ${pdfBtn}<span class="sp"></span>
+        <button class="menu-b" data-act="menu" data-id="${def.id}" title="More">⋯</button>
+      </div>
+    </div></div>`;
+}
+function groupHTML(title, sub, defs){
+  if(!defs.length) return '';
+  return `<div class="ghead"><span class="gt">${title}</span><span class="gs">${sub}</span><span class="gl"></span></div>
+    <div class="grid">${defs.map(cardHTML).join('')}</div>`;
+}
+function matches(def){
+  if(FILTER.fam==='mine' && !isCustom(def) && !hasEdits(def.id)) return false;
+  if((FILTER.fam==='line'||FILTER.fam==='individual') && def.family!==FILTER.fam) return false;
+  if(FILTER.q && !def.title.toLowerCase().includes(FILTER.q)) return false;
+  return true;
+}
+function renderLibrary(){
+  $('#filters').innerHTML = FAMS.map(([k,l])=>
+    `<button class="fchip${FILTER.fam===k?' on':''}" data-fam="${k}">${l}</button>`).join('');
+  const offLine = OFFICIALS.filter(d=>d.family==='line' && matches(d));
+  const offInd  = OFFICIALS.filter(d=>d.family==='individual' && matches(d));
+  const customs = Object.values(store.defs).filter(matches).sort((a,b)=>b.created-a.created);
+  const camp = (CAMPAIGN.eyebrow+' — '+CAMPAIGN.collection).toUpperCase();
+  $('#groups').innerHTML =
+      groupHTML('Line sheets', camp, offLine)
+    + groupHTML('Individual flavour sheets', camp, offInd)
+    + groupHTML('My documents', 'duplicates · new iterations · future SKUs', customs)
+    + (offLine.length+offInd.length+customs.length===0
+        ? `<p style="margin:40px 0;font-weight:300;color:var(--mute)">Nothing matches — clear the search or filters.</p>` : '');
+}
+function libTopActions(){
+  $('#topActions').innerHTML =
+    `<button class="btn ghost sm" id="importBtn">Import JSON</button>
+     <button class="btn ghost sm" id="exportAllBtn">Export all</button>
+     <button class="btn primary sm" id="newBtn">+ New document</button>`;
+  $('#importBtn').onclick = ()=>importJSON();
+  $('#exportAllBtn').onclick = ()=>{
+    download(`Ki_MarketingMaterials_workspace_${today()}.json`,
+      JSON.stringify({app:'ki-mm',v:1,kind:'workspace',exported:Date.now(),store}, null, 1));
+    toast('Workspace exported — send the file to sync another machine.');
+  };
+  $('#newBtn').onclick = ()=>newDocModal();
+}
+const today = ()=> new Date().toISOString().slice(0,10);
+
+/* library events */
+$('#viewLib').addEventListener('click', e=>{
+  const fam = e.target.closest('[data-fam]'); if(fam){ FILTER.fam=fam.dataset.fam; renderLibrary(); return; }
+  const b = e.target.closest('[data-act]'); if(!b) return;
+  const id = b.dataset.id, def = findDef(id);
+  if(b.dataset.act==='open') openEditor(id);
+  if(b.dataset.act==='print'){ openEditor(id); setTimeout(()=>printDoc(),350); }
+  if(b.dataset.act==='menu') cardMenu(b, def);
+});
+$('#q').addEventListener('input', e=>{ FILTER.q = e.target.value.trim().toLowerCase(); renderLibrary(); });
+
+function popMenu(anchor, items){
+  closeMenus();
+  const m = document.createElement('div'); m.className='pmenu';
+  m.innerHTML = items.map(it=> it==='-' ? `<div class="div"></div>` :
+    `<button data-k="${it.k}" class="${it.danger?'danger':''}">${it.l}</button>`).join('');
+  document.body.appendChild(m);
+  const r = anchor.getBoundingClientRect();
+  m.style.left = Math.min(r.left, innerWidth-m.offsetWidth-12)+'px';
+  m.style.top = (r.bottom+6+scrollY)+'px';
+  m.addEventListener('click', e=>{
+    const k = e.target.closest('button')?.dataset.k;
+    const it = items.find(i=>i.k===k); closeMenus();
+    if(it?.fn) it.fn();
+  });
+  setTimeout(()=>document.addEventListener('click', closeMenus, {once:true}));
+}
+function closeMenus(){ $$('.pmenu').forEach(m=>m.remove()); }
+function cardMenu(btn, def){
+  const rec = store.docs[def.id];
+  const items = [
+    {k:'dup', l:'Duplicate as new document', fn:()=>duplicateDoc(def)},
+    {k:'exp', l:'Export JSON', fn:()=>exportDoc(def)},
+  ];
+  if(rec?.working) items.push('-',{k:'reset', l:'Reset local edits', danger:true, fn:()=>{
+    confirmModal('Reset local edits?', `“${def.title}” goes back to the ${isCustom(def)?'saved':'official '+def.version} state. Saved versions are kept.`, ()=>{
+      rec.working=null; save(); renderLibrary(); toast('Edits reset.');
+    });}});
+  if(isCustom(def)) items.push('-',{k:'del', l:'Delete document', danger:true, fn:()=>{
+    confirmModal('Delete this document?', `“${def.title}” and its saved versions will be removed from this browser. Export first if you need a copy.`, ()=>{
+      delete store.defs[def.id]; delete store.docs[def.id]; save(); renderLibrary(); toast('Deleted.');
+    });}});
+  popMenu(btn, items);
+}
+
+/* ================================ editor ================================ */
+let ED = null;
+function openEditor(id){
+  const def = findDef(id); if(!def) return;
+  const rec = docRec(id);
+  ED = {id, def, state: clone(rec.working?.state || defaultStateFor(def)), page:0, zoom:'fit', selSlot:null, selField:null};
+  $('#viewLib').hidden = true; $('#foot').hidden = true; $('#viewEd').hidden = false;
+  $('#topActions').innerHTML = `<a class="btn ghost sm" href="../index.html">World of Ki ↗</a>`;
+  $('#edTitle').value = def.title;
+  $('#edTitle').readOnly = !isCustom(def);
+  $('#edTitle').title = isCustom(def) ? 'Rename this document' : 'Official documents keep their name — duplicate to rename';
+  location.hash = 'doc='+encodeURIComponent(id);
+  renderEditor();
+}
+function closeEditor(){
+  ED = null; $('#viewEd').hidden = true; $('#viewLib').hidden = false; $('#foot').hidden = false;
+  history.replaceState(null,'',location.pathname);
+  libTopActions(); renderLibrary();
+}
+$('#backBtn').onclick = closeEditor;
+$('#edTitle').addEventListener('change', ()=>{
+  if(!ED || !isCustom(ED.def)) return;
+  ED.def.title = $('#edTitle').value.trim() || ED.def.title;
+  $('#edTitle').value = ED.def.title; save();
+});
+
+function edStatusText(){
+  const rec = store.docs[ED.id];
+  if(rec?.working) return 'Edited · autosaves here'+(rec.working.modified?' · '+fmtTime(rec.working.modified):'');
+  return isCustom(ED.def) ? 'Draft document' : 'Official '+ED.def.version+' · untouched';
+}
+function renderEditor(){
+  const pages = renderPages(ED.def, ED.state);
+  $('#canvasIn').innerHTML = pages[Math.min(ED.page, pages.length-1)];
+  $('#canvasIn').classList.add('editing');
+  activateEditing();
+  applyZoom();
+  const tabs = ED.def.family==='line' ? ['Cover','Back'] : [];
+  $('#pgTabs').style.display = tabs.length?'':'none';
+  $('#pgTabs').innerHTML = tabs.map((t,i)=>`<button class="${ED.page===i?'on':''}" data-pg="${i}">${t}</button>`).join('');
+  $('#edStatus').textContent = edStatusText();
+  renderRail();
+}
+$('#pgTabs').addEventListener('click', e=>{
+  const b = e.target.closest('[data-pg]'); if(!b) return;
+  commitFocused(); ED.page = +b.dataset.pg; ED.selField=null; ED.selSlot=null; renderEditor();
+});
+$('#zoomSel').addEventListener('change', e=>{ ED.zoom = e.target.value; applyZoom(); });
+function applyZoom(){
+  const pg = $('#canvasIn .spage'); if(!pg) return;
+  const W = pg.classList.contains('land')?1056:816, H = pg.classList.contains('land')?816:1056;
+  let z = ED.zoom==='fit'
+    ? Math.min(($('#canvas').clientWidth-72)/W, ($('#canvas').clientHeight-72)/H, 1)
+    : +ED.zoom;
+  z = Math.max(z, 0.2);
+  pg.style.transform = `scale(${z})`; pg.style.transformOrigin = '0 0';
+  $('#canvasIn').style.width = W*z+'px'; $('#canvasIn').style.height = H*z+'px';
+}
+addEventListener('resize', ()=>{ if(ED && ED.zoom==='fit') applyZoom(); });
+
+/* ---------- live editing ---------- */
+const FIELD_NAMES = {name:'Product name',kanji:'Kanji',descriptor:'Descriptor',note:'Tasting note',
+  tag:'Strength pill',code:'Product ID',ean13:'Unit EAN-13',gtin14:'Case GTIN-14',eyebrow:'Eyebrow',
+  headline:'Headline',intro:'Intro paragraph',legal:'Legal line',contact:'Contact line',
+  label:'Section label',attrs:'RTB strip',h:'Spec heading',q:'Spec quantity',d:'Spec detail',orderLabel:'Section label'};
+function fieldName(p){ return FIELD_NAMES[p.split('.').pop()] || 'Text'; }
+
+function activateEditing(){
+  $$('#canvasIn .ed').forEach(el=>{
+    el.setAttribute('contenteditable','plaintext-only');
+    if(el.contentEditable!=='plaintext-only') el.setAttribute('contenteditable','true');
+    el.spellcheck = false;
+  });
+}
+const canvasIn = $('#canvasIn');
+canvasIn.addEventListener('focusin', e=>{
+  const el = e.target.closest('.ed'); if(!el) return;
+  ED.selField = el.dataset.p; ED.selSlot = null; renderRail(el);
+});
+canvasIn.addEventListener('input', e=>{
+  const el = e.target.closest('.ed'); if(!el) return;
+  sp(ED.state, el.dataset.p, el.innerText.replace(/\n+$/,''));
+  markDirty(false);
+});
+canvasIn.addEventListener('keydown', e=>{
+  const el = e.target.closest('.ed'); if(!el) return;
+  if(e.key==='Enter'){ e.preventDefault(); el.blur(); }
+  if(e.key==='Escape'){ el.blur(); }
+});
+canvasIn.addEventListener('paste', e=>{
+  const el = e.target.closest('.ed'); if(!el) return;
+  e.preventDefault();
+  document.execCommand('insertText', false, (e.clipboardData.getData('text/plain')||'').replace(/\s+/g,' '));
+});
+canvasIn.addEventListener('focusout', e=>{
+  const el = e.target.closest('.ed'); if(!el) return;
+  const p = el.dataset.p;
+  let v = el.innerText.replace(/\n+$/,'').trim();
+  if(/\.(ean13|gtin14)$/.test(p)){
+    const want = p.endsWith('ean13') ? 13 : 14;
+    const digits = v.replace(/\D/g,'');
+    if(digits.length===want){
+      let fixed = digits;
+      if(want===13){
+        const ck = eanCheck(digits.slice(0,12));
+        if(ck!==digits[12]){ fixed = digits.slice(0,12)+ck; toast('EAN-13 check digit corrected → '+fixed); }
+      }
+      v = fixed; el.innerText = fixed;
+    } else {
+      toast(`Needs ${want} digits — barcode paused until then.`, true);
+    }
+    sp(ED.state, p, v); markDirty(true);
+    const bc = $(`#canvasIn .bcx[data-src="${p}"]`);
+    if(bc) bc.innerHTML = bcSVG(bc.dataset.kind, v);
+    return;
+  }
+  sp(ED.state, p, v); markDirty(true);
+});
+canvasIn.addEventListener('click', e=>{
+  const slot = e.target.closest('.slot'); if(!slot) return;
+  $$('#canvasIn .slot.selq').forEach(s=>s.classList.remove('selq'));
+  slot.classList.add('selq');
+  ED.selSlot = slot.dataset.p; ED.selField = null;
+  renderRail(); pickImage(slot.dataset.p);
+});
+function commitFocused(){ const a=document.activeElement; if(a && a.closest && a.closest('#canvasIn')) a.blur(); }
+
+/* image slots */
+let pendingImgPath = null;
+function pickImage(path){ pendingImgPath = path; $('#fileImg').value=''; $('#fileImg').click(); }
+$('#fileImg').addEventListener('change', async e=>{
+  const f = e.target.files[0]; if(!f || !pendingImgPath || !ED) return;
+  const isHero = pendingImgPath==='hero';
+  try{
+    const url = await downscale(f, isHero?2600:1200, isHero?'image/jpeg':'image/png', .87);
+    sp(ED.state, pendingImgPath, url);
+    markDirty(true); renderEditor();
+    toast('Image replaced — stored with this document.');
+  }catch(err){ toast('Could not read that image.', true); }
+  pendingImgPath = null;
+});
+function downscale(file, maxW, mime, q){
+  return new Promise((res,rej)=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const sc = Math.min(1, maxW/img.width);
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width*sc); c.height = Math.round(img.height*sc);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      res(c.toDataURL(mime,q));
+    };
+    img.onerror = rej;
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+/* dirty / autosave */
+let dirtyTimer = null;
+function markDirty(immediate){
+  clearTimeout(dirtyTimer);
+  dirtyTimer = setTimeout(()=>{
+    const rec = docRec(ED.id);
+    rec.working = {state: clone(ED.state), modified: Date.now(), basedOn: ED.def.version};
+    save(); $('#edStatus').textContent = edStatusText();
+  }, immediate?0:450);
+}
+
+/* rail */
+function renderRail(focusedEl){
+  const rec = store.docs[ED.id];
+  const vers = (rec?.versions||[]).slice().reverse();
+  let field = '';
+  if(ED.selField){
+    const base = focusedEl?.dataset.bfs || $(`#canvasIn .ed[data-p="${ED.selField}"]`)?.dataset.bfs;
+    const cur = (ED.state.fs && ED.state.fs[ED.selField]!=null) ? ED.state.fs[ED.selField] : +base;
+    field = `<div class="rsec"><h4>Selected text</h4>
+      <div class="kv"><span class="k">Field</span><span class="v">${fieldName(ED.selField)}</span></div>
+      <div class="rrow"><span class="lab">Size</span>
+        <div class="stepper">
+          <button data-fs="-1" title="Smaller">−</button>
+          <span class="val">${(+cur).toFixed(1).replace(/\.0$/,'')} px</span>
+          <button data-fs="1" title="Bigger">+</button>
+        </div>
+        <button class="btn sm ghost" data-fs="0" title="Back to template size">Reset</button>
+      </div></div>`;
+  }
+  const slot = ED.selSlot ? `<div class="rsec"><h4>Selected image</h4>
+      <div class="rrow"><button class="btn sm" id="railReplace">Replace…</button>
+      <button class="btn sm ghost" id="railResetImg">Reset to original</button></div>
+      <p class="hint" style="margin-top:9px">Replacements are embedded into this document’s save.</p></div>` : '';
+  $('#rail').innerHTML = field + slot + `
+    <div class="rsec"><h4>Versions</h4>
+      ${rec?.working ? `<div class="kv"><span class="k">Working copy</span><span class="v">autosaved ${fmtTime(rec.working.modified)}</span></div>`
+                     : `<p class="hint">No local edits yet — click any text on the sheet to start.</p>`}
+      <div style="margin-top:6px">${vers.map(v=>`
+        <div class="vitem"><div class="vl">
+          <div class="vn">${esc(v.label)}</div>
+          <div class="vd">${fmtTime(v.created)}</div>
+          ${v.note?`<div class="vnote">${esc(v.note)}</div>`:''}
+        </div>
+        <button class="btn sm ghost" data-restore="${v.id}">Restore</button></div>`).join('')
+        || `<p class="hint" style="margin-top:4px">Saved versions appear here. “Save version” pins the current state as D01, D02…</p>`}
+      </div></div>
+    <div class="rsec"><h4>Document</h4>
+      <div class="kv"><span class="k">Template</span><span class="v">${ED.def.family==='line'?('Line · '+ED.def.layout):'Individual flavour'}</span></div>
+      <div class="kv"><span class="k">Format</span><span class="v">${ED.def.format}</span></div>
+      <div class="kv"><span class="k">Based on</span><span class="v">${isCustom(ED.def)?(ED.def.basedOn||'—'):('Official '+ED.def.version)}</span></div>
+      ${ED.def.pdf?`<div class="kv"><span class="k">Approved PDF</span><span class="v"><a href="${ED.def.pdf}" download style="color:var(--gold)">download ↓</a></span></div>`:''}
+      <div class="rrow" style="margin-top:12px">
+        <button class="btn sm ghost" id="railDup">Duplicate as new</button>
+        ${rec?.working?`<button class="btn sm danger" id="railRevert">Revert</button>`:''}
+      </div></div>
+    <div class="rsec"><h4>Handoff</h4>
+      <div class="rrow"><button class="btn sm ghost" id="railExport">Export JSON</button>
+      <button class="btn sm ghost" id="railImport">Import JSON</button></div>
+      <p class="hint" style="margin-top:9px">Edits live in this browser. Export a JSON to hand a draft to someone else; they import it here. (Shared, always-in-sync saves are the planned next step.)</p>
+    </div>`;
+  $$('#rail [data-fs]').forEach(b=>b.onclick = ()=>{
+    if(!ED.selField) return;
+    const el = $(`#canvasIn .ed[data-p="${ED.selField}"]`); if(!el) return;
+    const base = +el.dataset.bfs;
+    if(b.dataset.fs==='0'){ if(ED.state.fs) delete ED.state.fs[ED.selField]; el.style.fontSize = base+'px'; }
+    else{
+      const cur = (ED.state.fs && ED.state.fs[ED.selField]!=null)?ED.state.fs[ED.selField]:base;
+      const nv = Math.max(3.5, Math.min(64, +(cur + .5*(+b.dataset.fs)).toFixed(1)));
+      ED.state.fs = ED.state.fs||{}; ED.state.fs[ED.selField]=nv; el.style.fontSize = nv+'px';
+    }
+    markDirty(false); renderRail(el);
+  });
+  $$('#rail [data-restore]').forEach(b=>b.onclick = ()=>{
+    const v = (store.docs[ED.id]?.versions||[]).find(x=>x.id===b.dataset.restore); if(!v) return;
+    confirmModal('Restore '+v.label+'?', 'The working copy is replaced by this saved version (a fresh autosave keeps it).', ()=>{
+      ED.state = clone(v.state); markDirty(true); renderEditor(); toast(v.label+' restored.');
+    });
+  });
+  const rr = $('#railReplace'); if(rr) rr.onclick = ()=>pickImage(ED.selSlot);
+  const ri = $('#railResetImg'); if(ri) ri.onclick = ()=>{
+    sp(ED.state, ED.selSlot, gp(defaultStateFor(ED.def), ED.selSlot));
+    markDirty(true); renderEditor(); toast('Image reset.');
+  };
+  const rd = $('#railDup'); if(rd) rd.onclick = ()=>duplicateDoc(ED.def);
+  const rv = $('#railRevert'); if(rv) rv.onclick = ()=>confirmModal('Revert to '+(isCustom(ED.def)?'saved base':'official '+ED.def.version)+'?',
+    'All working edits on this document are discarded. Saved versions are kept.', ()=>{
+      docRec(ED.id).working = null; save();
+      ED.state = clone(defaultStateFor(ED.def)); renderEditor(); toast('Reverted.');
+    });
+  const re = $('#railExport'); if(re) re.onclick = ()=>exportDoc(ED.def);
+  const rim = $('#railImport'); if(rim) rim.onclick = ()=>importJSON();
+}
+
+/* save version */
+$('#saveVerBtn').onclick = ()=>{
+  if(!ED) return; commitFocused();
+  const rec = docRec(ED.id);
+  const label = 'D'+String(rec.versions.length+1).padStart(2,'0');
+  promptModal('Save '+label, 'Optional note — what changed?', '', note=>{
+    rec.versions.push({id:'v'+Date.now().toString(36), label, note:note.trim(), created:Date.now(), state:clone(ED.state)});
+    rec.working = {state:clone(ED.state), modified:Date.now(), basedOn:ED.def.version};
+    save(); renderRail(); toast(label+' saved.', false);
+  });
+};
+addEventListener('keydown', e=>{
+  if(!(e.metaKey||e.ctrlKey)) return;
+  if(!ED || $('#viewEd').hidden) return;
+  if(e.key==='s'){ e.preventDefault(); $('#saveVerBtn').click(); }
+  if(e.key==='p'){ e.preventDefault(); printDoc(); }
+});
+
+/* editor menu */
+$('#edMenuBtn').onclick = e=>{
+  const items = [
+    {k:'exp', l:'Export JSON', fn:()=>exportDoc(ED.def)},
+    {k:'dup', l:'Duplicate as new document', fn:()=>duplicateDoc(ED.def)},
+  ];
+  if(ED.def.pdf) items.push({k:'pdf', l:'Download approved PDF', fn:()=>{ const a=document.createElement('a'); a.href=ED.def.pdf; a.download=''; a.click(); }});
+  if(store.docs[ED.id]?.working) items.push('-',{k:'rev', l:'Revert to base', danger:true, fn:()=>$('#railRevert')?.click()});
+  popMenu(e.currentTarget, items);
+};
+
+/* ================================ print ================================ */
+function printDoc(){
+  if(!ED) return; commitFocused();
+  const land = ED.def.orient==='land';
+  const pages = renderPages(ED.def, ED.state);
+  $('#printRoot').innerHTML = pages.join('');
+  let st = $('#pgStyle');
+  if(!st){ st = document.createElement('style'); st.id='pgStyle'; document.head.appendChild(st); }
+  st.textContent = `@page{size:${land?'1056px 816px':'816px 1056px'};margin:0}`;
+  toast('In the dialog: Save as PDF · margins None · background graphics ON', true);
+  setTimeout(()=>{ window.print(); }, 120);
+}
+$('#printBtn').onclick = printDoc;
+addEventListener('afterprint', ()=>{ $('#printRoot').innerHTML=''; });
+
+/* ================================ new / duplicate ================================ */
+function newDocModal(){
+  const m = openModal(`
+    <h3>New document</h3>
+    <div class="msub">Built from the approved V08 / V02 system — pick a template, flavours and strengths. Codes stay editable afterwards (for future 1&nbsp;mg / 6&nbsp;mg SKUs, “Introducing” sheets, a master line sheet…).</div>
+    <div class="msec">Template</div>
+    <div class="opts" data-one="tpl">
+      <button class="opt on" data-v="line-columns">Line · Columns</button>
+      <button class="opt" data-v="line-rows">Line · Rows</button>
+      <button class="opt" data-v="individual">Individual flavour</button>
+    </div>
+    <div class="msec">Flavours</div>
+    <div class="opts" data-many="prods">${PRODUCTS.map((p,i)=>`<button class="opt on" data-v="${p.key}">${p.name}</button>`).join('')}</div>
+    <div class="msec">Strengths</div>
+    <div class="opts" data-many="str">
+      <button class="opt on" data-v="3">3 mg</button>
+      <button class="opt on" data-v="9">9 mg</button>
+    </div>
+    <div class="msec">Title</div>
+    <input type="text" id="nwTitle" value="" placeholder="e.g. UK Line Sheet — 1 mg & 6 mg">
+    <div class="mact"><button class="btn ghost" data-x>Cancel</button><button class="btn primary" id="nwGo">Create</button></div>`);
+  const one = m.querySelector('[data-one]'), tplOf = ()=>one.querySelector('.on').dataset.v;
+  m.addEventListener('click', e=>{
+    const o = e.target.closest('.opt'); if(!o) return;
+    const wrap = o.parentElement;
+    if(wrap.dataset.one){ wrap.querySelectorAll('.opt').forEach(x=>x.classList.remove('on')); o.classList.add('on'); }
+    else {
+      if(tplOf()==='individual' && wrap.dataset.many==='prods'){ wrap.querySelectorAll('.opt').forEach(x=>x.classList.remove('on')); o.classList.add('on'); }
+      else o.classList.toggle('on');
+    }
+    if(wrap.dataset.one && tplOf()==='individual'){
+      const pr = m.querySelector('[data-many="prods"]'); const on = pr.querySelectorAll('.on');
+      on.forEach((x,i)=>{ if(i>0) x.classList.remove('on'); });
+      if(!pr.querySelector('.on')) pr.querySelector('.opt').classList.add('on');
+    }
+  });
+  m.querySelector('#nwGo').onclick = ()=>{
+    const tpl = tplOf();
+    const prods = [...m.querySelectorAll('[data-many="prods"] .on')].map(b=>b.dataset.v);
+    const strengths = [...m.querySelectorAll('[data-many="str"] .on')].map(b=>b.dataset.v);
+    if(!prods.length) return toast('Pick at least one flavour.', true);
+    if(!strengths.length) return toast('Pick at least one strength.', true);
+    const family = tpl==='individual' ? 'individual' : 'line';
+    const title = m.querySelector('#nwTitle').value.trim()
+      || (family==='line' ? `Line Sheet — ${tpl==='line-rows'?'Rows':'Columns'} (custom)` : `${PROD[prods[0]].name} — Custom Sheet`);
+    const def = {
+      id:'c'+Date.now().toString(36), family, layout: tpl==='line-rows'?'rows':'columns',
+      product: family==='individual'?prods[0]:undefined,
+      productKeys: family==='line'?prods:undefined,
+      strengths, title, version:'D', basedOn: family==='line'?'V08 system':'V02 system',
+      format: family==='line'?'11 × 8.5 in':'8.5 × 11 in', orient: family==='line'?'land':'port',
+      pages: family==='line'?2:1, created: Date.now()
+    };
+    store.defs[def.id] = def;
+    docRec(def.id).working = {state: clone(defaultStateFor(def)), modified:Date.now(), basedOn:def.basedOn};
+    save(); closeModal(); openEditor(def.id); toast('Created — it lives under “My documents”.');
+  };
+}
+function duplicateDoc(src){
+  commitFocused?.();
+  const state = ED && ED.id===src.id ? clone(ED.state)
+    : clone(store.docs[src.id]?.working?.state || defaultStateFor(src));
+  const def = {...clone({...src, pdf:undefined}),
+    id:'c'+Date.now().toString(36), title: src.title.replace(/ — Copy( \d+)?$/,'')+' — Copy',
+    version:'D', basedOn: isCustom(src)?(src.basedOn||'custom'):('Official '+src.version), created:Date.now()};
+  delete def.pdf;
+  store.defs[def.id] = def;
+  docRec(def.id).working = {state, modified:Date.now(), basedOn:def.basedOn};
+  save(); toast('Duplicated — opening the copy.');
+  openEditor(def.id);
+}
+
+/* ================================ export / import ================================ */
+function exportDoc(def){
+  const rec = store.docs[def.id] || {working:null, versions:[]};
+  const payload = {app:'ki-mm', v:1, kind:'doc', exported:Date.now(),
+    def: isCustom(def) ? store.defs[def.id] : {id:def.id, official:true},
+    docId: def.id, working: rec.working, versions: rec.versions};
+  download(`Ki_MM_${def.title.replace(/[^\w]+/g,'_')}_${today()}.json`, JSON.stringify(payload, null, 1));
+  toast('Exported — hand this JSON to a teammate to import.');
+}
+function importJSON(){ $('#fileJson').value=''; $('#fileJson').click(); }
+$('#fileJson').addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const rd = new FileReader();
+  rd.onload = ()=>{
+    try{
+      const j = JSON.parse(rd.result);
+      if(j.app!=='ki-mm') throw 0;
+      if(j.kind==='workspace'){
+        confirmModal('Import workspace?', 'Documents and edits in the file are merged into this browser (matching documents are overwritten).', ()=>{
+          Object.assign(store.defs, j.store.defs||{});
+          Object.assign(store.docs, j.store.docs||{});
+          save(); renderLibrary(); toast('Workspace imported.');
+        });
+      } else if(j.kind==='doc'){
+        const apply = ()=>{
+          if(j.def && !j.def.official){
+            let id = j.def.id;
+            if(findDef(id) && !store.defs[id]) id = 'c'+Date.now().toString(36);   /* collision with official */
+            const def = {...j.def, id}; store.defs[id]=def;
+            store.docs[id] = {working:j.working, versions:j.versions||[]};
+          } else {
+            store.docs[j.docId] = {working:j.working, versions:j.versions||[]};
+          }
+          save(); renderLibrary(); toast('Imported.');
+        };
+        if((store.docs[j.docId]?.working || store.docs[j.docId]?.versions?.length) )
+          confirmModal('Overwrite local edits?', 'This browser already has edits for that document — the imported file replaces them.', apply);
+        else apply();
+      } else throw 0;
+    }catch(err){ toast('That file isn’t a Ki Marketing Materials export.', true); }
+  };
+  rd.readAsText(f);
+});
+
+/* ================================ modals ================================ */
+function openModal(inner){
+  const w = document.createElement('div'); w.id='modalWrap';
+  w.innerHTML = `<div class="modal">${inner}</div>`;
+  $('#modalMount').appendChild(w);
+  w.addEventListener('click', e=>{ if(e.target===w || e.target.closest('[data-x]')) closeModal(); });
+  return w.firstElementChild;
+}
+function closeModal(){ $('#modalWrap')?.remove(); }
+function confirmModal(title, sub, fn){
+  const m = openModal(`<h3>${title}</h3><div class="msub">${sub}</div>
+    <div class="mact"><button class="btn ghost" data-x>Cancel</button><button class="btn primary" id="okB">Confirm</button></div>`);
+  m.querySelector('#okB').onclick = ()=>{ closeModal(); fn(); };
+}
+function promptModal(title, sub, val, fn){
+  const m = openModal(`<h3>${title}</h3><div class="msub">${sub}</div>
+    <div style="margin-top:14px"><input type="text" id="pmI" value="${esc(val)}" placeholder="e.g. tightened Cola note, new 6 mg codes"></div>
+    <div class="mact"><button class="btn ghost" data-x>Cancel</button><button class="btn primary" id="okB">Save</button></div>`);
+  const inp = m.querySelector('#pmI'); inp.focus();
+  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') m.querySelector('#okB').click(); });
+  m.querySelector('#okB').onclick = ()=>{ const v=inp.value; closeModal(); fn(v); };
+}
+
+/* ================================ boot ================================ */
+libTopActions();
+renderLibrary();
+document.fonts?.ready.then(()=>{ if(ED) applyZoom(); });
+function hashDoc(){ return new URLSearchParams(location.hash.slice(1)).get('doc'); }
+addEventListener('hashchange', ()=>{
+  const h = hashDoc();
+  if(h && findDef(h) && (!ED || ED.id!==h)) openEditor(h);
+  else if(!h && ED) closeEditor();
+});
+{ const h = hashDoc(); if(h && findDef(h)) openEditor(h); }
+</script>
+</body>
+</html>

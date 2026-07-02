@@ -16,12 +16,21 @@
       "internal": false
     },
     {
-      "name": "Sell Sheets",
-      "kind": "UK trade one-pagers · the Origin Collection",
-      "href": "sell-sheets/",
-      "dest": "/sell-sheets",
+      "name": "Marketing Materials",
+      "kind": "sell sheets · download, edit & version · the Origin Collection",
+      "href": "marketing-materials/",
+      "dest": "/marketing-materials",
       "img": "assets/img/pucks/hero-hok.png",
       "alt": "Hokkaido Mint puck",
+      "internal": true
+    },
+    {
+      "name": "Emails",
+      "kind": "woo transactional suite · journey library, mockups & handoff",
+      "href": "emails/",
+      "dest": "/emails",
+      "img": "assets/img/emails-tool.png",
+      "alt": "Ki transactional email mockup",
       "internal": true
     },
     {

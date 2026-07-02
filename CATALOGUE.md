@@ -14,7 +14,8 @@ Status key: **live** = on the index · **ready** = self-contained, basically pub
 | Tool | What it is | Where |
 |---|---|---|
 | Ki-Landscapes | Generative landscape visualizer, rolling worlds | `jalulia.github.io/Ki-Landscapes` |
-| Sell Sheets | UK trade one-pagers, full product line | `jalulia.github.io/ki-sell-sheet` |
+| Marketing Materials | Sell-sheet library + WYSIWYG editor — download, edit & version the UK Launch set (V08 line + V02 individuals) | `marketing-materials/` (this repo) |
+| Emails | Woo transactional email suite — library in journey order, mockups w/ landscape headers, two-layer Woo handoff | `emails/` (this repo) |
 | World of Ki | Scrollable artifact world — the brand in context | `ki-world.html` (this repo) |
 
 ## Editors & generators — strongest candidates to publish next
@@ -22,8 +23,8 @@ Status key: **live** = on the index · **ready** = self-contained, basically pub
 | Tool | What it is | Lives in | Status |
 |---|---|---|---|
 | **Email Signature tool** | Generates on-brand email signatures | `06_Templates/Email-Signatures/Ki_Email_Signatures.html` | ready — single self-contained file |
-| **Letter Studio** | Front/back letter editor (matcha + gold), multi-page | `06_Templates/Sell-Sheets/Letter-Studio/` | ready — already GitHub-Pages-shaped |
-| **Sell Sheet Studio** | WYSIWYG sell-sheet editor, per-field sizing, JSON share-back | `06_Templates/Sell-Sheets/Ki_Sell_Sheet_Studio.html` | ready — pairs with the live Sell Sheets |
+| **Letter Studio** | Front/back letter editor (matcha + gold), multi-page | `_Archive/Sell-Sheets_pre-July-2026/Letter-Studio/` | archived with the pre-July sell-sheet system; DNA lives on in Marketing Materials |
+| **Sell Sheet Studio** | WYSIWYG sell-sheet editor, per-field sizing, JSON share-back | archived (pre-July system) | superseded by Marketing Materials |
 
 ## Sound & motion (the 03_Visualizers family)
 
