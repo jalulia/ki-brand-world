@@ -14,7 +14,8 @@ Status key: **live** = on the index · **ready** = self-contained, basically pub
 | Tool | What it is | Where |
 |---|---|---|
 | Ki-Landscapes | Generative landscape visualizer, rolling worlds | `jalulia.github.io/Ki-Landscapes` |
-| Marketing Materials | Sell-sheet library + WYSIWYG editor — download, edit & version the UK Launch set (V08 line + V02 individuals) | `marketing-materials/` (this repo) |
+| Marketing Materials | Sell-sheet library + WYSIWYG editor — download, edit & version the UK Launch set (V08 line + V07 trade individuals) | `marketing-materials/` (this repo) |
+| Render Sheet | Live render library on Chris's one-pager spec — per-flavor sheets, format chips, Drive-backed uploads (interim until Impossible Co Supabase) | `renders/` (this repo) |
 | Emails | Woo transactional email suite — library in journey order, mockups w/ landscape headers, two-layer Woo handoff | `emails/` (this repo) |
 | World of Ki | Scrollable artifact world — the brand in context | `ki-world.html` (this repo) |
 
