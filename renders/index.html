@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Render Sheet — Ki / UK</title>
+<meta name="description" content="Live render library for the Ki UK line — every view, every format, one sheet.">
+<style>
+  :root{
+    --ink:#111110; --sub:#8e8e8a; --faint:#c9c9c5; --line:#dedddb;
+    --paper:#ffffff; --bg:#f4f3f1; --slotbg:#fdfdfc;
+    --orange:#F94F14; --ref:#f1f1ef; --ok:#3E8E7E;
+    --sans:"Helvetica Neue",Helvetica,Arial,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:14px;line-height:1.35}
+  a{color:inherit}
+  .mono{font-variant-numeric:tabular-nums}
+
+  /* ---------- chrome ---------- */
+  header.bar{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--ink);padding:0 28px}
+  .bar-top{display:flex;align-items:baseline;gap:18px;padding:20px 0 6px;flex-wrap:wrap}
+  .bar-top h1{font-size:30px;font-weight:800;letter-spacing:-.5px;text-transform:uppercase}
+  .bar-top .spec-sub{font-size:9px;font-weight:700;letter-spacing:.14em;color:var(--sub);text-transform:uppercase;align-self:center}
+  .bar-meta{margin-left:auto;text-align:right;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .bar-meta .m2{color:var(--sub);font-weight:600}
+  .bar-meta .kanji{font-weight:600;color:var(--sub);letter-spacing:.2em;margin-right:8px}
+  nav.tabs{display:flex;gap:2px;padding:8px 0 0;overflow-x:auto;scrollbar-width:none}
+  nav.tabs::-webkit-scrollbar{display:none}
+  nav.tabs button{appearance:none;border:1px solid var(--ink);border-bottom:none;background:var(--paper);
+    font:700 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:9px 14px 8px;cursor:pointer;white-space:nowrap;color:var(--ink)}
+  nav.tabs button:hover{background:var(--bg)}
+  nav.tabs button.on{background:var(--ink);color:#fff}
+  nav.tabs button .k{margin-left:7px;opacity:.55;font-weight:600}
+
+  /* ---------- sheet ---------- */
+  .sheet-wrap{max-width:1360px;margin:26px auto 0;padding:0 28px}
+  .sheet{background:var(--paper);border:1px solid var(--ink);padding:26px 26px 18px}
+  .rows{display:flex;flex-direction:column;gap:14px}
+  .row{display:grid;grid-template-columns:44px 1fr;gap:14px}
+  .rail{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:2px}
+  .rail .num{width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font:700 10px/26px var(--sans);text-align:center;letter-spacing:.05em}
+  .rail .rlabel{writing-mode:vertical-rl;transform:rotate(180deg);font-size:8.5px;font-weight:700;letter-spacing:.22em;color:var(--ink);text-transform:uppercase}
+  .cells{display:grid;gap:10px}
+  .r-views  .cells{grid-template-columns:repeat(4,1fr)}
+  .r-constr .cells{grid-template-columns:1.35fr 1.35fr 1fr}
+  .r-art    .cells{grid-template-columns:1.8fr 1fr}
+  .r-spec   .cells{grid-template-columns:1.15fr 1fr}
+  .r-lib    .cells{grid-template-columns:1fr 1fr 1fr}
+  .r-line5  .cells{grid-template-columns:repeat(5,1fr)}
+  .r-line4  .cells{grid-template-columns:repeat(4,1fr)}
+
+  /* ---------- slot ---------- */
+  .slot{border:1px solid var(--line);background:var(--slotbg);display:flex;flex-direction:column;min-height:250px;position:relative}
+  .slot .tag{position:absolute;top:8px;left:10px;font-size:8px;font-weight:700;letter-spacing:.18em;color:var(--faint);text-transform:uppercase;z-index:2}
+  .slot .fig{flex:1;display:flex;align-items:center;justify-content:center;padding:26px 14px 10px;min-height:150px;position:relative}
+  .slot .fig img{max-width:100%;max-height:280px;object-fit:contain;display:block}
+  .slot.tall .fig img{max-height:340px}
+  .slot .foot{border-top:1px solid var(--line);padding:10px 12px 11px;display:flex;flex-wrap:wrap;gap:8px 10px;align-items:baseline}
+  .slot .t{font-size:14.5px;font-weight:800;letter-spacing:-.2px}
+  .slot .s{font-size:9.5px;color:var(--sub);font-weight:600;letter-spacing:.02em}
+  .slot .grow{flex:1 1 auto}
+
+  .slot.await{border-style:dashed;border-color:var(--faint)}
+  .slot.await .fig{flex-direction:column;gap:6px}
+  .slot.await .fig .aw{font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--faint);text-transform:uppercase}
+
+  .slot.refonly{background:var(--ref)}
+  .slot.refonly .tag{color:#a4a4a0}
+
+  .slot.orange{background:var(--orange);border-color:var(--orange)}
+  .slot.orange .tag{color:rgba(255,255,255,.55)}
+  .slot.orange .foot{border-top-color:rgba(255,255,255,.35)}
+  .slot.orange .t{color:#fff}
+  .slot.orange .s{color:rgba(255,255,255,.75)}
+  .slot.orange .fig{background:
+     repeating-linear-gradient(90deg,transparent 0 119px,rgba(255,255,255,.14) 119px 120px)}
+
+  /* strength segmented */
+  .seg{display:inline-flex;border:1px solid var(--ink);margin-left:auto}
+  .slot.orange .seg{border-color:#fff}
+  .seg button{appearance:none;border:none;background:transparent;font:700 8.5px/1 var(--sans);letter-spacing:.1em;padding:5px 8px;cursor:pointer;color:inherit}
+  .seg button.on{background:var(--ink);color:#fff}
+  .slot.orange .seg button.on{background:#fff;color:var(--orange)}
+
+  /* chips */
+  .chips{display:flex;flex-wrap:wrap;gap:5px;width:100%;margin-top:2px}
+  .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--ink);padding:4px 8px;font-size:8.5px;font-weight:700;
+    letter-spacing:.09em;text-transform:uppercase;text-decoration:none;background:var(--paper);cursor:pointer}
+  .chip:hover{background:var(--ink);color:#fff}
+  .chip .fmt{background:var(--ink);color:#fff;padding:1.5px 4px;margin-left:-4px}
+  .chip:hover .fmt{background:#fff;color:var(--ink)}
+  .chip .sz{color:var(--sub);font-weight:600}
+  .chip:hover .sz{color:rgba(255,255,255,.7)}
+  .chip.dis{opacity:.4;pointer-events:none}
+  .slot.orange .chip{border-color:#fff;background:transparent;color:#fff}
+  .slot.orange .chip .sz{color:rgba(255,255,255,.75)}
+  .slot.orange .chip .fmt{background:#fff;color:var(--orange)}
+  .slot.orange .chip:hover{background:#fff;color:var(--orange)}
+  .slot.orange .chip:hover .sz{color:var(--orange)}
+  .chip.folder{border-style:dashed}
+
+  /* live browse */
+  .live{width:100%}
+  .live iframe{width:100%;height:230px;border:1px solid var(--line);background:#fff;margin-top:8px}
+  .livehead{font-size:8.5px;font-weight:700;letter-spacing:.14em;color:var(--sub);text-transform:uppercase;margin-top:8px}
+
+  /* spec row bits */
+  table.callouts{width:100%;border-collapse:collapse;margin:26px 12px 8px;align-self:flex-start;width:calc(100% - 24px)}
+  table.callouts th,table.callouts td{border:1px solid var(--line);padding:7px 9px;text-align:left;font-size:10.5px}
+  table.callouts th{font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);background:var(--bg)}
+  table.callouts td.dim{color:var(--faint)}
+  .chipsrow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:30px 12px 8px;width:100%}
+  .swatch{border:1px solid var(--line);cursor:pointer}
+  .swatch .c{height:64px}
+  .swatch .l{padding:6px 7px;font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.5}
+  .swatch .l span{display:block;color:var(--sub);font-weight:600}
+
+  /* footer */
+  footer{max-width:1360px;margin:14px auto 60px;padding:0 28px;display:flex;align-items:center;gap:12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  footer .oslash{font-size:15px;font-weight:800}
+  footer .right{margin-left:auto;color:var(--sub);display:flex;gap:16px;align-items:center}
+  footer button.lock{appearance:none;border:none;background:none;font:inherit;color:var(--sub);cursor:pointer;letter-spacing:.1em;text-transform:uppercase;padding:0}
+  footer button.lock:hover{color:var(--ink)}
+
+  /* manage */
+  body:not(.manage) .m-only{display:none}
+  .managebar{display:none;background:var(--ink);color:#fff;font-size:10px;font-weight:600;letter-spacing:.06em;padding:8px 28px}
+  .managebar a{color:#fff;font-weight:700}
+  body.manage .managebar{display:block}
+  .chip.up{border-color:var(--ok);color:var(--ok)}
+  .chip.up:hover{background:var(--ok);border-color:var(--ok);color:#fff}
+  .slot.orange .chip.up{border-color:#fff;color:#fff}
+
+  .note{max-width:1360px;margin:10px auto 0;padding:0 28px;font-size:10px;color:var(--sub);font-weight:600;letter-spacing:.03em}
+
+  @media(max-width:1080px){
+    .r-views .cells,.r-line5 .cells,.r-line4 .cells{grid-template-columns:1fr 1fr}
+    .r-constr .cells,.r-lib .cells{grid-template-columns:1fr 1fr}
+    .r-art .cells,.r-spec .cells{grid-template-columns:1fr}
+  }
+  @media(max-width:620px){
+    .cells{grid-template-columns:1fr!important}
+    .bar-top h1{font-size:22px}
+    header.bar,.sheet-wrap,footer{padding-left:14px;padding-right:14px}
+  }
+  @media print{
+    header.bar nav.tabs,.managebar,.note,footer .right{display:none}
+    body{background:#fff}
+    .sheet{border-width:2px}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-top">
+    <h1>Render Sheet</h1>
+    <div class="spec-sub">Single page · All views same scale</div>
+    <div class="bar-meta">
+      <div class="m1"><span class="kanji" id="metaKanji"></span><span id="metaFlavor"></span> · KI / UK</div>
+      <div class="m2 mono">070226 · SHEET <span id="metaSheet"></span></div>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs"></nav>
+</header>
+
+<div class="managebar">MANAGE — uploads land in the matching Drive folder and appear in each slot’s LIVE view instantly. Format chips refresh when the manifest is next rebuilt. <a id="rootLink" target="_blank" rel="noopener">Open the library in Drive ↗</a></div>
+
+<div class="sheet-wrap"><div class="sheet"><div class="rows" id="rows"></div></div></div>
+<p class="note" id="foot-note">Every slot lists what’s uploaded — grab whichever format you need. New angles or missing views: unlock manage (bottom right) and upload straight into the slot.</p>
+
+<footer>
+  <span class="oslash">Ø</span> Confidential &amp; proprietary work for Ki Bio
+  <span class="right">
+    <span>Render Sheet Spec · V2 Identity</span>
+    <button class="lock" id="lockBtn">Manage</button>
+  </span>
+</footer>
+
+<script>
+/* ================= config ================= */
+const PASS_HASH='034471d9fc375c1aa15d477c3c78c68728963bacb1837b2e16e10bbcb4a99321';
+const FLAVORS=[
+  {key:'cola',    name:'Tokyo Cola',     kanji:'東京コーラ',    accent:'#B23A48'},
+  {key:'hokkaido',name:'Hokkaido Mint',  kanji:'北海道ミント',  accent:'#3E8E7E'},
+  {key:'maple',   name:'Maple Coffee',   kanji:'メープルコーヒー',accent:'#8A5A3B'},
+  {key:'satsuma', name:'Satsuma Citrus', kanji:'薩摩シトラス',  accent:'#E08A2E'},
+  {key:'yuzu',    name:'Yuzu Mint',      kanji:'柚子ミント',    accent:'#7FA33C'},
+  {key:'line',    name:'Full Line',      kanji:'全種',          accent:'#B88448'},
+];
+const BRAND=[['YAMABUKI FOIL','#CDA043'],['SITE GOLD','#B88448'],['INK','#0A0908'],['PAPER','#FCFBF8']];
+
+/* rows + slots for flavor sheets */
+const ROWS=[
+ {num:'01',label:'Views',cls:'r-views',slots:[
+   {id:'front-ortho',t:'Front ortho',s:'Dimensioned'},
+   {id:'side-ortho',t:'Side ortho',s:'Art wrap at 90°'},
+   {id:'top',t:'Top view',s:'Lid graphic, seam'},
+   {id:'bottom',t:'Bottom view',s:'Base recess'},
+ ]},
+ {num:'02',label:'Construction',cls:'r-constr',slots:[
+   {id:'cross-section',t:'Cross-section',s:'Lid fit, wall thickness'},
+   {id:'exploded',t:'Exploded view',s:'Lid, catch, base'},
+   {id:'beauty',t:'3/4 beauty',s:'Not for tooling',ref:true},
+ ]},
+ {num:'03',label:'Artwork',cls:'r-art',slots:[
+   {id:'label-flat',t:'Label flat — unwrapped',s:'0° registration mark',orange:true,tall:true},
+   {id:'detail',t:'Detail insets',s:'2×–4× zooms'},
+ ]},
+ {num:'04',label:'Spec',cls:'r-spec',slots:[
+   {id:'callouts',t:'Material callouts',s:'Finish per surface',kind:'callouts'},
+   {id:'palette',t:'Color palette',s:'Hex or Pantone chips',kind:'palette'},
+ ]},
+ {num:'05',label:'Library',cls:'r-lib',slots:[
+   {id:'open',t:'Open puck',s:'Lid back, pouches in'},
+   {id:'stacked',t:'Stacked pair',s:'Side wrap, composition'},
+   {id:'inbox',t:'New uploads',s:'Anything not yet slotted',kind:'inbox'},
+ ]},
+];
+/* full line sheet */
+const LINE_ROWS=[
+ {num:'01',label:'Group',cls:'r-line5',slots:[1,2,3,4,5].map(n=>({id:'angle-0'+n,t:'Group angle 0'+n,s:'All flavors, loose set'}))},
+ {num:'02',label:'Solo tilts',cls:'r-line4',slots:[[6,'Hokkaido Mint'],[7,'Maple Coffee'],[8,'Yuzu Mint'],[9,'Satsuma Citrus']].map(([n,f])=>({id:'angle-0'+n,t:'Solo tilt 0'+n,s:f+', low orbit'}))},
+];
+
+/* ================= state ================= */
+let MANIFEST=null, current=location.hash.replace('#','')||'cola';
+if(!FLAVORS.some(f=>f.key===current)) current='cola';
+
+const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dl=id=>'https://drive.google.com/uc?export=download&id='+id;
+const folderUrl=id=>'https://drive.google.com/drive/folders/'+id;
+const embedUrl=id=>'https://drive.google.com/embeddedfolderview?id='+id+'#grid';
+
+/* ================= render ================= */
+function slotData(fk,sid){ return (MANIFEST&&MANIFEST.flavors[fk]&&MANIFEST.flavors[fk].slots[sid])||{files:[],folderId:null}; }
+
+function chipHtml(f){
+  const href=f.id?dl(f.id):'#';
+  return `<a class="chip${f.id?'':' dis'}" href="${href}" title="${f.id?esc(f.name||''):'syncing to Drive…'}" download>
+    <span class="fmt">${esc(f.fmt)}</span>${f.part?esc(f.part)+' ':''}${f.strength?esc(f.strength)+' ':''}<span class="sz">${esc(f.size||'')}</span> ↓</a>`;
+}
+
+function slotHtml(fk,def){
+  const d=slotData(fk,def.id);
+  const cls=['slot',def.orange?'orange':'',def.ref?'refonly':'',def.tall?'tall':''].join(' ').trim();
+  if(def.kind==='callouts'){
+    return `<div class="${cls}"><span class="tag">Callout table</span>
+      <table class="callouts"><tr><th>Surface</th><th>Finish</th><th>Note</th></tr>
+      <tr><td>Puck body</td><td class="dim">awaiting spec</td><td class="dim">—</td></tr>
+      <tr><td>Lid</td><td class="dim">awaiting spec</td><td class="dim">—</td></tr>
+      <tr><td>Label</td><td class="dim">awaiting spec</td><td class="dim">—</td></tr>
+      <tr><td>Sleeve</td><td class="dim">awaiting spec</td><td class="dim">—</td></tr></table>
+      <div class="foot"><span class="t">${esc(def.t)}</span><span class="s">${esc(def.s)}</span>
+      <span class="grow"></span>${manageChips(d,def)}</div></div>`;
+  }
+  if(def.kind==='palette'){
+    const fl=FLAVORS.find(x=>x.key===fk);
+    const chips=[[fl.name.toUpperCase()+' ACCENT',fl.accent],...BRAND];
+    return `<div class="${cls}"><span class="tag">Chips</span>
+      <div class="chipsrow">${chips.map(([n,h])=>`<div class="swatch" data-hex="${h}" title="copy ${h}">
+        <div class="c" style="background:${h}"></div><div class="l">${esc(n)}<span class="mono">${h}</span></div></div>`).join('')}</div>
+      <div class="foot"><span class="t">${esc(def.t)}</span><span class="s">${esc(def.s)}</span></div></div>`;
+  }
+  if(def.kind==='inbox'){
+    return `<div class="${cls} await"><span class="tag">Slot</span>
+      <div class="fig"><div class="aw">Live drop zone</div></div>
+      <div class="foot"><span class="t">${esc(def.t)}</span><span class="s">${esc(def.s)}</span><span class="grow"></span>
+        ${liveBits(d,def,true)}</div></div>`;
+  }
+  const files=d.files||[];
+  if(!files.length){
+    return `<div class="${cls} await"><span class="tag">Slot</span>
+      <div class="fig"><div class="aw">Awaiting upload</div><div class="s">${esc(def.s)}</div></div>
+      <div class="foot"><span class="t">${esc(def.t)}</span><span class="grow"></span>${manageChips(d,def)}</div></div>`;
+  }
+  const strengths=[...new Set(files.filter(f=>f.strength&&f.preview).map(f=>f.strength))];
+  const first=files.find(f=>f.preview)||files[0];
+  const seg=strengths.length>1?`<span class="seg" data-slot="${def.id}">${strengths.map((s,i)=>
+      `<button class="${i===0?'on':''}" data-strength="${s}">${s}</button>`).join('')}</span>`:'';
+  return `<div class="${cls}" data-slotbox="${def.id}"><span class="tag">${def.ref?'Reference only':'Slot'}</span>
+    <div class="fig">${first.preview?`<img loading="lazy" src="${esc(first.preview)}" alt="${esc(def.t)}">`:`<div class="aw">no preview</div>`}</div>
+    <div class="foot"><span class="t">${esc(def.t)}</span><span class="s">${esc(def.s)}</span>${seg}
+      <div class="chips">${files.map(chipHtml).join('')}${folderChip(d)}${manageChips(d,def)}</div>${liveBits(d,def)}</div></div>`;
+}
+function folderChip(d){ return d.folderId?`<a class="chip folder" target="_blank" rel="noopener" href="${folderUrl(d.folderId)}">All files ↗</a>`:''; }
+function manageChips(d,def){ return d.folderId?`<a class="chip up m-only" target="_blank" rel="noopener" href="${folderUrl(d.folderId)}">Upload ↗</a>`:''; }
+function liveBits(d,def,open){
+  if(!d.folderId) return '';
+  return `<div class="live"><a class="chip m-only" data-live="${d.folderId}" ${open?'data-open="1"':''}>Live view ▾</a><div class="livehost"></div></div>`;
+}
+
+function render(){
+  const fl=FLAVORS.find(f=>f.key===current);
+  document.title=`Render Sheet — ${fl.name} · Ki / UK`;
+  $('#metaFlavor').textContent=fl.name.toUpperCase();
+  $('#metaKanji').textContent=fl.kanji;
+  $('#metaSheet').textContent=(FLAVORS.indexOf(fl)+1)+' / '+FLAVORS.length;
+  $('#tabs').innerHTML=FLAVORS.map(f=>`<button class="${f.key===current?'on':''}" data-fl="${f.key}">${esc(f.name)}<span class="k">${esc(f.kanji)}</span></button>`).join('');
+  const rows=current==='line'?LINE_ROWS:ROWS;
+  $('#rows').innerHTML=rows.map(r=>`<div class="row ${r.cls}"><div class="rail"><div class="num">${r.num}</div><div class="rlabel">${esc(r.label)}</div></div>
+    <div class="cells">${r.slots.map(s=>slotHtml(current,s)).join('')}</div></div>`).join('');
+  if(MANIFEST&&MANIFEST.rootFolderId) $('#rootLink').href=folderUrl(MANIFEST.rootFolderId);
+  wire();
+}
+
+function wire(){
+  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{current=b.dataset.fl;history.replaceState(null,'','#'+current);render();window.scrollTo({top:0});});
+  document.querySelectorAll('.seg').forEach(seg=>seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+    seg.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+    const box=seg.closest('[data-slotbox]'),sid=seg.dataset.slot,d=slotData(current,sid);
+    const f=(d.files||[]).find(x=>x.strength===b.dataset.strength&&x.preview);
+    if(f) box.querySelector('.fig img').src=f.preview;
+  }));
+  document.querySelectorAll('.swatch').forEach(s=>s.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(s.dataset.hex);
+    const l=s.querySelector('.l span'),o=l.textContent;l.textContent='COPIED';setTimeout(()=>l.textContent=o,900);});
+  document.querySelectorAll('[data-live]').forEach(a=>{
+    const go=()=>{const host=a.parentElement.querySelector('.livehost');
+      if(host.innerHTML){host.innerHTML='';a.textContent='Live view ▾';return;}
+      host.innerHTML=`<div class="livehead">Live Drive contents — updates as files land</div><iframe loading="lazy" src="${embedUrl(a.dataset.live)}"></iframe>`;
+      a.textContent='Live view ▴';};
+    a.onclick=go; if(a.dataset.open&&document.body.classList.contains('manage')) go();
+  });
+}
+
+/* ================= manage ================= */
+async function sha256(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+$('#lockBtn').onclick=async()=>{
+  if(document.body.classList.contains('manage')){document.body.classList.remove('manage');localStorage.removeItem('ki-renders-manage');render();return;}
+  const p=prompt('Passphrase');if(!p)return;
+  if(await sha256(p)===PASS_HASH){document.body.classList.add('manage');localStorage.setItem('ki-renders-manage','1');render();}
+  else alert('Not it.');
+};
+if(localStorage.getItem('ki-renders-manage')==='1')document.body.classList.add('manage');
+
+/* ================= boot ================= */
+fetch('manifest.json',{cache:'no-store'}).then(r=>r.json()).then(m=>{MANIFEST=m;render();}).catch(()=>{MANIFEST={flavors:{}};render();});
+</script>
+</body>
+</html>

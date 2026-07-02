@@ -34,6 +34,15 @@
       "internal": true
     },
     {
+      "name": "Render Sheet",
+      "kind": "live render library · every view, every format · Drive-backed uploads",
+      "href": "renders/",
+      "dest": "/renders",
+      "img": "assets/img/render-sheet.webp",
+      "alt": "Five Ki pucks, loose group angle",
+      "internal": true
+    },
+    {
       "name": "World of Ki",
       "kind": "scrollable artifact world · the brand in context",
       "href": "ki-world.html",
