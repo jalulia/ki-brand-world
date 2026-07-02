@@ -124,6 +124,24 @@ a{color:inherit}
 .close{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;border:1px solid var(--rule);background:var(--paper);color:var(--ink);font-size:15px;cursor:pointer;z-index:5}
 .close:hover{background:var(--card)}
 
+/* ————— handoff section ————— */
+.handoff{max-width:1240px;margin:14px auto 0;padding:0 26px 90px}
+.handoff .inner{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:30px 32px 34px}
+.handoff h2{font:700 19px 'Obviously',sans-serif;color:var(--ink);margin:6px 0 6px}
+.handoff .lead{max-width:74ch;font-size:13.5px;line-height:1.65;color:var(--body)}
+.ho-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:34px;margin-top:26px}
+@media(max-width:900px){.ho-grid{grid-template-columns:1fr}}
+.ho-col .lbl{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.ho-col p{font-size:13px;line-height:1.65;color:var(--body);margin:0 0 12px}
+.ho-col p b{color:var(--ink)}
+.steps{display:flex;flex-direction:column;gap:11px;counter-reset:st}
+.step{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:baseline;background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:12px 15px}
+.step .n{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;color:var(--gold)}
+.step .x{font-size:12.5px;line-height:1.6;color:var(--body)}
+.step .x b{color:var(--ink)}
+.step .x code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--ink);background:#F3F1EA;border:1px solid #E7E4DC;border-radius:5px;padding:1px 6px;white-space:nowrap}
+.ho-note{margin-top:16px;font-size:11.5px;color:var(--mute);line-height:1.6}
+
 /* ————— footer ————— */
 .foot{border-top:1px solid var(--rule);background:var(--paper);padding:26px;text-align:center;color:var(--mute);font-size:11.5px}
 .foot .comp{margin-top:6px;font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.06em}
@@ -138,6 +156,7 @@ a{color:inherit}
   <img class="crest" src="assets/crest.png" alt="Ki crest">
   <div class="wm">Ki · Emails</div>
   <div class="spacer"></div>
+  <a class="btn ghost sm" href="#handoff">Handoff guide</a>
   <button class="btn gold sm" id="bundleBtn">⬇ Woo handoff bundle</button>
 </div>
 
@@ -156,6 +175,36 @@ a{color:inherit}
 </div>
 
 <div class="lib" id="lib"></div>
+
+<div class="handoff" id="handoff">
+  <div class="inner">
+    <div class="eyebrow">06 · Handoff</div>
+    <h2>How this ships</h2>
+    <div class="lead">Everything on this page is generated from one set of templates — the mockups you scroll, the code the developer downloads, and the copy data are the same source. The <b>⬇ Woo handoff bundle</b> (top right) is the complete package; nothing else needs to be exported or redrawn.</div>
+    <div class="ho-grid">
+      <div class="ho-col">
+        <div class="lbl">If you're not the developer</div>
+        <p>Each mockup is the approved copy sitting inside the real email design — what a customer sees in their inbox at each moment of an order. The frames around them (subject line, from-address) are how they'll appear in Gmail or Apple Mail.</p>
+        <p>The bundle hands the developer four things: <b>the coded emails</b> (one HTML file per email, in both header styles), <b>the shared header &amp; footer</b> in WooCommerce's own override format, <b>all the copy as data</b> (subjects, headings, body text — <code style="font-family:inherit">strings.json</code>), and <b>the brand image files</b> (crest, logos, landscape paintings, tin renders) ready to upload to the site.</p>
+        <p>Implementation is a theme-folder drop-in plus copy-paste of subjects — there are no design decisions left to make. The open items that <i>do</i> need a human call are flagged in red on this page (POS emails, the cut invoice email, admin next-steps).</p>
+      </div>
+      <div class="ho-col">
+        <div class="lbl">If you're on the Woo side — the exact steps</div>
+        <div class="steps">
+          <div class="step"><span class="n">01</span><span class="x"><b>Download &amp; unzip</b> the bundle (top right). Read <code>README.md</code> — it repeats these steps with the caveats inline.</span></div>
+          <div class="step"><span class="n">02</span><span class="x"><b>Host the images.</b> Upload the <code>assets/</code> folder to the site — Media Library or <code>wp-content/uploads/ki/</code> — and note the URLs. Emails can't bundle images; they load from the site.</span></div>
+          <div class="step"><span class="n">03</span><span class="x"><b>Install the shared shell.</b> Copy <code>php/email-header.php</code> + <code>php/email-footer.php</code> into the child theme at <code>wp-content/themes/&lt;theme&gt;/woocommerce/emails/</code>, then point the <code>$crest</code> / <code>$logo</code> variables at step-02 URLs. Woo's template hierarchy picks up theme overrides automatically — every email, admin ones included, now wears the Ki wrapper.</span></div>
+          <div class="step"><span class="n">04</span><span class="x"><b>Set subjects &amp; headings</b> per email in <code>WooCommerce → Settings → Emails</code>, from <code>strings.json</code>. <code>{site_title}</code>, <code>{order_number}</code>, <code>{order_date}</code> are native Woo placeholders in subject fields.</span></div>
+          <div class="step"><span class="n">05</span><span class="x"><b>Swap the body copy.</b> Woo hardcodes each intro paragraph in its per-email template, not in settings — copy the relevant <code>templates/emails/customer-*.php</code> files into the same theme folder and replace the intro line with the <code>body</code> string from <code>strings.json</code>.</span></div>
+          <div class="step"><span class="n">06</span><span class="x"><b>Full-fidelity pass.</b> The stepper, order card and landscape band live in <code>html/typographic/</code> + <code>html/landscape/</code> — table-based, inline CSS, <code>{placeholders}</code> marked with comments. Use them as the build spec for the template overrides (map to <code>$order-&gt;get_order_number()</code>, billing first name, etc.), or wire them through an HTML-email plugin if preferred.</span></div>
+          <div class="step"><span class="n">07</span><span class="x"><b>Two emails don't exist in core.</b> Customer-facing <b>Cancelled</b> and <b>Failed</b> are admin-only in stock Woo — each needs a small <code>WC_Email</code> subclass (or a plugin that adds them). Flagged on their cards above.</span></div>
+          <div class="step"><span class="n">08</span><span class="x"><b>Test sends</b> to Gmail (falls back to Helvetica/Arial — designed for) and Apple Mail (loads Obviously via <code>@font-face</code>). Check one order email with a multi-item order for the card layout.</span></div>
+        </div>
+        <div class="ho-note">Fonts: production sends should self-host the woff2s on ki.bio (URLs sit at the top of each HTML file). Sample prices in mockups are illustrative — real prices come from the order object.</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="ovl" id="ovl">
   <div class="panel">
@@ -672,25 +721,36 @@ Copy source: "Ki — Website review · Emails" deck. Sample order data in the HT
 - strings.json        per-email subject / heading / body copy with {placeholders} — for a settings-level pass or i18n
 - assets/             the real brand binaries used (crest, logos, landscape bands, tin renders)
 
-## Two-layer handoff (choose per build)
-1. WRAPPER LAYER — install php/email-header.php + php/email-footer.php as template overrides.
-   Every Woo email (incl. the "no change" admin ones) instantly gets the Ki shell.
-   Then set per-email subject/heading strings from strings.json in WooCommerce → Settings → Emails.
-2. FULL-TEMPLATE LAYER — use html/ files as the reference build for per-email overrides
-   (or paste into an HTML-email plugin). {placeholders} map 1:1 to Woo values;
-   replace the sample order block with the Woo order items table.
+## Install — the exact steps
+1. HOST THE IMAGES — upload assets/ to the site (Media Library or wp-content/uploads/ki/)
+   and note the URLs. Emails can't bundle images; they load from the site.
+2. SHARED SHELL — copy php/email-header.php + php/email-footer.php into the child theme at
+   wp-content/themes/<theme>/woocommerce/emails/ and point the $crest / $logo variables at
+   the step-1 URLs. Woo's template hierarchy picks up theme overrides automatically — every
+   email (admin included) now wears the Ki wrapper.
+3. SUBJECTS & HEADINGS — set per email in WooCommerce → Settings → Emails, from strings.json.
+   {site_title} / {order_number} / {order_date} are native Woo placeholders in subject fields.
+4. BODY COPY — Woo hardcodes each intro paragraph in its per-email template, not in settings.
+   Copy the relevant templates/emails/customer-*.php into the same theme folder and replace
+   the intro line with the "body" string from strings.json.
+5. FULL FIDELITY — the stepper, order card and landscape band live in html/typographic/ +
+   html/landscape/ (table-based, inline CSS, {placeholders} marked with comments). Use them
+   as the build spec for the overrides (map to $order->get_order_number(), billing first
+   name, wc_get_email_order_items(), …) or wire through an HTML-email plugin.
+6. TWO EMAILS AREN'T IN CORE — customer-facing Cancelled + Failed are admin-only in stock
+   Woo; each needs a small WC_Email subclass (or a plugin that adds them).
+7. TEST — send to Gmail (falls back to Helvetica/Arial — designed for) and Apple Mail
+   (loads Obviously via @font-face). Check a multi-item order for the card layout.
 
 ## Notes for the build
-- Woo core sends cancelled_order / failed_order to ADMIN only. The customer-facing
-  Cancelled + Failed emails here need a small custom email class (or plugin) — flagged in-tool.
 - customer_invoice ("Order details") is cut per the deck, BUT it doubles as the
   "pay for this order" email for pending orders — confirm before disabling.
 - "Completed" copy reads pre-shipment — confirm trigger mapping (see in-tool flag).
 - Subjects marked "Woo default" were not covered in the deck.
-- Fonts: Obviously is @font-face'd from the repo for clients that support web fonts
-  (Apple Mail etc.); everything falls back to Helvetica/Arial cleanly. Rehost fonts +
-  images on ki.bio for production sends.
+- Fonts: production sends should self-host the woff2s on ki.bio; @font-face URLs sit at the
+  top of each HTML file. Everything falls back to Helvetica/Arial cleanly.
 - Compliance footer is baked into the wrapper: "Nicotine is an addictive substance. For adults 18+ only. Seriously."
+- Sample prices in the HTML are illustrative; real values come from the order object.
 `;
 }
 function phpHeader(){
