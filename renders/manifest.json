@@ -1,20 +1,20 @@
 {
- "generated": "2026-07-02",
- "rootFolderId": "1SOhD7ZxrvORZpBGyQDsYV8LOdn11gb1x",
+ "generated": "2026-07-02 · IMPØSSIBLE shared drive",
+ "rootFolderId": "16GnXplxxEuUAW6gW0PboawaTyKfBzmc3",
  "flavors": {
   "cola": {
-   "folderId": "1RjOdiCnZx_AgKxgJTCtiV9eEt8hs0DiX",
+   "folderId": "1-sjU0LMSmmy82YSO2cUUnE5xgEXN0oK7",
    "slots": {
     "front-ortho": {
-     "folderId": "1MnMhpgxtWfTqMNcV2JwR5KPcPX4K3BaO",
+     "folderId": "1KS00okDZK6f3X64FJdcDUmHDtFRs-ph8",
      "files": []
     },
     "side-ortho": {
-     "folderId": "1nAyM_SXoCjX4imAnd21uVSx_s8eLcTYd",
+     "folderId": "13C9vcaecEP6LWWkr7bMr84_ZMYNV0bEN",
      "files": []
     },
     "top": {
-     "folderId": "1rmXV61doU12T1KqNX6XM7VBhAyBwhZGY",
+     "folderId": "1WZfeUmOHvWaZHS33RsisRV-A7rta39OQ",
      "files": [
       {
        "name": "KI_NEW_UK_COLA_03.png",
@@ -22,7 +22,7 @@
        "size": "2.4 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1t4XhJea_5zWo8dyL-3QsHT2O6FOIN7lo",
+       "id": "1ZAzHTx_qcmOnqByIxXcB4dyFbb5QptLK",
        "preview": "previews/cola/03.webp"
       },
       {
@@ -31,13 +31,13 @@
        "size": "2.4 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1b4jup5dIjBqLIwxmaV6JjjMGBdtJGkdA",
+       "id": "1wJi1utG9dS2rI04R1p3kKgV8gL9nO7ZA",
        "preview": "previews/cola/04.webp"
       }
      ]
     },
     "bottom": {
-     "folderId": "1xGM-jxVqLJr_nvVlzfUXCs4_1TBy5zsi",
+     "folderId": "1t2SluHP7NOEYLL-VwANWClu1CJ5rA_Hw",
      "files": [
       {
        "name": "KI_NEW_UK_COLA_07.png",
@@ -45,7 +45,7 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1XwOt4Lo3I70xsnj09WyL5CkvPhIyVGnc",
+       "id": "1ILeehdrP00SewNF2VjpAALLypTB9-XYe",
        "preview": "previews/cola/07.webp"
       },
       {
@@ -54,21 +54,21 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1xmrVvu2PM-nOgNquBdOoyRoVEqbWQ-xk",
+       "id": "13UKvREXqbER3IPIsbiPiBpptUBeWgpIn",
        "preview": "previews/cola/08.webp"
       }
      ]
     },
     "cross-section": {
-     "folderId": "10uN03OKQsKwrkGyFdR-CLu7z9TpToWbn",
+     "folderId": "1ev7HggfMPnh0t2bBQk_bF1xq89U2rYV9",
      "files": []
     },
     "exploded": {
-     "folderId": "1H1S7AGz7tHE0dD5N8G69QsZJYDFYgbP8",
+     "folderId": "1FirZaz-i-sxDHA7GtzjTvEcKZfMpcBeu",
      "files": []
     },
     "beauty": {
-     "folderId": "1Q7EZa7_0Ra3Xm83gHyLqIeaNxfOXEWjU",
+     "folderId": "1BSeaD7NZRUL_AvYBf842XcqsYFYs5_s5",
      "files": [
       {
        "name": "KI_NEW_UK_COLA_01.png",
@@ -76,7 +76,7 @@
        "size": "2.6 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1F6lipvlg3EtgYjcni2GOuLxaLR4JrwnY",
+       "id": "1W2r1u3j07INewD1shQwluYGPBFCrWZC1",
        "preview": "previews/cola/01.webp"
       },
       {
@@ -85,13 +85,13 @@
        "size": "2.6 MB",
        "part": null,
        "strength": "9MG",
-       "id": "10KnyTYtmxUlUXuI7kD0jNorUU4UtWVc5",
+       "id": "1cVKZUh4_yRlK2wPUOh11mohrgclUnZfc",
        "preview": "previews/cola/02.webp"
       }
      ]
     },
     "open": {
-     "folderId": "1Cs2Val6smxSQ5S4m1b7Lgqt9kvtjNjin",
+     "folderId": "1PvatKsmULsCS_ynU_r_MT9NdUJRrZEu0",
      "files": [
       {
        "name": "KI_NEW_UK_COLA_06.png",
@@ -99,13 +99,13 @@
        "size": "1.5 MB",
        "part": null,
        "strength": null,
-       "id": "1TAig3oZ8JoZ9by27jTSA3Mu65YuCQbBD",
+       "id": "16ed4JmvwNoIzEI6qiIw6xdYe4hWFXx91",
        "preview": "previews/cola/06.webp"
       }
      ]
     },
     "stacked": {
-     "folderId": "1FH-jlCZKEdnop7Z9cM408P68UM7fdv7P",
+     "folderId": "1pCcOP1KgpkIG15vPIbsR6bC1BdyMOvsg",
      "files": [
       {
        "name": "KI_NEW_UK_COLA_05.png",
@@ -113,13 +113,13 @@
        "size": "1.9 MB",
        "part": null,
        "strength": null,
-       "id": "1dXNQkcm7TQb8rhn9QqQyTeLk03V1p8b2",
+       "id": "1rripKh9hK8XA0BUmjgmwMLVMD6FCu4mW",
        "preview": "previews/cola/05.webp"
       }
      ]
     },
     "label-flat": {
-     "folderId": "16Er24yqiZQyDD19cmlsnmE81bqbOVO7C",
+     "folderId": "1Vi54QONq1AtJ6te-YEBSc4nWW2Be-Fbs",
      "files": [
       {
        "name": "KI_sleeve_Tokyo_Cola_3MG_v1.pdf",
@@ -127,7 +127,7 @@
        "size": "629 KB",
        "part": "Sleeve",
        "strength": "3MG",
-       "id": "1Rs3zwOUR0-IrPRpp5b9889h62IYoxWAG",
+       "id": "1Edp88JjEoOgjEEDusO4m7OEbdqRho5vH",
        "preview": "previews/labels/cola_sleeve_wide.webp"
       },
       {
@@ -136,7 +136,7 @@
        "size": "633 KB",
        "part": "Sleeve",
        "strength": "9MG",
-       "id": "1KTR_M2jUoz7TgqaRLumoSPxUN-kir_iU",
+       "id": "19eWfPSslcLveKefoZZgfRF5dmM45TD0x",
        "preview": null
       },
       {
@@ -145,7 +145,7 @@
        "size": "1.1 MB",
        "part": "Label",
        "strength": "9MG",
-       "id": "1X-mGdQAt8NxGwTxvc-bJWHo0ddRmsyg2",
+       "id": "1poSEdVNVasauX0obSCWPHGBf5HLAP-EV",
        "preview": null
       },
       {
@@ -154,42 +154,42 @@
        "size": "1.1 MB",
        "part": "Label",
        "strength": "3MG",
-       "id": "1BmW7siX6aTE2jX4vzOxsSjVyHGjeA6-h",
+       "id": "1rAjtI-feea7go-NhRiL6ma86i5ZPkPca",
        "preview": "previews/labels/cola_label.webp"
       }
      ]
     },
     "detail": {
-     "folderId": "1xfcjS6YD8jBzly34pX06oSfptTmQZdb5",
+     "folderId": "1z1wE3084LZSwFC_nsuChJGHOlEKewLRe",
      "files": []
     },
     "callouts": {
-     "folderId": "1g2WdQpno8lXsy7NqC3DuhH6w-jhScPLj",
+     "folderId": "1Y-j_B1I_SDidF5FHJNdlBdeG-l9t-lew",
      "files": []
     },
     "palette": {
-     "folderId": "1PLQI5J9ZDysQNrGvUEuKvPOl-eVdJIOU",
+     "folderId": "1evTuQzBlMYZ5oOLZasRF9EJL0ntXK6d8",
      "files": []
     },
     "inbox": {
-     "folderId": "1RjOdiCnZx_AgKxgJTCtiV9eEt8hs0DiX",
+     "folderId": "1-sjU0LMSmmy82YSO2cUUnE5xgEXN0oK7",
      "files": []
     }
    }
   },
   "hokkaido": {
-   "folderId": "1SmYSf7CXQcCeyuuO3Pm7Vg6_bZE-ZKUz",
+   "folderId": "19Xprprv_jjP-PdgqwZ0sGWkYlTQZIouA",
    "slots": {
     "front-ortho": {
-     "folderId": "15Whj33objnUcbwFKgep56h7_sGlkJd-g",
+     "folderId": "1O-eyNzWHisVBduZGNwt9AeMKcKbx_2jo",
      "files": []
     },
     "side-ortho": {
-     "folderId": "1kXME35SW-VIxQHlnZz_JFXSeERws8Y9H",
+     "folderId": "1PNJi0AftQFIkpYrQFnoD7hKZpAj-8j7u",
      "files": []
     },
     "top": {
-     "folderId": "1zkND-6e9cgpl3UU-YTvFONv53s9gvoF_",
+     "folderId": "1-httunScLv3GezcvjUM7zaaTYU4MzVKP",
      "files": [
       {
        "name": "KI_NEW_UK_HOKKAIDO_03.png",
@@ -197,7 +197,7 @@
        "size": "2.2 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1QwxTQdh2VLqO3eddG2IczFY4Zp8d-nJz",
+       "id": "15lvt3lWeh_q2XpI2biANDeo94Hvyl-yA",
        "preview": "previews/hokkaido/03.webp"
       },
       {
@@ -206,13 +206,13 @@
        "size": "2.2 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1oHq06hDqCDnjdMfB4cxvnFCrX64maenK",
+       "id": "1qM0_OkUqLPd0vrUSh1F14mfJ6rQJ4vSw",
        "preview": "previews/hokkaido/04.webp"
       }
      ]
     },
     "bottom": {
-     "folderId": "190CXHsUAOE-lX5t_kiweXdT6ZBdseMyD",
+     "folderId": "1KWShCabRogRPDN0Un7tpg2_dPIlBbUG-",
      "files": [
       {
        "name": "KI_NEW_UK_HOKKAIDO_07.png",
@@ -220,7 +220,7 @@
        "size": "2.3 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1Hr2ZxuEqzEOsCqs7sJplZgp9DLH6MkRD",
+       "id": "1w_wf4nehLqiNgSuf0vHRaAHdQBg99gW0",
        "preview": "previews/hokkaido/07.webp"
       },
       {
@@ -229,21 +229,21 @@
        "size": "2.4 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1oi8MWvkgCfEQ6ZdhGe6bLzTQDxzKwYWQ",
+       "id": "1LgghmnMA8u0xNTD__n7BBIQXp_WHKgLU",
        "preview": "previews/hokkaido/08.webp"
       }
      ]
     },
     "cross-section": {
-     "folderId": "1jTLyWjDq7NZsi-2Omjfo6a5PRPLYt4Kj",
+     "folderId": "12nj3FTL5D1tGhUEe5_rpjEbj6Af8E8mM",
      "files": []
     },
     "exploded": {
-     "folderId": "1S4vUpcGYlE-GlKN68-qdxwUoespvz0UU",
+     "folderId": "1TCmEiqQduzRGQ_zHYXDdxY4c856-HrLK",
      "files": []
     },
     "beauty": {
-     "folderId": "1720kBwX99X5bEqxwC0oUAHmJc9zZ36LL",
+     "folderId": "1m4SDrT9w665nc3aP3LGbno5LG5iKTC8c",
      "files": [
       {
        "name": "KI_NEW_UK_HOKKAIDO_01.png",
@@ -251,7 +251,7 @@
        "size": "2.4 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1mYzr1YqnutdP8LyYMSyAQfrcLRu7GIY0",
+       "id": "1c6fUC_GzbaGzLh34isYF6E1PTG8HAuaK",
        "preview": "previews/hokkaido/01.webp"
       },
       {
@@ -260,13 +260,13 @@
        "size": "2.4 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1PwMTNmv6n3M9MSXJTau3nZGTzSy6K0X0",
+       "id": "1tX4bygyz-3bxicyzUTjMwA2rXTq02LZF",
        "preview": "previews/hokkaido/02.webp"
       }
      ]
     },
     "open": {
-     "folderId": "1aq1xXBj7TToLrpioAE9_RDlf8ikMkm-7",
+     "folderId": "1pcK5Ul975TVO6eXP_EH4E8R2ZmeBOhbF",
      "files": [
       {
        "name": "KI_NEW_UK_HOKKAIDO_06.png",
@@ -274,13 +274,13 @@
        "size": "1.5 MB",
        "part": null,
        "strength": null,
-       "id": "1jZJ3U4sThPEAdML7DyOj5muG5BuoIfSw",
+       "id": "1vnqEo42IxhtoYRP4em3sgbEoi34cTLr5",
        "preview": "previews/hokkaido/06.webp"
       }
      ]
     },
     "stacked": {
-     "folderId": "19_PSjM_SbIa8_zN2chw1vnJuicj6fE0o",
+     "folderId": "1S5DgEhJj4rJ_FfV1eZTXSgx8KkWd1KRs",
      "files": [
       {
        "name": "KI_NEW_UK_HOKKAIDO_05.png",
@@ -288,13 +288,13 @@
        "size": "1.7 MB",
        "part": null,
        "strength": null,
-       "id": "1ZQP_uqfiXrV7mAZHEg4aX3usdBIeZTJ8",
+       "id": "10e0jjcVC1BPxMFcfoZBKcWQile7XFMQM",
        "preview": "previews/hokkaido/05.webp"
       }
      ]
     },
     "label-flat": {
-     "folderId": "172o6zynqVlkXUKYcZ3YQ9BNwELrzL3Pz",
+     "folderId": "1S4E1APG22FK0uEDzuJVUaaX5mSXrahZ5",
      "files": [
       {
        "name": "KI_sleeve_Hokkaido_Mint_3MG_v1.pdf",
@@ -302,7 +302,7 @@
        "size": "624 KB",
        "part": "Sleeve",
        "strength": "3MG",
-       "id": "19gR0EkJWE5zu7yYheHoKQFXpFjsUrR7H",
+       "id": "1mpYfXocSKl9BzARVjt8uYjEwu91HFRm1",
        "preview": "previews/labels/hokkaido_sleeve_wide.webp"
       },
       {
@@ -311,7 +311,7 @@
        "size": "635 KB",
        "part": "Sleeve",
        "strength": "9MG",
-       "id": "1o37TZgDmE3Sx7fQR3VI3eDUdGUhE-lUE",
+       "id": "1PTxR7nXZSdgnACSMubCbRNRT5s20lJ6Q",
        "preview": null
       },
       {
@@ -320,7 +320,7 @@
        "size": "1.8 MB",
        "part": "Label",
        "strength": "3MG",
-       "id": "1z46Dnuj0n4OpCXLnggjN5S9M0XIjgyXv",
+       "id": "1DEUlAjagZVU0EK4uaIZYaSIuVfNbokIj",
        "preview": "previews/labels/hokkaido_label.webp"
       },
       {
@@ -329,42 +329,42 @@
        "size": "1.1 MB",
        "part": "Label",
        "strength": "9MG",
-       "id": "1puMY0VmDDcA9OrNILGMzFu9Fas8u-Yfk",
+       "id": "1PPQqzHXfeSz7Qj1Uo0NO7by3JZn27IHn",
        "preview": null
       }
      ]
     },
     "detail": {
-     "folderId": "1pJUivcJOaQUNtkGyMElruxdaoFhn5IQQ",
+     "folderId": "18DtqzHs5qhNFl1zYBdW8k9aFlq2EME1t",
      "files": []
     },
     "callouts": {
-     "folderId": "1feBh3Svkk6FibFMkThcS6eg6_OR3haPG",
+     "folderId": "15zh_Lj1MYM3opR0r79bEPFahc0WX0lUB",
      "files": []
     },
     "palette": {
-     "folderId": "1d0c0puBLEpToTCfrltwh_eDwZFawMesi",
+     "folderId": "1Qfd0GBzq17cnXvvuIhvNzdXAdZoaz4rC",
      "files": []
     },
     "inbox": {
-     "folderId": "1SmYSf7CXQcCeyuuO3Pm7Vg6_bZE-ZKUz",
+     "folderId": "19Xprprv_jjP-PdgqwZ0sGWkYlTQZIouA",
      "files": []
     }
    }
   },
   "maple": {
-   "folderId": "16ar_TCPHhweAh4qlOsvwRNAqdDnPxyvp",
+   "folderId": "1o3MbBI1D-On7Dj20qmKk_tgjC3ytw1q5",
    "slots": {
     "front-ortho": {
-     "folderId": "1yr6i8ztDELMIOkpMKM9mIx3LNRhngsmK",
+     "folderId": "1S5vr0UGItTOuvJ0A4BIi4o9Rr6Sw7nDZ",
      "files": []
     },
     "side-ortho": {
-     "folderId": "1bO8esj65e4IaooWAQljXyRFt2n51LTbS",
+     "folderId": "1v7ruOLDfh9Kz1lB1IDcuLLhYhwNLi21B",
      "files": []
     },
     "top": {
-     "folderId": "1aJBFczI0q82boaNUVfV0j_pSFkQMiZzV",
+     "folderId": "1Jql5Imh1yuONOh3BjfeRrTmDawa-2twQ",
      "files": [
       {
        "name": "KI_NEW_UK_MAPLE_03.png",
@@ -372,7 +372,7 @@
        "size": "2.4 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1Rx2qzJ70YZPvPfwDdiSNetLGQMpMmGBt",
+       "id": "1FeM7DIzXriwltXsX6n1hmO9VdcYAZxvQ",
        "preview": "previews/maple/03.webp"
       },
       {
@@ -381,13 +381,13 @@
        "size": "2.4 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1YvBasTLrnOTS_7VGGj9iDRsh2jXnJ9LL",
+       "id": "11PZZOY0grhwgSJDHrIHffVO2hVAgWEaY",
        "preview": "previews/maple/04.webp"
       }
      ]
     },
     "bottom": {
-     "folderId": "1oTKi9fsNutN_LQUbMNQy-uMXDJUGm4H8",
+     "folderId": "1Ayrgc-kX4eQSUFdGfJf43kEBP_DOK9qE",
      "files": [
       {
        "name": "KI_NEW_UK_MAPLE_07.png",
@@ -395,7 +395,7 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1Qx-XMfIGJJZURg5WnAMX_Xp53J6CfeiI",
+       "id": "1SALgYiplptTEIxcgBIf0Wgp-HFLSnyi5",
        "preview": "previews/maple/07.webp"
       },
       {
@@ -404,21 +404,21 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1tHLAzubvHKtZxWkfHsLqlWQuub973r6e",
+       "id": "18HfTirB4Fkel7JCqvtLCyI2CH8sJFafW",
        "preview": "previews/maple/08.webp"
       }
      ]
     },
     "cross-section": {
-     "folderId": "1mYUi-ZEFRX2okG1Oatf9ALTCf5ldtRQ1",
+     "folderId": "1l7pR9wL9V4obp56rACBDap1JCCpQ6EdY",
      "files": []
     },
     "exploded": {
-     "folderId": "14tpGKuCi_WelsrbxZTRjGzf1jY5CmEvq",
+     "folderId": "1HJ23Pv0GNO3kzuEuEfs03sUOh2CVMaVQ",
      "files": []
     },
     "beauty": {
-     "folderId": "1a9X3y2oPVNox4eX6tAtkeQUdLvA8sZly",
+     "folderId": "19IyYHVh74_I8yXcdxI4EL6kvlF9l8LzU",
      "files": [
       {
        "name": "KI_NEW_UK_MAPLE_01.png",
@@ -426,7 +426,7 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1shjptZdnbloo2g0u9prNGUi_4H3Ke1_w",
+       "id": "1c9pFqovJXhuhHgSimOzJdBxd9CLeDPgM",
        "preview": "previews/maple/01.webp"
       },
       {
@@ -435,13 +435,13 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1bQ658QIitjPzlH-JhSDOrXuGUJazetXX",
+       "id": "1cmZW8OqndrpZXMLOfaUOcgD006Lqb8m0",
        "preview": "previews/maple/02.webp"
       }
      ]
     },
     "open": {
-     "folderId": "1reX1vFaEvUJ2VLSKkwvy5C2e-XmAHcPC",
+     "folderId": "1fud1DnxJ9M9kADxPzbVwI233j-gptRsN",
      "files": [
       {
        "name": "KI_NEW_UK_MAPLE_06.png",
@@ -449,13 +449,13 @@
        "size": "1.5 MB",
        "part": null,
        "strength": null,
-       "id": "1uppI0a4lUnmz2dNY1ebzqwCQT7-lh5g-",
+       "id": "10ehS4ixUrP_SFkYJWETTHcQ7EKupO1kU",
        "preview": "previews/maple/06.webp"
       }
      ]
     },
     "stacked": {
-     "folderId": "1oQxPGB6MRiw1rav5ZxYpexqw7TlLlTO0",
+     "folderId": "1j8CWMqEkPbSxxOPDs_TPapEB9C5P7kIi",
      "files": [
       {
        "name": "KI_NEW_UK_MAPLE_05.png",
@@ -463,13 +463,13 @@
        "size": "1.9 MB",
        "part": null,
        "strength": null,
-       "id": "1ToPP_t-SZD2NQZ2I6BjhZML1kBf_Msqj",
+       "id": "18EVM98lqwfqvgFm-FWQUCNBIGG69DByK",
        "preview": "previews/maple/05.webp"
       }
      ]
     },
     "label-flat": {
-     "folderId": "133Dd4X65YjMojFlNjNB00AmWx1YRI5Qt",
+     "folderId": "1bXb4s-r-W-tneUD4qpOkhPtSrcFBnduu",
      "files": [
       {
        "name": "KI_sleeve_Maple_Coffee_3MG_v1.pdf",
@@ -477,7 +477,7 @@
        "size": "625 KB",
        "part": "Sleeve",
        "strength": "3MG",
-       "id": "16CqlW6T5h0awHRtL-GzLpmZFRUCpSlN9",
+       "id": "17LfimEA6AqbOyWa1lnbG2VHdvno6ahA2",
        "preview": "previews/labels/maple_sleeve_wide.webp"
       },
       {
@@ -486,7 +486,7 @@
        "size": "633 KB",
        "part": "Sleeve",
        "strength": "9MG",
-       "id": "15Y-OjNQgcYfVp4KWxAFQI9bbh-qEEuC2",
+       "id": "1VNAkxBshHJ-e_uankVmKk972Zo1Gg7PF",
        "preview": null
       },
       {
@@ -495,7 +495,7 @@
        "size": "1.1 MB",
        "part": "Label",
        "strength": "3MG",
-       "id": "1sP2Vym2lPcNuzgoAtcRJgfbNUpYUnrQ8",
+       "id": "1dTONxMjsKKi96M-5P_muEKt0eFrcSqe3",
        "preview": "previews/labels/maple_label.webp"
       },
       {
@@ -504,42 +504,42 @@
        "size": "1.1 MB",
        "part": "Label",
        "strength": "9MG",
-       "id": "1UiN1JQ9z3os4hR6QKQOfaS0cytTwTnkf",
+       "id": "1RhfffC_Hv74bIIp7PIGjGgpttINLxYe4",
        "preview": null
       }
      ]
     },
     "detail": {
-     "folderId": "1_4vvNoCPjGN2Zw_irzzncBsuHL0A0gbE",
+     "folderId": "1aQeKrGjAI-GKhkOQAxdAWou9j0_OGYwL",
      "files": []
     },
     "callouts": {
-     "folderId": "10gS4V2DQ8VFH4AQb81YIhGjbWtQxeeHV",
+     "folderId": "1d3IcchSaZj7cpYN3ZwEio86PTcHvXPBm",
      "files": []
     },
     "palette": {
-     "folderId": "1DyUGmkE4iZdoRGxVgiHNUOtL7TvKFhIg",
+     "folderId": "18nwdZWfp2LrOBkK7I_PWeqvLFPcot7N5",
      "files": []
     },
     "inbox": {
-     "folderId": "16ar_TCPHhweAh4qlOsvwRNAqdDnPxyvp",
+     "folderId": "1o3MbBI1D-On7Dj20qmKk_tgjC3ytw1q5",
      "files": []
     }
    }
   },
   "satsuma": {
-   "folderId": "1RO9-XmXvfh8uLMZYZTflIfxlnYInmecA",
+   "folderId": "19-D-q_bgX2lKL2l1vUqweRyL4mdI1Zru",
    "slots": {
     "front-ortho": {
-     "folderId": "1bc0u2bLCPjF_pS4UuSu5y6SHYGDK03bX",
+     "folderId": "1dV-DlghS6P9M4GE8hfP1hRiakpOaQZxq",
      "files": []
     },
     "side-ortho": {
-     "folderId": "1eVptUIl5505o_qRCX4F6-a34m3nmdYSg",
+     "folderId": "1BcLPZl7wjCQYCtqPFi_8y0cm7EzlqoUN",
      "files": []
     },
     "top": {
-     "folderId": "1QdFv4nOABWSVdQn7QOJlcq0T9G9xqV4m",
+     "folderId": "14Ksh4NbjS_H3MMzO4uBwpz4Pujr8fE5F",
      "files": [
       {
        "name": "KI_NEW_UK_SATSUMA_03.png",
@@ -547,7 +547,7 @@
        "size": "2.4 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1emKG3lJDVlxuWIDLQM00DxZ_E5g8q7Cm",
+       "id": "1ucAWMWha9gfMEq0H_gmqz62lfyr_94sv",
        "preview": "previews/satsuma/03.webp"
       },
       {
@@ -556,13 +556,13 @@
        "size": "2.4 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1bty--KaxgYvaCBeNHvlIkFRDAkTm183h",
+       "id": "1pjCpsYgXhG1AzYShYeBjkXtdrtE6GIWR",
        "preview": "previews/satsuma/04.webp"
       }
      ]
     },
     "bottom": {
-     "folderId": "18_X8a6IhjR5CDJbopGsRsGeIOluqtSHz",
+     "folderId": "1mkqbi25Df6eWvWkpqaWmJ1RFGKG-eavb",
      "files": [
       {
        "name": "KI_NEW_UK_SATSUMA_07.png",
@@ -570,7 +570,7 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1IHrWcXH2jh9dp3srath4dZ9L0HBZ7XYf",
+       "id": "1T_T7zKRPh-me5XIYqMWnQ6iIyv1Ou8HM",
        "preview": "previews/satsuma/07.webp"
       },
       {
@@ -579,21 +579,21 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1TahjsZ2u2m0TQWWAGPaXBwvI6WNrXHCe",
+       "id": "1nmD4plNQ2B1b3asjZbq_sEPCglkWbM0i",
        "preview": "previews/satsuma/08.webp"
       }
      ]
     },
     "cross-section": {
-     "folderId": "1mtArSTJFw0CUmtzrcnkZm_2hq-gE1IJF",
+     "folderId": "1yTWXhVFpkVkyKcYtgkjkAF_2URB-bRJg",
      "files": []
     },
     "exploded": {
-     "folderId": "1znnDyqG37iqI_nHgpH7qjHXHRi3CU7Pc",
+     "folderId": "13xM6xZclxCZkRCCXFoRgK7wWSiT_6BKe",
      "files": []
     },
     "beauty": {
-     "folderId": "1aB6h-l3BlVSMX8XjBelYoCMtI3kyYoY2",
+     "folderId": "1fTSROaFV_WsAUXh-cizyI95uRbctfx0u",
      "files": [
       {
        "name": "KI_NEW_UK_SATSUMA_01.png",
@@ -601,7 +601,7 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "3MG",
-       "id": "19ZvqOM6RVVNrFFAT0_cjuprehEjE5HiE",
+       "id": "1jAxrtjHtw5LdSHcCPDNhCIuJ6dRZ_ksb",
        "preview": "previews/satsuma/01.webp"
       },
       {
@@ -610,13 +610,13 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1SwTFkXeUBx8SAipPzAvf-uVsuwwmrcu8",
+       "id": "1asTZg6v7dmMoLYZ6r1FJYjpXo6WTD3Ph",
        "preview": "previews/satsuma/02.webp"
       }
      ]
     },
     "open": {
-     "folderId": "1yOHjOE6db9Uw6LD7u1GwlxC3kks4WtLR",
+     "folderId": "1zlrnw3FGJ9fG_Jc6PfL9-q6fIcgo7bA3",
      "files": [
       {
        "name": "KI_NEW_UK_SATSUMA_06.png",
@@ -624,13 +624,13 @@
        "size": "1.5 MB",
        "part": null,
        "strength": null,
-       "id": "15F-vZK3fTZOcMXbMWEdIuS86_dK83uFl",
+       "id": "1hkW61HlWn4NzJlM4t-WEaiVG0jmqnP0u",
        "preview": "previews/satsuma/06.webp"
       }
      ]
     },
     "stacked": {
-     "folderId": "1x7VitmtMPNf9bOMv79SkDMAA6I3YsQXP",
+     "folderId": "19h4G4v8jUsxppQRHcZQLmnL4JmtOlg3L",
      "files": [
       {
        "name": "KI_NEW_UK_SATSUMA_05.png",
@@ -638,13 +638,13 @@
        "size": "1.8 MB",
        "part": null,
        "strength": null,
-       "id": "1CN6pJPjZdl2C_l0D0NGMn4ejJq0fzUBw",
+       "id": "1_mm_gDrTizUYTNoG6Uf6de895TfA7xfP",
        "preview": "previews/satsuma/05.webp"
       }
      ]
     },
     "label-flat": {
-     "folderId": "1tE6kjx5jDzjAM6__aRcMJ6z8RXQQOgk_",
+     "folderId": "1so7eHnM0k6vnei2GvNdZd9oOZHvmsOWd",
      "files": [
       {
        "name": "KI_sleeve_Satsuma_Citrus_3MG_v1.pdf",
@@ -652,7 +652,7 @@
        "size": "625 KB",
        "part": "Sleeve",
        "strength": "3MG",
-       "id": "12EATURLHtaV9MUQC5-hktdYn0R9F6AWF",
+       "id": "1xZEZNAiRU5IftiVC8DpJAsvXw9jvSRYF",
        "preview": "previews/labels/satsuma_sleeve_wide.webp"
       },
       {
@@ -661,7 +661,7 @@
        "size": "636 KB",
        "part": "Sleeve",
        "strength": "9MG",
-       "id": "1mhR84gXE-1FIeclIxm3T0uOM-nf3EujZ",
+       "id": "1TCJUWP9YtGdk-QYChJIwT7I4DG_L-GVu",
        "preview": null
       },
       {
@@ -670,7 +670,7 @@
        "size": "1.1 MB",
        "part": "Label",
        "strength": "3MG",
-       "id": "1xbptrcTld5mKdtdycWV4pEv9JEaiFdNX",
+       "id": "1Ld86tZ6n-MKl1EyoSTRAiaCPjzCp4Lwf",
        "preview": "previews/labels/satsuma_label.webp"
       },
       {
@@ -679,42 +679,42 @@
        "size": "1.1 MB",
        "part": "Label",
        "strength": "9MG",
-       "id": "1tjQt-ZiXpj8rxbnHQMw0VGqiVyERsvYn",
+       "id": "1JcrpqcnrxZJLEBFITry5SLkvdxQPTwZ_",
        "preview": null
       }
      ]
     },
     "detail": {
-     "folderId": "1bNc232CQHhp8-j6SYQTgFX3DoZTQ2kyw",
+     "folderId": "1GsdES3Ry808dKSJVsdQqT1tP0Ezg5V_o",
      "files": []
     },
     "callouts": {
-     "folderId": "1SAs-P_iFygpPUy6XJjrrOrbTSGe2AW_c",
+     "folderId": "1cnjf_mkdVZwCQn9iydKO5uF7WahZUSL4",
      "files": []
     },
     "palette": {
-     "folderId": "1Zm3xgJL2Pd_kV_vfxfcm52sx2uSmPgTu",
+     "folderId": "1zzrYIHJ3CrpxCoxrZW1oW5x7BScQlk8M",
      "files": []
     },
     "inbox": {
-     "folderId": "1RO9-XmXvfh8uLMZYZTflIfxlnYInmecA",
+     "folderId": "19-D-q_bgX2lKL2l1vUqweRyL4mdI1Zru",
      "files": []
     }
    }
   },
   "yuzu": {
-   "folderId": "1xp0KsZgKNdcfz3rC2rUgRSCpyDgYiMhO",
+   "folderId": "1DrPsCZ4n9ORJ3HkaEA1b_d5wdW1fJfSG",
    "slots": {
     "front-ortho": {
-     "folderId": "1t8oTsCG04v7GyiBorT4hgQsNY3_URG9h",
+     "folderId": "1_IcnJ8NvKwzmPZ4agI9yRsualVv8cpsH",
      "files": []
     },
     "side-ortho": {
-     "folderId": "19n2qlPpNpAIjhKp2JPdOpwws4rxalBOy",
+     "folderId": "1VchbCHW-0kA99kXZBpYmpW1X2cEQDaz8",
      "files": []
     },
     "top": {
-     "folderId": "1B_E2S_Wx3M8Kk6PZVaE1POIXeCUM8znA",
+     "folderId": "1NJGIjQRrdGWfF_s24DbBbqumzxiE3yNJ",
      "files": [
       {
        "name": "KI_NEW_UK_YUZU_03.png",
@@ -722,7 +722,7 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1MMDbFRHZtDzoNpJhP_-kNMcY8NIR9xT3",
+       "id": "1IBM9z_-V-WqtuYD_3bMAQaycj556nGxU",
        "preview": "previews/yuzu/03.webp"
       },
       {
@@ -731,13 +731,13 @@
        "size": "2.4 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1k2wgvoa67vDKIWJmDjyTr_OAd1hmzy0V",
+       "id": "1DJ0F70yDXoQuldCKdPnYfq7WjvayT5CW",
        "preview": "previews/yuzu/04.webp"
       }
      ]
     },
     "bottom": {
-     "folderId": "1qmT2OKys_3UXRpzrOraYJBGKuEsuPKtI",
+     "folderId": "1zkICGCNGGxj00Gs4RUDuzKlGp1Th5FFP",
      "files": [
       {
        "name": "KI_NEW_UK_YUZU_07.png",
@@ -745,7 +745,7 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1Adt2JhmIvhg589Vx6PvLy8B3vnvSWuQd",
+       "id": "1CAaLK7tdg0qAOG9-tcBzw0AqAkIYukXX",
        "preview": "previews/yuzu/07.webp"
       },
       {
@@ -754,21 +754,21 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1Fw8BJXZkYyRoBWKbBED3qiWCW6w2ttt7",
+       "id": "1tlki_tB-irTwAIABP8k5aEhZOUHTGLIA",
        "preview": "previews/yuzu/08.webp"
       }
      ]
     },
     "cross-section": {
-     "folderId": "1E7tVLidjX09OWv9m8H5x6smPRtM-VXgL",
+     "folderId": "1BHN8zs7bWzWh1zs581mioOobitinRYJj",
      "files": []
     },
     "exploded": {
-     "folderId": "1Kol6Kt6rUTyVT4IZ0QWAhWKcBjld0Vqy",
+     "folderId": "1ev1Vn3e3ZR4MMUcT0jXFJcheEN_5mJhL",
      "files": []
     },
     "beauty": {
-     "folderId": "1sGB0PTlnomi7y9lVUR_cTYPT0febNHet",
+     "folderId": "1TOs_weMiDIYBtQx1goK6EOStPTiIFjdY",
      "files": [
       {
        "name": "KI_NEW_UK_YUZU_01.png",
@@ -776,7 +776,7 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "3MG",
-       "id": "1Ub2ubNKV4azl5rMYhsKKunTr4Xhp8dyu",
+       "id": "1qi2hPD58PG03EPWSiWopUKutmhalEk0i",
        "preview": "previews/yuzu/01.webp"
       },
       {
@@ -785,13 +785,13 @@
        "size": "2.5 MB",
        "part": null,
        "strength": "9MG",
-       "id": "1cXnU-zzw1bwifoLCW_TDtV2QqHVE8imA",
+       "id": "1Pg-wNUn025XfmeP901kiZGZvfqQW6JIj",
        "preview": "previews/yuzu/02.webp"
       }
      ]
     },
     "open": {
-     "folderId": "1bDAQ_BrDhl_Q1C63AP5TYWp3IMjrvk57",
+     "folderId": "1k8dMiFljXtO8T94KvxkhKVBxRboN3jp_",
      "files": [
       {
        "name": "KI_NEW_UK_YUZU_06.png",
@@ -799,13 +799,13 @@
        "size": "1.5 MB",
        "part": null,
        "strength": null,
-       "id": "1ukjK2NlxMp2iuXHY-BQB-tkTtlkTfvr3",
+       "id": "1iEmaC1TA6h7eO6cluA-r1Nj_XlPTYl8f",
        "preview": "previews/yuzu/06.webp"
       }
      ]
     },
     "stacked": {
-     "folderId": "1OE3Y50nUQ-2T6bOqlCpebQdSCv_RVc1l",
+     "folderId": "1WA7vR7r-oc7Bb2otEPjec1pV6WIn6i-5",
      "files": [
       {
        "name": "KI_NEW_UK_YUZU_05.png",
@@ -813,13 +813,13 @@
        "size": "1.8 MB",
        "part": null,
        "strength": null,
-       "id": "1-8cXK4J75Jp1QuuTo40bykX217jRt901",
+       "id": "1TkjrEJyAXu7rfSDYLyjhKHeKFWvpl1o-",
        "preview": "previews/yuzu/05.webp"
       }
      ]
     },
     "label-flat": {
-     "folderId": "1LxbcAqLZjtmFGN7urV1cN2hrl3jowlH-",
+     "folderId": "1_zHfKQHn-rf7I5RjV5iutlPHmCg2hbiG",
      "files": [
       {
        "name": "KI_sleeve_Yuzu_Mint_3MG_v1.pdf",
@@ -827,7 +827,7 @@
        "size": "619 KB",
        "part": "Sleeve",
        "strength": "3MG",
-       "id": "1r2vdajLxem0TKS5ToK3XoIhcu9_EDq27",
+       "id": "1eZzhXLi2seke3EigOG4Neph-yanatwAi",
        "preview": "previews/labels/yuzu_sleeve_wide.webp"
       },
       {
@@ -836,7 +836,7 @@
        "size": "629 KB",
        "part": "Sleeve",
        "strength": "9MG",
-       "id": "1b6zfRQxQuYezqH8r6ZjOjkNX3ap_TK7X",
+       "id": "15z0oEPUvetCxUw48BQH97OgJ9mwZx55x",
        "preview": null
       },
       {
@@ -845,7 +845,7 @@
        "size": "1.1 MB",
        "part": "Label",
        "strength": "3MG",
-       "id": "1U0U1OLadah6TU-jW93hfJT2HbA0_mHEC",
+       "id": "1xMRDZGBXoV4zP2FKDMx2uiyl9AavQBrS",
        "preview": "previews/labels/yuzu_label.webp"
       },
       {
@@ -854,34 +854,34 @@
        "size": "1.1 MB",
        "part": "Label",
        "strength": "9MG",
-       "id": "1Wq0ZKKNZ4itKkBBgcJUqi3p0QFLbNtvg",
+       "id": "1X4WBzJQVTmDP9JQsTTMlpFzPBbGb95JW",
        "preview": null
       }
      ]
     },
     "detail": {
-     "folderId": "1_73s-zSgKWcIRXt7Nu-CRDxbUa68tHCb",
+     "folderId": "1caPcAK_RXqBsSul-R0Gd9221Gib-jbAn",
      "files": []
     },
     "callouts": {
-     "folderId": "1hFywOFzUNYtpCnCF5CjmuyjroGRu6Hgg",
+     "folderId": "1Dt7uukphbEXKoAuzzKzKbDit_ayNlUfR",
      "files": []
     },
     "palette": {
-     "folderId": "1OdTiJHLRMiRSmThjEDj5WVp33fM1ZtSg",
+     "folderId": "1h9cfUklbXPk_fzOLEeVbBgALr-7ugxDp",
      "files": []
     },
     "inbox": {
-     "folderId": "1xp0KsZgKNdcfz3rC2rUgRSCpyDgYiMhO",
+     "folderId": "1DrPsCZ4n9ORJ3HkaEA1b_d5wdW1fJfSG",
      "files": []
     }
    }
   },
   "line": {
-   "folderId": "17ojWZXEzEsv33DDHNEMRF_YDHtKrWU0T",
+   "folderId": "1JPkpdwCoadj3Z9gsmy3r6O4kxIK_ljvc",
    "slots": {
     "angle-01": {
-     "folderId": "1T0KxZqb_k2fMTfUcsiC1jZBI9poQKVAt",
+     "folderId": "169GODXGzog46YfEhZ5q5oRp_EjE9Mten",
      "files": [
       {
        "name": "KI_ANGLES_01.png",
@@ -889,13 +889,13 @@
        "size": "2.0 MB",
        "part": null,
        "strength": null,
-       "id": "1KKE8DC5_t6hUr1Nbx_F9vO7MWIucu0kH",
+       "id": "1xQUWwSq7k6L5aJgxIKUScagceToSLsUe",
        "preview": "previews/line/01.webp"
       }
      ]
     },
     "angle-02": {
-     "folderId": "1T0KxZqb_k2fMTfUcsiC1jZBI9poQKVAt",
+     "folderId": "169GODXGzog46YfEhZ5q5oRp_EjE9Mten",
      "files": [
       {
        "name": "KI_ANGLES_02.png",
@@ -903,13 +903,13 @@
        "size": "2.0 MB",
        "part": null,
        "strength": null,
-       "id": "1ZK2oQcGVNbGPMjv1RGiE-4LURzcxmX0o",
+       "id": "19u3ocMoTgt7H67pPYFAT5DWM7vAlLAh7",
        "preview": "previews/line/02.webp"
       }
      ]
     },
     "angle-03": {
-     "folderId": "1T0KxZqb_k2fMTfUcsiC1jZBI9poQKVAt",
+     "folderId": "169GODXGzog46YfEhZ5q5oRp_EjE9Mten",
      "files": [
       {
        "name": "KI_ANGLES_03.png",
@@ -917,13 +917,13 @@
        "size": "1.5 MB",
        "part": null,
        "strength": null,
-       "id": "1H8L-R5ki2ZXXDaXeGWd_VNP6Mz0rSckt",
+       "id": "1wSVcQ1RecZHHFQN6Yt2zt9jyQUJ2Ef2e",
        "preview": "previews/line/03.webp"
       }
      ]
     },
     "angle-04": {
-     "folderId": "1T0KxZqb_k2fMTfUcsiC1jZBI9poQKVAt",
+     "folderId": "169GODXGzog46YfEhZ5q5oRp_EjE9Mten",
      "files": [
       {
        "name": "KI_ANGLES_04.png",
@@ -931,13 +931,13 @@
        "size": "1.4 MB",
        "part": null,
        "strength": null,
-       "id": "1sJK8I2Vs_rNPFFZ3FEwjPBbQhGP7Vntq",
+       "id": "1luEh8NTByb5wEHxgsZELRdzQtjQvCU-K",
        "preview": "previews/line/04.webp"
       }
      ]
     },
     "angle-05": {
-     "folderId": "1T0KxZqb_k2fMTfUcsiC1jZBI9poQKVAt",
+     "folderId": "169GODXGzog46YfEhZ5q5oRp_EjE9Mten",
      "files": [
       {
        "name": "KI_ANGLES_05.png",
@@ -945,13 +945,13 @@
        "size": "1.9 MB",
        "part": null,
        "strength": null,
-       "id": "1_eIdiwCbMP4kAGSqYFxNDkjtBm1uXu7C",
+       "id": "1okag8eLXtfkrOeF1oqSwYjklpMpHUuE0",
        "preview": "previews/line/05.webp"
       }
      ]
     },
     "angle-06": {
-     "folderId": "1xQxryfjxG6Z-dKidf5AbUiDs-NMBxWv1",
+     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
      "files": [
       {
        "name": "KI_ANGLES_06.png",
@@ -959,13 +959,13 @@
        "size": "1.2 MB",
        "part": null,
        "strength": null,
-       "id": "1dX1c_HWzbiTbNMLUVlYkwjmgzYUj-X2K",
+       "id": "1TTGxLcRarFGJ3dIv0rlb3kSICyzZTyeJ",
        "preview": "previews/line/06.webp"
       }
      ]
     },
     "angle-07": {
-     "folderId": "1xQxryfjxG6Z-dKidf5AbUiDs-NMBxWv1",
+     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
      "files": [
       {
        "name": "KI_ANGLES_07.png",
@@ -973,13 +973,13 @@
        "size": "1.2 MB",
        "part": null,
        "strength": null,
-       "id": "10GHPIx3y4Ut2TbMfOV21BFL1KwCF_7Fz",
+       "id": "1oSyG3uzMn9O8IsELhtOyRR45I2phqt-s",
        "preview": "previews/line/07.webp"
       }
      ]
     },
     "angle-08": {
-     "folderId": "1xQxryfjxG6Z-dKidf5AbUiDs-NMBxWv1",
+     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
      "files": [
       {
        "name": "KI_ANGLES_08.png",
@@ -987,13 +987,13 @@
        "size": "884 KB",
        "part": null,
        "strength": null,
-       "id": "1geS531MowItOfe32bIK2DEo1rsPbzqCo",
+       "id": "1TqKQotsfqgKfqibE8xtiBxUJitk_KZFD",
        "preview": "previews/line/08.webp"
       }
      ]
     },
     "angle-09": {
-     "folderId": "1xQxryfjxG6Z-dKidf5AbUiDs-NMBxWv1",
+     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
      "files": [
       {
        "name": "KI_ANGLES_09.png",
@@ -1001,13 +1001,13 @@
        "size": "815 KB",
        "part": null,
        "strength": null,
-       "id": "15mMfDv4wCoASmu-k0OO5PPER_hsR6Swf",
+       "id": "1wiOxH6tSjmUUVxI7J-wPg0cven_iRcyI",
        "preview": "previews/line/09.webp"
       }
      ]
     },
     "inbox": {
-     "folderId": "17ojWZXEzEsv33DDHNEMRF_YDHtKrWU0T",
+     "folderId": "1JPkpdwCoadj3Z9gsmy3r6O4kxIK_ljvc",
      "files": []
     }
    }

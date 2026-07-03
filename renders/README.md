@@ -7,10 +7,11 @@ every uploaded format as a download chip.
 ## How it works
 - **Layout** follows the `Ø — Render Sheet · One Pager` spec exactly: 01 VIEWS ·
   02 CONSTRUCTION · 03 ARTWORK · 04 SPEC, plus 05 LIBRARY for extras.
-- **Files live in Google Drive** — folder `Ki Render Sheet/UK/<Flavor>/<Slot>/`.
-  This is the interim home until Impossible Co stands up their own Supabase;
-  the page reads `manifest.json`, so swapping the backend later only means
-  regenerating the manifest.
+- **Files live in the IMPØSSIBLE shared drive** — `01_Projects/Ki/3. Creative/
+  2. Packaging/Ki Render Sheet/UK/<Flavor>/<Slot>/`. Everyone at
+  impossibleoutcomes.co can upload (`everyone@` = writer); the whole domain can
+  download. Interim home until Impossible stands up their own Supabase; the page
+  reads `manifest.json`, so swapping backends later only means regenerating it.
 - **Previews** (`previews/*.webp`, ~60 KB each) are committed here so slots render
   instantly and perfectly; chips download the hi-res originals from Drive.
 - **Browse / download**: open to anyone with the page. Each slot: format chips
@@ -21,12 +22,10 @@ every uploaded format as a download chip.
 
 ## Refreshing the manifest (after new uploads)
 New files appear immediately in each slot's LIVE view. To promote them to
-first-class chips, rebuild `manifest.json` — the builder walks the synced Drive
-folder and harvests file IDs from DriveFS xattrs (`com.google.drivefs.item-id#S`):
-
-```bash
-python3 _build/build_manifest.py   # then commit manifest.json
-```
+first-class chips, rebuild `manifest.json`: ask Claude to "refresh the render
+sheet" — it re-harvests file IDs through the Drive connector (the shared drive
+isn't synced to this Mac, so the old xattr builder in `_build/` only applies to
+locally-synced trees) and pushes the updated manifest.
 
 ## Sources
 - Renders: `_Master Ki Brand/05_Product_Renders/UK/` (+ `/Angles`)
