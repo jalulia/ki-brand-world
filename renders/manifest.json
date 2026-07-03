@@ -122,22 +122,13 @@
      "folderId": "1Vi54QONq1AtJ6te-YEBSc4nWW2Be-Fbs",
      "files": [
       {
-       "name": "KI_sleeve_Tokyo_Cola_3MG_v1.pdf",
+       "name": "UK_LABEL_61x61mmTokyoCola3MG.pdf",
        "fmt": "PDF",
-       "size": "629 KB",
-       "part": "Sleeve",
+       "size": "1.1 MB",
+       "part": "Label",
        "strength": "3MG",
-       "id": "1Edp88JjEoOgjEEDusO4m7OEbdqRho5vH",
-       "preview": "previews/labels/cola_sleeve_wide.webp"
-      },
-      {
-       "name": "KI_sleeve_Tokyo_Cola_9MG_v1.pdf",
-       "fmt": "PDF",
-       "size": "633 KB",
-       "part": "Sleeve",
-       "strength": "9MG",
-       "id": "19eWfPSslcLveKefoZZgfRF5dmM45TD0x",
-       "preview": null
+       "id": "1rAjtI-feea7go-NhRiL6ma86i5ZPkPca",
+       "preview": "previews/labels/cola_label.webp"
       },
       {
        "name": "UK_LABEL_61x61mm_Tokyo_Cola_9MG.pdf",
@@ -147,15 +138,6 @@
        "strength": "9MG",
        "id": "1poSEdVNVasauX0obSCWPHGBf5HLAP-EV",
        "preview": null
-      },
-      {
-       "name": "UK_LABEL_61x61mmTokyoCola3MG.pdf",
-       "fmt": "PDF",
-       "size": "1.1 MB",
-       "part": "Label",
-       "strength": "3MG",
-       "id": "1rAjtI-feea7go-NhRiL6ma86i5ZPkPca",
-       "preview": "previews/labels/cola_label.webp"
       }
      ]
     },
@@ -296,24 +278,6 @@
     "label-flat": {
      "folderId": "1S4E1APG22FK0uEDzuJVUaaX5mSXrahZ5",
      "files": [
-      {
-       "name": "KI_sleeve_Hokkaido_Mint_3MG_v1.pdf",
-       "fmt": "PDF",
-       "size": "624 KB",
-       "part": "Sleeve",
-       "strength": "3MG",
-       "id": "1mpYfXocSKl9BzARVjt8uYjEwu91HFRm1",
-       "preview": "previews/labels/hokkaido_sleeve_wide.webp"
-      },
-      {
-       "name": "KI_sleeve_Hokkaido_Mint_9MG_v1.pdf",
-       "fmt": "PDF",
-       "size": "635 KB",
-       "part": "Sleeve",
-       "strength": "9MG",
-       "id": "1PTxR7nXZSdgnACSMubCbRNRT5s20lJ6Q",
-       "preview": null
-      },
       {
        "name": "UK_LABEL_61x61mm_Hokkaido_Mint_00.pdf",
        "fmt": "PDF",
@@ -472,24 +436,6 @@
      "folderId": "1bXb4s-r-W-tneUD4qpOkhPtSrcFBnduu",
      "files": [
       {
-       "name": "KI_sleeve_Maple_Coffee_3MG_v1.pdf",
-       "fmt": "PDF",
-       "size": "625 KB",
-       "part": "Sleeve",
-       "strength": "3MG",
-       "id": "17LfimEA6AqbOyWa1lnbG2VHdvno6ahA2",
-       "preview": "previews/labels/maple_sleeve_wide.webp"
-      },
-      {
-       "name": "KI_sleeve_Maple_Coffee_9MG_v1.pdf",
-       "fmt": "PDF",
-       "size": "633 KB",
-       "part": "Sleeve",
-       "strength": "9MG",
-       "id": "1VNAkxBshHJ-e_uankVmKk972Zo1Gg7PF",
-       "preview": null
-      },
-      {
        "name": "UK_LABEL_61x61mm_maple_coffee_3mg.pdf",
        "fmt": "PDF",
        "size": "1.1 MB",
@@ -647,24 +593,6 @@
      "folderId": "1so7eHnM0k6vnei2GvNdZd9oOZHvmsOWd",
      "files": [
       {
-       "name": "KI_sleeve_Satsuma_Citrus_3MG_v1.pdf",
-       "fmt": "PDF",
-       "size": "625 KB",
-       "part": "Sleeve",
-       "strength": "3MG",
-       "id": "1xZEZNAiRU5IftiVC8DpJAsvXw9jvSRYF",
-       "preview": "previews/labels/satsuma_sleeve_wide.webp"
-      },
-      {
-       "name": "KI_sleeve_Satsuma_Citrus_9MG_v1.pdf",
-       "fmt": "PDF",
-       "size": "636 KB",
-       "part": "Sleeve",
-       "strength": "9MG",
-       "id": "1TCJUWP9YtGdk-QYChJIwT7I4DG_L-GVu",
-       "preview": null
-      },
-      {
        "name": "UK_LABEL_61x61mm_satsuma_citrus_3mg.pdf",
        "fmt": "PDF",
        "size": "1.1 MB",
@@ -821,24 +749,6 @@
     "label-flat": {
      "folderId": "1_zHfKQHn-rf7I5RjV5iutlPHmCg2hbiG",
      "files": [
-      {
-       "name": "KI_sleeve_Yuzu_Mint_3MG_v1.pdf",
-       "fmt": "PDF",
-       "size": "619 KB",
-       "part": "Sleeve",
-       "strength": "3MG",
-       "id": "1eZzhXLi2seke3EigOG4Neph-yanatwAi",
-       "preview": "previews/labels/yuzu_sleeve_wide.webp"
-      },
-      {
-       "name": "KI_sleeve_Yuzu_Mint_9MG_v1.pdf",
-       "fmt": "PDF",
-       "size": "629 KB",
-       "part": "Sleeve",
-       "strength": "9MG",
-       "id": "15z0oEPUvetCxUw48BQH97OgJ9mwZx55x",
-       "preview": null
-      },
       {
        "name": "UK_LABEL_61x61mm_Yuzu_mint_3mg.pdf",
        "fmt": "PDF",
