@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ki — Kin Study Nº1 · Rose Los Angeles &amp; the Rose Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Noto+Sans+JP:wght@200;300;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f6f1;
+    --paper-2:#efece3;
+    --white:#ffffff;
+    --ink:#1a1a17;
+    --ink-soft:#4a4a42;
+    --ink-faint:#7c7a6e;
+    --gold:#b88448;
+    --gold-deep:#a0753d;
+    --gold-light:#d0ab64;
+    --yamabuki:#CDA043;
+    --olive:#5a5d30;
+    --olive-2:#6d713b;
+    --moss:#4a5f4f;
+    --sage:#6b8e73;
+    --momiji:#c0392b;
+    --line:#ddd8c9;
+    --line-strong:#c9c2ad;
+    --shadow:0 1px 2px rgba(40,36,20,.04),0 12px 40px rgba(40,36,20,.07);
+    --disp:"Barlow Semi Condensed","Barlow",sans-serif;
+    --jp:"Noto Sans JP",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Barlow",-apple-system,BlinkMacSystemFont,sans-serif;
+    font-weight:400;font-size:16.5px;line-height:1.64;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:0 30px;position:relative;z-index:1;}
+  a{color:var(--gold-deep);text-decoration-thickness:1px;text-underline-offset:2px;}
+  strong,b{font-weight:600;}
+  p{margin:0 0 16px;}
+
+  /* progress bar */
+  #bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:60;transition:width .08s linear;}
+
+  /* ---------- HERO ---------- */
+  header.hero{position:relative;overflow:hidden;padding:0;background:var(--paper);}
+  .hero-kanji{
+    position:absolute;right:-40px;top:-60px;z-index:0;user-select:none;pointer-events:none;
+    font-family:var(--jp);font-weight:200;font-size:min(46vw,520px);line-height:1;
+    color:transparent;-webkit-text-stroke:1.5px rgba(184,132,72,.33);
+  }
+  .hero-kanji small{display:block;font-size:.24em;margin-top:.1em;text-align:right;-webkit-text-stroke:1px rgba(184,132,72,.25);}
+  .hero-inner{position:relative;z-index:2;padding:72px 0 56px;}
+  .brandrow{display:flex;align-items:center;gap:14px;margin-bottom:54px;}
+  .brandrow .ki{font-family:var(--disp);font-weight:800;letter-spacing:.42em;font-size:15px;}
+  .brandrow .k{font-family:var(--jp);font-weight:500;color:var(--gold-deep);font-size:15px;letter-spacing:0;}
+  .brandrow .rule{flex:1;height:1px;background:var(--line-strong);}
+  .brandrow .no{font-family:var(--disp);font-weight:600;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-faint);}
+  .eyebrow{font-family:var(--disp);text-transform:uppercase;letter-spacing:.36em;font-size:12.5px;font-weight:700;color:var(--gold-deep);margin:0 0 20px;}
+  h1.title{
+    font-family:var(--disp);font-weight:800;text-transform:uppercase;
+    font-size:clamp(44px,8.2vw,84px);line-height:.96;letter-spacing:-.012em;margin:0 0 10px;
+  }
+  h1.title .thin{display:block;font-weight:600;color:var(--gold-deep);font-size:.52em;letter-spacing:.02em;margin-top:10px;}
+  .lede{font-size:19.5px;font-weight:300;line-height:1.58;max-width:660px;color:var(--ink-soft);margin:26px 0 0;}
+  .lede b{font-weight:600;color:var(--ink);}
+  .meta-strip{border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);background:rgba(255,255,255,.5);}
+  .meta-strip .wrap{display:flex;flex-wrap:wrap;gap:8px 44px;padding-top:16px;padding-bottom:16px;}
+  .meta-strip .m{font-size:13px;color:var(--ink-soft);}
+  .meta-strip .m b{color:var(--gold-deep);font-family:var(--disp);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:11px;display:block;margin-bottom:1px;}
+
+  /* ---------- NAV ---------- */
+  nav#toc{position:sticky;top:0;z-index:50;background:rgba(247,246,241,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  nav#toc .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding-top:0;padding-bottom:0;}
+  nav#toc .wrap::-webkit-scrollbar{display:none;}
+  nav#toc a{
+    font-family:var(--disp);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-faint);text-decoration:none;padding:13px 12px 11px;border-bottom:2px solid transparent;white-space:nowrap;
+  }
+  nav#toc a:hover{color:var(--ink);}
+  nav#toc a.on{color:var(--gold-deep);border-bottom-color:var(--gold);}
+
+  /* ---------- SECTIONS ---------- */
+  main{padding:16px 0 0;}
+  section{padding:64px 0 10px;}
+  section + section{border-top:1px solid var(--line);}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:20px;}
+  .sec-num{font-family:var(--disp);font-weight:800;font-size:15px;color:var(--paper);background:var(--ink);letter-spacing:.06em;min-width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:2px;position:relative;top:6px;}
+  .sec-kanji{font-family:var(--jp);font-weight:300;color:var(--gold);font-size:20px;margin-left:auto;opacity:.85;position:relative;top:4px;}
+  h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,4vw,36px);line-height:1.04;letter-spacing:-.005em;margin:0;text-transform:uppercase;}
+  h2 small{display:block;font-weight:600;font-size:14px;letter-spacing:.16em;color:var(--gold-deep);margin-top:6px;}
+  h3{font-family:var(--disp);font-weight:700;font-size:17.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--olive);margin:34px 0 10px;}
+  .sub{color:var(--ink-soft);font-size:15.5px;}
+  .cols2{columns:2;column-gap:40px;}
+  .cols2 p{break-inside:avoid;}
+
+  /* ---------- COMPONENTS ---------- */
+  .tldr{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:3px;padding:26px 30px;box-shadow:var(--shadow);margin:8px 0 18px;}
+  .tldr .tag{font-family:var(--disp);text-transform:uppercase;letter-spacing:.24em;font-size:11px;font-weight:700;color:var(--gold-deep);margin-bottom:10px;}
+  .tldr p{font-size:18px;line-height:1.58;margin:0;}
+
+  ul.clean{list-style:none;padding:0;margin:4px 0 18px;}
+  ul.clean li{position:relative;padding-left:24px;margin-bottom:11px;}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;background:var(--gold);border-radius:1px;transform:rotate(45deg);}
+
+  .pull{margin:34px 0;padding:6px 0 6px 30px;border-left:3px solid var(--gold);}
+  .pull p{font-family:var(--disp);font-weight:600;font-size:clamp(20px,3vw,26px);line-height:1.3;margin:0;color:var(--ink);}
+  .pull .who{font-family:"Barlow",sans-serif;font-weight:500;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-top:10px;display:block;}
+
+  .callout{border-radius:3px;padding:22px 26px;margin:24px 0;border:1px solid var(--line);}
+  .callout .ctag{font-family:var(--disp);text-transform:uppercase;letter-spacing:.18em;font-size:11.5px;font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:9px;}
+  .callout .dot{width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block;}
+  .callout p:last-child{margin-bottom:0;}
+  .callout.clock{background:#fbf4e8;border-color:#e7d3a8;}
+  .callout.clock .ctag{color:var(--gold-deep);}
+  .callout.rec{background:#eef1ea;border-color:#cdd6c4;}
+  .callout.rec .ctag{color:var(--moss);}
+  .callout.warn{background:#f8efec;border-color:#e5c8bf;}
+  .callout.warn .ctag{color:var(--momiji);}
+  .callout.note{background:var(--paper-2);border-color:var(--line-strong);}
+  .callout.note .ctag{color:var(--ink-faint);}
+
+  /* stat band */
+  .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin:26px 0;}
+  .stat{background:var(--white);padding:18px 14px 15px;text-align:center;}
+  .stat .v{font-family:var(--disp);font-weight:800;font-size:clamp(20px,2.6vw,30px);color:var(--gold-deep);line-height:1;letter-spacing:-.01em;}
+  .stat .l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-top:7px;font-weight:600;line-height:1.35;}
+
+  /* timeline */
+  .era{font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:.2em;font-size:12.5px;color:var(--paper);background:var(--olive);display:inline-flex;align-items:center;gap:10px;padding:7px 14px;border-radius:2px;margin:34px 0 18px;}
+  .era .jp{font-family:var(--jp);font-weight:300;letter-spacing:0;opacity:.9;}
+  .tl{margin:0;border-left:2px solid var(--line-strong);padding:0 0 0 0;margin-left:7px;}
+  .ev{display:grid;grid-template-columns:128px 1fr;gap:18px;position:relative;padding:0 0 22px 26px;}
+  .ev::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--gold);}
+  .ev.big::before{background:var(--gold);box-shadow:0 0 0 4px rgba(184,132,72,.18);}
+  .ev .when{font-family:var(--disp);font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:13.5px;color:var(--gold-deep);padding-top:2px;}
+  .ev .what{font-size:14.5px;color:var(--ink-soft);}
+  .ev .what b{color:var(--ink);}
+  .ev.big .what{font-size:15px;}
+  .ev.big .what b{color:var(--ink);}
+
+  /* sequence strip */
+  .seq{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:26px 0 10px;}
+  .seq .s{font-family:var(--disp);font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--white);border:1px solid var(--line-strong);padding:8px 13px;border-radius:2px;color:var(--ink-soft);}
+  .seq .s.hot{background:var(--ink);color:var(--gold-light);border-color:var(--ink);}
+  .seq .a{color:var(--gold);font-weight:700;}
+
+  /* offer grid */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:3px;padding:22px 24px;box-shadow:var(--shadow);}
+  .card h4{font-family:var(--disp);text-transform:uppercase;letter-spacing:.08em;font-size:14px;margin:0 0 8px;color:var(--gold-deep);}
+  .card p{font-size:14.5px;color:var(--ink-soft);margin:0 0 8px;}
+  .card p:last-child{margin:0;}
+
+  /* uk clock */
+  .ukclock{background:var(--white);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);padding:30px 30px 26px;margin:26px 0;}
+  .ukclock .t{font-family:var(--disp);font-weight:700;letter-spacing:.2em;font-size:11.5px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:22px;}
+  .ckline{position:relative;height:2px;background:var(--line-strong);margin:38px 8px 54px;}
+  .ck{position:absolute;top:50%;transform:translate(-50%,-50%);}
+  .ck .nd{width:14px;height:14px;border-radius:50%;margin:0 auto;}
+  .ck .lb{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;text-align:center;}
+  .ck .lb.up{bottom:22px;}
+  .ck .lb.dn{top:22px;}
+  .ck .d{font-family:var(--disp);font-weight:800;font-size:14px;letter-spacing:.04em;}
+  .ck .x{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;margin-top:2px;}
+  .ck.now .nd{background:var(--moss);box-shadow:0 0 0 5px rgba(74,95,79,.16);}
+  .ck.now .d{color:var(--moss);}
+  .ck.mid .nd{background:var(--gold);}
+  .ck.mid .d{color:var(--gold-deep);}
+  .ck.end .nd{background:var(--ink);}
+  .ck.end .d{color:var(--ink);}
+
+  /* ---------- POSITION PANEL ---------- */
+  .position{background:var(--ink);color:#e9e6da;margin-top:70px;position:relative;overflow:hidden;padding:0;border-top:none;}
+  .position .pos-kanji{position:absolute;right:-30px;bottom:-90px;font-family:var(--jp);font-weight:200;font-size:420px;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(208,171,100,.16);pointer-events:none;}
+  .position .wrap{padding-top:76px;padding-bottom:70px;}
+  .position .eyebrow{color:var(--gold-light);}
+  .position h2{color:var(--white);}
+  .position h3{color:var(--sage);}
+  .position .bigline{
+    font-family:var(--disp);font-weight:800;text-transform:uppercase;
+    font-size:clamp(34px,6vw,58px);line-height:1.0;letter-spacing:-.008em;color:var(--gold-light);margin:8px 0 30px;
+  }
+  .position p{color:#cfccbe;}
+  .position p b{color:var(--white);}
+  .posquote{border-left:3px solid var(--gold);padding:8px 0 8px 28px;margin:34px 0;}
+  .posquote p{font-size:18.5px;line-height:1.6;color:#e9e6da;margin:0 0 12px;}
+  .posquote p:first-child{font-family:var(--disp);font-weight:700;font-size:24px;text-transform:uppercase;letter-spacing:.02em;color:var(--white);}
+  .moves{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0 10px;counter-reset:mv;}
+  .mv{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);border-radius:3px;padding:20px 22px;counter-increment:mv;position:relative;}
+  .mv::before{content:"0" counter(mv);font-family:var(--disp);font-weight:800;font-size:13px;color:var(--gold-light);letter-spacing:.12em;display:block;margin-bottom:8px;}
+  .mv h4{font-family:var(--disp);text-transform:uppercase;letter-spacing:.06em;font-size:15px;margin:0 0 7px;color:var(--white);}
+  .mv p{font-size:14px;line-height:1.58;margin:0;color:#bdb9a8;}
+  .mv p b{color:#e9e6da;}
+  .oneliner{background:linear-gradient(120deg,rgba(184,132,72,.16),rgba(184,132,72,.05));border:1px solid rgba(208,171,100,.4);border-radius:3px;padding:28px 32px;margin:38px 0 0;}
+  .oneliner .tag{font-family:var(--disp);letter-spacing:.26em;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--gold-light);margin-bottom:12px;}
+  .oneliner p{font-size:18.5px;line-height:1.6;color:var(--white);margin:0;font-weight:400;}
+  .oneliner p b{color:var(--gold-light);font-weight:700;}
+
+  /* ---------- FOOTER / SOURCES ---------- */
+  footer{background:var(--ink);color:#9b9889;border-top:1px solid rgba(255,255,255,.12);padding:46px 0 54px;}
+  footer h4{font-family:var(--disp);text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:var(--gold-light);margin:26px 0 10px;}
+  footer h4:first-child{margin-top:0;}
+  footer .src{font-size:12.5px;line-height:1.9;}
+  footer a{color:#cfa96a;text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+  footer .disc{margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:12px;font-style:italic;line-height:1.7;}
+  .foot-brand{display:flex;align-items:center;gap:12px;margin-top:34px;}
+  .foot-brand .k{font-family:var(--jp);color:var(--gold-light);font-size:24px;font-weight:300;}
+  .foot-brand .t{font-family:var(--disp);font-weight:700;letter-spacing:.4em;font-size:12px;color:#cfccbe;text-transform:uppercase;}
+
+  @media (max-width:720px){
+    .grid2,.moves{grid-template-columns:1fr;}
+    .stats{grid-template-columns:repeat(3,1fr);}
+    .ev{grid-template-columns:1fr;gap:2px;}
+    .cols2{columns:1;}
+    .hero-kanji{font-size:70vw;opacity:.6;}
+    .ckline{margin-bottom:64px;}
+    .ck .d{font-size:12px;}
+  }
+  @media print{
+    body{background:var(--white);font-size:11pt;}
+    body::before,#bar,nav#toc{display:none;}
+    .position,footer,.sec-num,thead th,.era,.seq .s.hot{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    section{page-break-inside:avoid;padding:34px 0 6px;}
+    .position{margin-top:30px;}
+  }
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<header class="hero">
+  <div class="hero-kanji">薔薇<small>気</small></div>
+  <div class="wrap hero-inner">
+    <div class="brandrow">
+      <a href="./" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:14px;"><span class="ki">KI</span><span class="k">気</span></a>
+      <span class="rule"></span>
+      <span class="no">Kin Study · Nº 1</span>
+    </div>
+    <p class="eyebrow">Rose Los Angeles &amp; the Rose Club</p>
+    <h1 class="title">Sold out<br>on purpose
+      <span class="thin">A kin-brand study — with a position for Ki</span>
+    </h1>
+    <p class="lede">Rose is the closest thing on earth to a proof-of-concept for Ki's thesis — a premium, design-founder, ritual-first brand in a regulated intoxicant category that just <b>sold out a $900 membership</b> with 38K followers and no press release, against a regulatory countdown clock <b>almost identical in shape to Ki's</b>.</p>
+  </div>
+</header>
+<div class="meta-strip">
+  <div class="wrap">
+    <div class="m"><b>For</b>Ki creative · internal</div>
+    <div class="m"><b>Date</b>6 July 2026</div>
+    <div class="m"><b>Status</b>Research verified · 2-pass adversarial fact-check</div>
+    <div class="m"><b>Strategy</b>§08 is opinion, clearly marked</div>
+  </div>
+</div>
+
+<nav id="toc">
+  <div class="wrap">
+    <a href="#s1">01 Why Rose</a>
+    <a href="#s2">02 Timeline</a>
+    <a href="#s3">03 The Club</a>
+    <a href="#s4">04 Ecosystem</a>
+    <a href="#s5">05 Social</a>
+    <a href="#s6">06 Signals</a>
+    <a href="#s7">07 Fragilities</a>
+    <a href="#s8">08 The Ki Position</a>
+    <a href="#src">Sources</a>
+  </div>
+</nav>
+
+<main>
+<section id="s1">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Why Rose matters to Ki</h2><span class="sec-kanji">縁</span></div>
+    <p>Rose Los Angeles makes "Delights" — Turkish-delight-style edibles built from single-farm, solventless flower rosin and peak-season California produce, developed with some of the best chefs alive, dosed low (1–5mg), priced high ($36–45 a box), and packaged like small art books. Ryan Sutton — the ex-Eater NY critic who is effectively the category's only real critic — treats Rose as the Champagne of edibles and reviews their drops like restaurant openings.</p>
+    <div class="pull"><p>"I like to call these the Rolls Royce of edibles."</p><span class="who">Thingtesting review — 4.7★, 91% would recommend</span></div>
+    <p>The kinship with Ki is structural, not aesthetic:</p>
+    <ul class="clean">
+      <li><b>Same category physics.</b> An intoxicant/nicotine-adjacent product the platforms won't advertise and the law increasingly won't let you promote. Rose built under California cannabis rules and Meta's enforcement regime; Ki is launching into the Tobacco and Vapes Act 2026.</li>
+      <li><b>Same thesis.</b> Ritual, restraint and chef-grade flavour against commodity giants — Ki's own internal language ("relationship and ritual over transaction") could be lifted from Rose's site.</li>
+      <li><b>Same clock.</b> Rose's national mail-order model runs on the 2018 Farm Bill hemp loophole, which a federal law signed 12 Nov 2025 closes on ~12 Nov 2026. Ki's free-sampling funnel is legal today and becomes a criminal offence on 29 Oct 2026, with the full UK ad ban intended for 1 Jun 2027. <b>Both brands are building owned relationships in the final months before their acquisition channels close.</b></li>
+    </ul>
+    <p>Rose Club — launched eleven months before Rose's wall — is what that conversion looks like when it is done deliberately. That is why the sold-out badge matters.</p>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>The timeline<small>Verified facts, two-pass checked</small></h2><span class="sec-kanji">歴</span></div>
+
+    <div class="era"><span>Origins</span><span class="jp">起</span><span>2001 – 2019</span></div>
+    <div class="tl">
+      <div class="ev"><div class="when">2001</div><div class="what">Nathan Cozzolino's first cannabis job, a farm in Laytonville, CA — ~20+ years in flower procurement follows. Survivor of stage-3 cancer in his late twenties; grew cannabis through chemo.</div></div>
+      <div class="ev"><div class="when">2017–18</div><div class="what">Rose founded (sources split: operating 2017, formalised July 2018) by Cozzolino + <b>Scott Barry</b> — the designer who built Sqirl's identity and co-founded PlantPaper. Starts as a packaged-flower company. Based in San Francisco, despite the name.</div></div>
+      <div class="ev"><div class="when">Apr 2019</div><div class="what">Pivot to edibles after "a year of fickle flower sales." <b>Delights launch:</b> first company in the CA rec market to use only whole-flower rosin; potato-starch base, 6–8 week cures.</div></div>
+    </div>
+
+    <div class="era"><span>Ascent</span><span class="jp">昇</span><span>2020 – 2022</span></div>
+    <div class="tl">
+      <div class="ev"><div class="when">Mar 2020</div><div class="what">NYT T Magazine "T List" anointment; the 2020 press wave (WSJ, W, NY Mag Strategist).</div></div>
+      <div class="ev"><div class="when">Oct 2020</div><div class="what">First national product: CBD Delights via Gossamer collab (chef Tara Thomas). THC version to CA dispensaries a day later.</div></div>
+      <div class="ev"><div class="when">Feb 2021</div><div class="what"><b>Dominique Crenn collab</b> on shelves — they met as patients at the same hospital during her cancer treatment. The chef program becomes the engine: Enrique Olvera (multiple), Natasha Pickowicz, Andy Baraghani, Lexie Park, David Zilber (ex-Noma), Virgilio Martínez, Brad Leone, Dan Saladino…</div></div>
+      <div class="ev"><div class="when">Jul 2021</div><div class="what">Vanity Fair: "Championing a New Kind of Cannabis Ecosystem." The framing settles: chef-grade, farm-to-table, design-luxe.</div></div>
+      <div class="ev"><div class="when">Fall 2021</div><div class="what">First harvest at Rose's own 10-acre regenerative farm, Penn Valley (Sierra Foothills).</div></div>
+      <div class="ev"><div class="when">2022</div><div class="what">Fast Company 10 Most Innovative Wellness Companies; LA Times "clean weed" exhibit A; first apparel capsule (ex-Givenchy/Yeezy designer Mona Al-Shaalan); Brain Dead collab.</div></div>
+    </div>
+
+    <div class="era"><span>The Pivot</span><span class="jp">転</span><span>2023 – 2024</span></div>
+    <div class="tl">
+      <div class="ev"><div class="when">Apr 2023</div><div class="what">"Delights Club" — not yet a membership, a numbered limited-drop series ("No. 1 Tart Vinegar — only 280 boxes exist"). <b>The scarcity grammar arrives before the club does.</b></div></div>
+      <div class="ev big"><div class="when">Jul 2023</div><div class="what"><b>The existential pivot.</b> Margins collapse under CA cannabis economics ($80K/month overhead, 100+ accounts). Rose drops its cannabis licences, converts all production to hemp-derived THC, builds a DTC site in 60 days, breaks even in month one. "We did it because it was that or go out of business" — Cozzolino, Fast Company.</div></div>
+      <div class="ev"><div class="when">Jan 2024</div><div class="what">Wholesale exit made public (Lo Times): "There just isn't the margin to support continuing to use the quality of ingredients that we choose to use." DTC-first, shipping 46 states. Raised only ~$2.5M total; revenue just under $5M.</div></div>
+      <div class="ev"><div class="when">Aug–Oct 2024</div><div class="what"><b>Thamra drop</b> — Palestinian-ingredient Delights with Fadi Kattan, Samin Nosrat, Reem Assil, Andy Baraghani; $100K pledged to a Gaza fresh-food org. Dinamo (Swiss foundry) cuts "Diatype Rounded Delights," a customised ABC Diatype Rounded, with studio Mies en Place.</div></div>
+      <div class="ev"><div class="when">2024–25</div><div class="what">MOUTHWASH Studio rebuild: CGI macro renders, narrative campaign pages. Celebrity layer: Reggie Watts signature Delight, Abbi Jacobson sleep film, POOG Lychee Martini. Olvera's cherry-cola national drop sells out — "one of the best-tasting edibles I've tried… ever" (Sutton).</div></div>
+    </div>
+
+    <div class="era"><span>The Wall &amp; the Club</span><span class="jp">壁</span><span>2025 – 2026</span></div>
+    <div class="tl">
+      <div class="ev big"><div class="when">12 Nov 2025</div><div class="what"><b>The wall appears.</b> H.R. 5371 signed: redefines hemp by total THC, caps finished products at 0.4mg THC <i>per package</i>, effective ~12 Nov 2026. Rose's 5mg-a-piece model exceeds the cap ~250×. Their entire national channel now has an expiry date.</div></div>
+      <div class="ev big"><div class="when">11 Dec 2025</div><div class="what"><b>Rose Club opens</b> — 29 days later. "Registration opens December 11 and closes once we reach 2,000 members." $900/year.</div></div>
+      <div class="ev big"><div class="when">Feb–Mar 2026</div><div class="what">Sutton re-reviews ("Thoughts on the $900 Rose Club"). <b>Club sells out between 28 Feb and 16 Mar 2026</b> — roughly three months after opening.</div></div>
+      <div class="ev"><div class="when">Jul 2026</div><div class="what">Live page today: "memberships are currently at capacity and will reopen in July 2026." The waitlist is an email-capture machine. 2026 plans: landrace-cacao chocolate bars; "High Ones" comedy series on YouTube (latest episode five days ago).</div></div>
+    </div>
+
+    <div class="seq">
+      <span class="s">Margin failure</span><span class="a">→</span>
+      <span class="s">DTC conversion</span><span class="a">→</span>
+      <span class="s">Scarcity rehearsed on drops</span><span class="a">→</span>
+      <span class="s">Federal ban signed</span><span class="a">→</span>
+      <span class="s hot">Capped $900 club · 29 days later</span><span class="a">→</span>
+      <span class="s hot">Sold out in a quarter</span>
+    </div>
+    <div class="tldr">
+      <div class="tag">Read the sequence — the sequence is the strategy</div>
+      <p>Rose Club is not a loyalty scheme. It is a <b>life-raft built while the weather was still good</b>, marketed as a philosophy.</p>
+    </div>
+  </div>
+</section>
+<section id="s3">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>The Rose Club, dissected</h2><span class="sec-kanji">会</span></div>
+
+    <div class="stats">
+      <div class="stat"><div class="v">$900</div><div class="l">per year</div></div>
+      <div class="stat"><div class="v">$1,260</div><div class="l">product value</div></div>
+      <div class="stat"><div class="v">2,000</div><div class="l">member cap</div></div>
+      <div class="stat"><div class="v">29</div><div class="l">days, ban → club</div></div>
+      <div class="stat"><div class="v">~13</div><div class="l">weeks to sell out</div></div>
+      <div class="stat"><div class="v">38K</div><div class="l">IG followers — all it took</div></div>
+    </div>
+
+    <h3>The offer</h3>
+    <p>$900/year buys $1,260 of value: a <b>self-curated</b> box of six items (any category, min $1,020 of product value) four times a year; seasonal member gifts worth $240+ (unreleased test-kitchen recipes, apparel, seasonal editions); 20% off everything, always (ordinary subscribers get 15%); first access to every release. Annual only. Non-refundable. Giftable.</p>
+
+    <h3>The parts that don't show up in the price</h3>
+    <div class="grid2">
+      <div class="card"><h4>Tailored Care</h4><p>An introductory preference phone call, a dedicated line for calls and texts, a members-only inbox "answered solely by the Rose team."</p><p><b>Capacity and intimacy are the same design decision</b> — you can only promise a phone line to a number of people you've counted.</p></div>
+      <div class="card"><h4>The Editorial Dispatch</h4><p>Field notes from the farm, kitchen diaries, DIY recipes, entertaining op-eds, cannabis cultural and historical long reads — <i>and</i> "updates on the legal landscape, with ways you can participate."</p><p><b>The club is also a constituency.</b> Two thousand prepaid members are a lobby.</p></div>
+    </div>
+
+    <div class="pull"><p>"Rose Club is not a product, it is a sustained relationship of reciprocal care."</p><span class="who">Rose Club manifesto — "genuinely personal, not performatively personalised"</span></div>
+
+    <h3>The economics, honestly</h3>
+    <p>Up to 2,000 members × $900 = up to <b>$1.8M prepaid, non-refundable cash</b> — for a company with ~$5M revenue that exited wholesale over margin. The 29% "discount" is funded from their own COGS, not cash. The gifts are R&amp;D distribution: 2,000 people become the test-kitchen panel, with feedback built into the perk. And the annual prepay lands precisely in the window before their legal channel closes. Romance on the surface, balance-sheet repair and regulatory hedging underneath — <b>and it is better, not worse, for being both.</b></p>
+
+    <h3>Why "sold out" is doing so much work</h3>
+    <p>Rose rehearsed scarcity for years at product level (280-box editions, chef drops that die in days, waitlists per flavour) and then applied the same grammar to <b>belonging itself</b>. Membership became their newest sold-out SKU. Note what they did <b>not</b> do: no press release, no launch coverage, no influencer push traceable to the club. It filled from owned channels — email and a 38K-follower Instagram. The sell-out then becomes the marketing: the page's "at capacity" line converts harder than any campaign, and the waitlist harvests emails all year. Scarcity here isn't a stunt; it's the only honest response to a phone line you actually answer.</p>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>The ecosystem<small>How Rose lives online</small></h2><span class="sec-kanji">庭</span></div>
+
+    <h3>One site, one legal base</h3>
+    <p>Everything now consolidates on roselosangeles.com (rebuilt by MOUTHWASH Studio): Delights, chocolate, topicals, caps, apparel. The products are hemp-derived, which is the quiet trick under the whole ecosystem — it's what makes national mail-order, <i>and paid Meta advertising</i>, legal for a "cannabis" brand. Footer email capture ("Sign up and get 10% off your first order"), a 15% subscriber tier, per-flavour waitlists, a tolerance quiz, and a deadpan compliance page titled "Case Studies" that lists PubMed studies while stating: "Our effects are intended, not guaranteed."</p>
+
+    <h3>Design as auteurship, not branding</h3>
+    <p>Co-founder Scott Barry runs the visual world the way a chef-owner runs a kitchen — "I'm not a fan of the term [branding] either, it tends to suggest something applied vs. imbued." The house rule: <b>"Rose acts as if it were a Michelin-star restaurant."</b></p>
+    <ul class="clean">
+      <li><b>Packaging:</b> palm-sized paper boxes, twenty delights "packed as tightly as AirPods," a new cover artwork per drop — press compares them to vinyl records. Biodegradable inner bags; the stated goal is packaging that "can disappear into the ground."</li>
+      <li><b>Type:</b> two variable typefaces chosen because modulation "was sympathetic with the experience of edibles"; in 2024, Swiss foundry Dinamo cut a customised face for them ("Diatype Rounded Delights"). A foundry commission is a fashion-house-level signal.</li>
+      <li><b>Image:</b> documentary farm/kitchen photography captioned like field reports, layered with macro CGI renders of the product itself. The renders make a 5mg starch cube feel like geology.</li>
+      <li><b>Notable negative:</b> zero coverage in the design trade press (Dieline, It's Nice That, Dezeen). Rose's design story travels through <i>food and fashion</i> media instead — the work is upstream of taste, not aimed at designers.</li>
+    </ul>
+
+    <h3>The collaboration engine is the ad budget</h3>
+    <p>The chef program is Rose's media plan: every seasonal drop imports a world-class collaborator's credibility and audience — Crenn, Olvera, Martínez ("the chef at the No. 1 restaurant in the world," as their own ads put it), Zilber, Baraghani, Leone. Beyond chefs: Brain Dead (streetwear), Reggie Watts (signature flavour), POOG (podcast → product → chophouse lunch), Stuart Bogie (a documentary score pressed as 100 vinyl records, bundled with a Delights box), the Thamra cause drop. Each collab is simultaneously product, content, PR and distribution. The ingredient sourcing works the same way — Chino Farm, Dirty Girl Produce, Diaspora Co., Song Tea — <b>every named farm is borrowed provenance.</b></p>
+
+    <h3>Editorial: gated, filmed, pressed</h3>
+    <p>No public blog. The written editorial ("field notes," "kitchen diaries," long reads) is <b>club-gated</b> — words became a membership perk, not a content-marketing expense. Film does the public work: a YouTube channel of chef films and farm documentaries, capped by "Citrus Indica (Fruit of the Ghosts)" with BBC food journalist Dan Saladino (~111K views, almost certainly boosted as pre-roll) and, in 2026, an original comedy series ("High Ones"). The trajectory is unmistakable: <b>Rose is becoming a small studio that happens to sell edibles.</b></p>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Social &amp; the conversation</h2><span class="sec-kanji">声</span></div>
+
+    <h3>The two-Instagram firewall</h3>
+    <ul class="clean">
+      <li><b>@rose_losangeles</b> (~38K followers, 518 posts, ~6–8/month): the flagship — farm, kitchen, literary drop copy, chef films. No buy-links on THC posts.</li>
+      <li><b>@rose.delights.la</b> (~13K followers, 14 posts): bio reads, literally, "Ad account of Rose Los Angeles." All paid activity firewalled here, protecting the flagship from platform enforcement and aesthetic contamination.</li>
+      <li><b>No TikTok account at all</b> — deliberate. The TikTok conversation is entirely user-generated. Email is the real conversion channel; customers describe it as the drop alarm: "be ready to jump when you see an email about a limited edition flavor."</li>
+    </ul>
+
+    <h3>What the paid layer actually looks like</h3>
+    <p>Despite the anti-algorithm sermon, Rose runs heavy paid influencer/creator ads under the hemp exemption — Sutton: "annoyingly ubiquitous influencer ads ('So the chef at the No. 1 restaurant in the world just released their own line of edibles')." The lesson is uncomfortable and useful: <b>the artisanal halo and the performance funnel are separate machines, deliberately kept from touching.</b></p>
+
+    <h3>The press arc</h3>
+    <p>2020: CBD-listicle wave (WSJ, Strategist) → 2021–22: "the artisanal future of edibles" (Vanity Fair, Vogue, TASTE, New Yorker) → 2023–26: operations and legality stories (MJBiz cover, Fast Company on the hemp pivot, Lo Times as recurring critic, Slate's cancer-diagnosis essay about 1mg Strawberry Singles). They graduated from product coverage to <b>business-model coverage</b> — the brand's decisions became the story.</p>
+
+    <h3>What people actually say</h3>
+    <div class="pull"><p>"A michelin starred restaurant hidden in the drugstore candy aisle… price point is 2–3x most the competition, but they are really great."</p><span class="who">Thingtesting review</span></div>
+    <ul class="clean">
+      <li><b>The most-helpful review on their page is a complaint</b> (138 votes): the nationwide hemp version "do absolutely nothing" versus the California original. The legal compromise that enabled the model created a potency gap the community documented.</li>
+      <li>The real organic home is not weed culture but <b>wellness Reddit</b>: r/Menopause is their biggest subreddit, plus r/PMDD, r/cfs, r/migraine, r/stopdrinking. Buyers describe medicine-adjacent rituals, not getting high.</li>
+      <li>Dissent worth hearing: "the taste is… so not good. No matter which flavors you try (I tried 8!)"; "they are a little delulu about the influence they have rn" (r/poogpodcast). Cult brands generate cult-sized eye-rolls.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s6">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Niche signals<small>The small things that tell you the most</small></h2><span class="sec-kanji">兆</span></div>
+    <ul class="clean">
+      <li><b>The gift-canon placement.</b> A Reddit holiday-gifting thread, unprompted: "Usually spices from Diaspora Co., gummies from Rose Los Angeles, and olive oil from Flamingo Estate." Rose achieved pantry-status-brand shelf position — filed by consumers next to $40 olive oil, not next to weed.</li>
+      <li><b>The vinyl.</b> Pressing a film score into 100 records and bundling them with edibles is editorial-as-object — merchandise that behaves like an heirloom, not a promo.</li>
+      <li><b>Retail placement as curation:</b> beauty salons (Veer &amp; Wander), boutiques (Gossamer, Stoned Fox), a chophouse lunch menu — never head shops. Even when they had wholesale, the stockist list was a mood board.</li>
+      <li><b>The "Coachella pocket" line:</b> shelf-stability engineered so the product travels in a pocket — ritual portability as R&amp;D spec. The closest thing in this study to a pouch tin.</li>
+      <li><b>Apparel priced like apparel</b> ($225 Japanese-cotton hoodie, "designed, cut, and sewn in California") and explicitly anti-merch: "Some of them sell $8 million per year worth of logo hoodies…" — Cozzolino. Compared by Highsnobiety to Carhartt WIP × A.P.C.</li>
+      <li><b>No farmers-market stand, no Frieze booth</b> — the law forbids the obvious IRL moves, so venue <i>collabs</i> stand in for events: a natural-wine dance bar's grapes become a flavour ("Boxed Wine," Bar Part Time); the event is metabolised into product.</li>
+      <li><b>The club dispatch promises legal-landscape updates</b> — members recruited into advocacy. In a category under legislative threat, the brand is quietly building its own pressure group.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">07</span><h2>What Rose gets wrong<small>The fragilities Ki should not import</small></h2><span class="sec-kanji">影</span></div>
+    <div class="grid2">
+      <div class="card"><h4>The promise–product gap</h4><p>The single loudest complaint: the shippable version underdelivers versus the original. Rose's most beautiful sentence cannot fix a 138-upvote "these do absolutely nothing."</p><p><b>For Ki:</b> the tin must survive contact with a ZYN user's expectations. Strength clarity, flavour delivery and consistency are brand strategy, not ops.</p></div>
+      <div class="card"><h4>Voice hypocrisy risk</h4><p>Preaching anti-algorithm intimacy while running "annoyingly ubiquitous" paid creator ads is a tension critics have noticed. It works only because the machines are firewalled.</p><p><b>If they ever touch, the whole posture collapses.</b></p></div>
+      <div class="card"><h4>Hubris accumulates</h4><p>"A little delulu about the influence they have" is what it sounds like when a cult brand starts believing its own dispatch.</p><p><b>Restraint has to apply to self-regard too.</b></p></div>
+      <div class="card"><h4>The moat was rented</h4><p>Rose's national model sits on a legal loophole that closes ~12 Nov 2026. Brilliant execution on borrowed land. The club converts some of that exposure into prepaid cash and a mobilised community.</p><p><b>Build on channels you own and rules you can survive</b> — treat every legal accommodation as temporary.</p></div>
+    </div>
+    <div class="callout clock">
+      <div class="ctag"><span class="dot"></span>The lesson, cut hard</div>
+      <p>Ki's equivalent loopholes — sampling until 29 Oct 2026, open advertising until ~1 Jun 2027 — should be treated exactly the way Rose treated December 2025: <b>as a closing window to be converted, not a status quo to be enjoyed.</b></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<section class="position" id="s8">
+  <div class="pos-kanji">気</div>
+  <div class="wrap">
+    <p class="eyebrow">08 · The position for Ki — strategy from here; everything above is sourced</p>
+    <div class="bigline">Ki is the last brand<br>you'll ever meet.</div>
+
+    <h3>The situation, stated plainly</h3>
+    <p>The UK nicotine-pouch shelf freezes in stages. Free sampling — the category's entire acquisition model, and Ki's current funnel — becomes a criminal offence on <b>29 October 2026</b>. All advertising and sponsorship, including paid social, influencers and promotional email/SMS, is intended to end <b>1 June 2027</b>. After that, no nicotine brand can introduce itself to the British public again. VELO paints F1 cars and Nordic Spirit samples at Reading &amp; Leeds precisely because they know reach is about to be unbuyable. Meanwhile adult pouch use is ~1% and compounding — the market will be won during a window in which nobody new can enter the conversation.</p>
+
+    <div class="ukclock" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14);box-shadow:none;">
+      <div class="t" style="color:var(--gold-light);">The UK clock — you are here</div>
+      <div class="ckline" style="background:rgba(255,255,255,.25);">
+        <div class="ck now" style="left:11%;"><div class="nd"></div><div class="lb up"><div class="d" style="color:var(--sage);">TODAY · 6 JUL 2026</div><div class="x" style="color:#9b9889;">launch week — sampling live</div></div></div>
+        <div class="ck mid" style="left:47%;"><div class="nd"></div><div class="lb dn"><div class="d" style="color:var(--gold-light);">29 OCT 2026</div><div class="x" style="color:#9b9889;">free sampling ends · age 18</div></div></div>
+        <div class="ck end" style="left:88%;"><div class="nd" style="background:var(--paper);"></div><div class="lb up"><div class="d" style="color:var(--paper);">1 JUN 2027</div><div class="x" style="color:#9b9889;">all advertising &amp; sponsorship ends</div></div></div>
+      </div>
+      <p style="font-size:13.5px;color:#9b9889;margin:0;">Read it the way Rose read November 2025: <b style="color:#e9e6da;">whoever is loved by June 2027 is loved alone, indefinitely.</b> The ban hands eternal incumbency to the brands that used the window to become <i>someone's</i> brand rather than everyone's advertiser.</p>
+    </div>
+
+    <h3>The insight Rose proves</h3>
+    <p>When reach dies, four assets keep compounding: <b>product that behaves like media</b> (drops, collabs, provenance), <b>design intensity that earns culture-press instead of buying impressions</b>, <b>editorial worth paying for</b>, and — the keystone — <b>a capped, paid, age-verified membership whose sell-out becomes the story.</b> Rose sold out a $900 club from a 38K-follower account because the club wasn't a promotion; it was the brand's philosophy made purchasable. And they launched it 29 days after their doom was signed into law. <b>The timing was the strategy.</b></p>
+
+    <div class="posquote">
+      <p>The position</p>
+      <p>While the majors spend the next eleven months buying reach they are about to lose, Ki spends them turning every sampled can into a named, consented, age-verified relationship — and founds a capped membership that makes belonging to Ki the product. <b>Sampling isn't distribution; it's a casting call for founding members.</b> The law is not Ki's constraint; it is Ki's moat being poured in real time — because after June 2027, community is the only channel left, and communities can't be bought by the incumbents at any price.</p>
+    </div>
+
+    <h3>The Ki translation — eight moves</h3>
+    <div class="moves">
+      <div class="mv"><h4>Recast this week's sampling</h4><p>The street-team metric is not cans placed but <b>verified opt-ins per hundred cans</b>. Every card, QR and conversation drives to one destination: join before the door closes. The "5 free cans" funnel has 16 weeks to live — run it hot, and let its legally-mandated death become the founding myth ("the last free tins in Britain").</p></div>
+      <div class="mv"><h4>Found the membership now — capped, paid, annual</h4><p>The Rose arithmetic transposed: a fee that prepays real product value at a self-funded discount, a published cap sized to what Ki can <b>personally</b> serve, a waitlist that harvests emails the moment it fills. A cap of <b>2,026 founding members</b> writes the date into the brand forever. vip.ki.bio already exists — the infrastructure is waiting for its philosophy.</p></div>
+      <div class="mv"><h4>A place, not a program</h4><p>Rose's frame is "reciprocal care"; Ki's is already in the canon — ritual, restraint, 気. The natural form is the <b>kissa</b>: the Japanese listening-café — small rooms, analog media, a host who knows your order. Members don't earn points; <b>they have a seat.</b></p></div>
+      <div class="mv"><h4>Product as media, on a cadence</h4><p>Seasonal flavour drops with named provenance — the yuzu grove, the satsuma cooperative, the roaster behind Maple Coffee — and collaborators from Ki's true kin: Japanese craft, design, music, tea. (Michelin chefs co-signed cannabis; they won't co-sign nicotine — Ki's pool is makers and musicians, and that suits the brand better anyway.) Rose pressed its film score into 100 vinyl records; <b>Ki owns a generative sound-and-landscape system. Press the worlds. Number them. Bundle them.</b></p></div>
+      <div class="mv"><h4>Gate the words, film the world</h4><p>Ki's editorial dispatch — field notes from farms, kissa culture, the craft of restraint, plain-English updates on the changing law — becomes member matter, ideally <b>printed</b> (an object that ships with product is packaging and service, not an ad — counsel to confirm the boundary). Public-facing: film, quietly boosted while paid media remains legal, archived on owned channels for the era when it isn't.</p></div>
+      <div class="mv"><h4>Firewall the machines</h4><p>One flagship social presence that never sells; one disposable performance account that does nothing else — and acceptance, from day one, that the paid layer is <b>scaffolding scheduled for demolition in June 2027</b>. Email: promotional now, engineered to convert to transactional/service before the deadline, exactly as the CRM workstream is already architecting.</p></div>
+      <div class="mv"><h4>Let B2B carry the public face after the ban</h4><p>Factual trade materials, retail presence and the sell-sheet system survive when consumer advertising dies. The stockist list should be curated like Rose's was — <b>the right rooms are the advertising.</b></p></div>
+      <div class="mv"><h4>Turn members into the constituency</h4><p>Rose's dispatch enlists members in its regulatory fight. Ki's UK equivalent, handled with care: honest harm-reduction information for adult smokers, delivered as member service. <b>Two thousand named adults who chose Ki</b> is a fact regulators, retailers and journalists all respect.</p></div>
+    </div>
+
+    <h3>What not to copy</h3>
+    <p>Rose's potency gap (never let compliance versions dilute the experience); the price-grumble without parity; the sermon-vs-spend hypocrisy risk; any whisper of mood or health claims — the ASA killed a Nordic Spirit ad in 2021 merely for implying gaming felt better, and post-Act enforcement will be harsher. <b>Ki's copy discipline: provenance, craft, flavour, fact.</b></p>
+
+    <div class="oneliner">
+      <div class="tag">The one-liner</div>
+      <p>Rose proved that in a category losing its right to advertise, the winning move is to stop marketing at people and start belonging to them — capped, paid, by name. <b>Ki should launch its membership before the law closes the sampling window, so that when the wall comes down, Ki is already inside, with the members, and the door says sold out.</b></p>
+    </div>
+  </div>
+</section>
+
+<footer id="src">
+  <div class="wrap">
+    <h4>Sources — Rose, primary</h4>
+    <p class="src"><a href="https://roselosangeles.com/products/rose-club-2">Rose Club (live PDP, fetched 6 Jul 2026)</a> · <a href="http://web.archive.org/web/20260122043941/https://roselosangeles.com/products/rose-club">Rose Club v1 + Wayback 22 Jan / 28 Feb / 16 Mar 2026</a> · <a href="https://roselosangeles.com/about">About</a> · <a href="https://roselosangeles.com/information/faq">FAQ</a> · <a href="https://roselosangeles.com/legal/press">Press index</a> · <a href="https://roselosangeles.com/legal/case-studies">Case Studies</a></p>
+    <h4>Rose — press &amp; interviews</h4>
+    <p class="src"><a href="https://www.fastcompany.com/91319511/inside-the-booming-edibles-economy">Fast Company, 19 Apr 2025</a> · <a href="https://www.thelotimes.com/p/rose-edibles-thc-cbd-review">Lo Times, 6 Jan 2024</a> · <a href="https://www.thelotimes.com/p/rose-edibles-thc-review">Lo Times re-review, 8 Feb 2026</a> · <a href="https://leafmagazines.com/profiles/edibles-profile-rose-delights/">California Leaf, 2 Dec 2025</a> · <a href="https://mjbizdaily.com/cannabis-manufacturer-uses-homegrown-inputs-for-edibles/">MJBizMagazine, 25 Jul 2023</a> · <a href="https://tastecooking.com/high-minded-edibles-for-the-farm-to-table-era/">TASTE, 23 Jan 2023</a> · <a href="https://torreyholistics.com/interview-with-nathan-cozzolino-of-rose/">Torrey Holistics interview</a> · <a href="https://newconsumer.com/2020/02/rose-los-angeles-delights-edibles-cannabis-branding/">The New Consumer, Feb 2020</a> · <a href="https://coveteur.com/2020/10/15/gossamer-rose-delights-tara-thomas-edibles/">Coveteur, Oct 2020</a> · <a href="https://www.independent.com/2020/05/13/rose-los-angeless-delights/">SB Independent, May 2020</a> · <a href="https://www.vanityfair.com/style/2021/07/meet-rose-the-edibles-brand-championing-a-new-kind-of-cannabis-ecosystem">Vanity Fair, Jul 2021</a> · <a href="https://www.highsnobiety.com/p/rose-delights-interview/">Highsnobiety</a> · <a href="https://hypebeast.com/2022/7/rose-delights-nunchi-boba-edible">Hypebeast, Jul 2022</a> · <a href="https://www.papermag.com/weed-branding-fashion-wear-me-out-2645762123.html">PAPER, Apr 2020</a> · <a href="https://www.foodbeast.com/news/top-chefs-unite-to-create-edibles-highlighting-palestinian-ingredients/">Foodbeast, Oct 2024</a> · <a href="https://slate.com/life/2026/01/weed-thc-one-milligram-strawberry-singles-high-mom.html">Slate, Jan 2026</a></p>
+    <h4>Rose — design &amp; social</h4>
+    <p class="src"><a href="https://mouthwash.studio/project/rose-delights/">MOUTHWASH Studio</a> · <a href="https://www.samplestudio.la/work/rose-delights">Sample Studio (CGI)</a> · <a href="https://building--block.com/with-age/scott-barry">Building Block — Scott Barry</a> · <a href="https://www.instagram.com/rose_losangeles/">@rose_losangeles</a> · <a href="https://www.instagram.com/rose.delights.la/">@rose.delights.la</a> · <a href="https://www.youtube.com/@roselosangeles">YouTube</a> · <a href="https://thingtesting.com/brands/rose-los-angeles/reviews">Thingtesting</a></p>
+    <h4>US hemp ban · UK law &amp; market</h4>
+    <p class="src"><a href="https://www.saul.com/insights/alert/congress-enacts-hemp-thc-products-ban-what-new-federal-restrictions-mean-industry">Saul Ewing on H.R. 5371</a> · <a href="https://www.congress.gov/crs-product/IN12620">CRS brief</a> · <a href="https://www.legislation.gov.uk/ukpga/2026/18/contents/enacted">Tobacco and Vapes Act 2026 (c.18), s.15 &amp; s.175</a> · <a href="https://healthmedia.blog.gov.uk/2026/06/01/ending-the-advertising-and-sponsorship-of-vaping-and-nicotine-products-from-1-june-2027/">DHSC, 1 Jun 2026</a> · <a href="https://ash.org.uk/media-centre/news/blog/the-tobacco-and-vapes-act-has-passed-but-what-happens-next">ASH — commencement</a> · <a href="https://ash.org.uk/key-topics/nicotine-pouches">ASH — pouches</a> · <a href="https://www.local.gov.uk/parliament/briefings-and-responses/tobacco-and-vapes-act-faqs">LGA — Act FAQs</a> · <a href="https://www.ucl.ac.uk/news/2025/dec/nicotine-pouch-rise-driven-young-men">UCL / Lancet Public Health, Dec 2025</a> · <a href="https://www.asa.org.uk/news/tobacco-advertising-tobacco-and-vapes-act-2026.html">ASA/CAP note</a> · <a href="https://nordicspirit.co.uk/festival-hub">Nordic Spirit festival hub</a> · <a href="https://www.mclaren.com/racing/formula-1/2025/abu-dhabi-grand-prix/mclaren-formula-1-team-velo-reveal-fan-inspired-livery/">McLaren × VELO</a> · <a href="https://tobaccoreporter.com/2025/12/03/pmi-expands-partnership-with-scuderia-ferrari-hp/">PMI × Ferrari, Dec 2025</a> · <a href="https://www.expressandstar.com/news/uk-news/2021/04/14/nicotine-pouch-ad-banned-for-implying-stimulant-effect-for-gamers/">ASA v Nordic Spirit, 2021</a> · Ki internal: <span style="color:#cfccbe;">CRM project brief</span></p>
+    <div class="disc">Verification note: all load-bearing claims (club dates/cap/sell-out window, hemp-pivot economics, H.R. 5371 mechanics, UK commencement dates, market stats) were re-checked by an independent adversarial pass on 6 Jul 2026. Two corrections applied: UK adult pouch use is ~1% (the widely-repeated ~4% conflates children who have ever tried); the Thamra $100K is a confirmed pledge, not independently audited as transferred. Not legal advice — the free-distribution offence (29 Oct 2026), the intended ad-ban commencement (1 Jun 2027) and the treatment of member communications, printed dispatches and paid-membership benefits should be confirmed with UK regulatory counsel, an open action already logged in the CRM workstream.</div>
+    <div class="foot-brand"><span class="k">気</span><span class="t">Ki · Kin Study Nº 1 · July 2026</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var bar=document.getElementById('bar');
+  var links=[].slice.call(document.querySelectorAll('nav#toc a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function onScroll(){
+    var h=document.documentElement;
+    var p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+    bar.style.width=(p*100)+'%';
+    var cur=0;
+    for(var i=0;i<secs.length;i++){
+      if(secs[i]&&secs[i].getBoundingClientRect().top<130)cur=i;
+    }
+    links.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>

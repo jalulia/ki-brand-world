@@ -59,6 +59,15 @@
       "img": "assets/img/worlds/satsuma.jpg",
       "alt": "Satsuma orchard at golden hour",
       "internal": true
+    },
+    {
+      "name": "Kin Study Nº1 — Rose",
+      "kind": "brand study · the sold-out membership playbook · verified",
+      "href": "kin-study-01-rose.html",
+      "dest": "/kin-study-01-rose.html",
+      "img": "assets/img/kin-study-rose.svg",
+      "alt": "Sold out, on purpose — kin study card",
+      "internal": true
     }
   ]
 }

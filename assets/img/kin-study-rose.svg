@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <style>
+      .lat{font-family:'Barlow Semi Condensed','Barlow','Helvetica Neue',Arial,sans-serif;}
+      .jp{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;}
+    </style>
+  </defs>
+  <rect width="800" height="600" fill="#f7f6f1"/>
+  <rect x="0" y="0" width="800" height="6" fill="#b88448"/>
+  <text class="jp" x="415" y="415" text-anchor="middle" font-size="330" font-weight="300"
+        fill="none" stroke="#b88448" stroke-width="2.2" opacity=".55">薔薇</text>
+  <g transform="rotate(-12 620 150)">
+    <circle cx="620" cy="150" r="78" fill="none" stroke="#1a1a17" stroke-width="3"/>
+    <circle cx="620" cy="150" r="66" fill="none" stroke="#1a1a17" stroke-width="1.2"/>
+    <text class="lat" x="620" y="143" text-anchor="middle" font-size="21" font-weight="800" letter-spacing="2" fill="#1a1a17">AT</text>
+    <text class="lat" x="620" y="170" text-anchor="middle" font-size="21" font-weight="800" letter-spacing="2" fill="#1a1a17">CAPACITY</text>
+  </g>
+  <rect x="60" y="452" width="52" height="4" fill="#b88448"/>
+  <text class="lat" x="60" y="502" font-size="56" font-weight="800" letter-spacing="1" fill="#1a1a17">SOLD OUT,</text>
+  <text class="lat" x="60" y="556" font-size="56" font-weight="800" letter-spacing="1" fill="#1a1a17">ON PURPOSE</text>
+  <text class="lat" x="62" y="436" font-size="17" font-weight="700" letter-spacing="5" fill="#a0753d">KIN STUDY Nº1 · ROSE LOS ANGELES</text>
+  <text class="jp" x="740" y="560" text-anchor="end" font-size="34" font-weight="300" fill="#b88448">気</text>
+</svg>
