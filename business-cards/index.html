@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ki · Business Card Names</title>
+<meta name="description" content="Ki business card name & title register — katakana + kanji for internal approvals and requests.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Obviously (repo webfonts, same as other Ki tools) ---------- */
+@font-face{font-family:'Obviously';font-weight:300;font-style:normal;src:url(../assets/fonts/Obviously-Light.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Obviously';font-weight:500;font-style:normal;src:url(../assets/fonts/Obviously-Medium.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Obviously';font-weight:700;font-style:normal;src:url(../assets/fonts/Obviously-Bold.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Obviously';font-weight:800;font-style:normal;src:url(../assets/fonts/Obviously-Black.woff2) format('woff2');font-display:swap}
+
+:root{
+  /* palette lifted from uk.ki.bio */
+  --paper:#FFFFFF; --card:#FFFFFF; --wash:#FAFAF9; --hair:#E8E4DD; --hair-2:#F0EDE6;
+  --ink:#111111; --ink-2:#54544D; --ink-3:#87877E;
+  --gold:#B88448; --gold-2:#A0753D; --gold-wash:#FaF4EA;
+  --matcha:#619C8A; --matcha-2:#4E8070; --matcha-wash:#EEF4F1;
+  --warn:#C0434A;
+  --shadow:0 1px 2px rgba(17,17,17,.03), 0 10px 30px -18px rgba(17,17,17,.18);
+  --shadow-lg:0 30px 70px -34px rgba(17,17,17,.34);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{background:var(--paper);color:var(--ink-2);
+  font:500 15px/1.6 'Obviously','Outfit',system-ui,-apple-system,sans-serif}
+.jp{font-family:'Noto Sans JP','Obviously',sans-serif;font-weight:400}
+button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
+input,textarea,select{font:inherit;color:inherit}
+::selection{background:rgba(97,156,138,.20)}
+h1,h2,h3{color:var(--ink);font-weight:700;letter-spacing:-.015em;line-height:1.12}
+.light{font-weight:300}
+
+/* ---------- top bar ---------- */
+#top{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:0 34px;height:66px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--hair)}
+#top .tl{display:flex;align-items:center;gap:12px;min-width:0}
+#top .tl .logo{width:32px;height:32px;display:block;flex:none}
+#top .wm{font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;line-height:1.15}
+#top .ws{font-weight:500;font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+#top .tr{display:flex;align-items:center;gap:9px}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border:1px solid var(--hair);
+  border-radius:5px;font-weight:500;font-size:13.5px;color:var(--ink);background:var(--card);
+  transition:all .16s;white-space:nowrap}
+.btn:hover{border-color:#D6D3C6;box-shadow:var(--shadow)}
+.btn.primary{background:#111;border-color:#111;color:#fff;font-weight:700}
+.btn.primary:hover{background:#000}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#fff;font-weight:700}
+.btn.gold:hover{background:var(--gold-2);box-shadow:0 8px 22px -12px rgba(184,132,72,.7)}
+.btn.sm{padding:7px 13px;font-size:12.5px;border-radius:5px}
+.btn.link{border-color:transparent;background:transparent;color:var(--matcha-2);padding:7px 8px}
+.btn.link:hover{box-shadow:none;color:var(--matcha);text-decoration:underline}
+.btn.danger{border-color:transparent;color:var(--warn);background:transparent}
+.btn.danger:hover{background:#fbf1ee;box-shadow:none}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.plus{font-size:16px;line-height:1;margin-top:-1px}
+
+/* ---------- page ---------- */
+#wrap{max-width:1000px;margin:0 auto;padding:0 34px 100px}
+.hero{padding:48px 0 8px;border-bottom:1px solid var(--hair);margin-bottom:8px}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:10.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--gold-2)}
+.hero .eyebrow .jp{color:var(--matcha-2);letter-spacing:.04em;font-size:12px}
+.hero h1{font-size:27px;margin-top:11px;letter-spacing:-.02em;font-weight:700}
+.hero .lede{font-size:16px;line-height:1.5;color:var(--ink-2);margin-top:10px;font-weight:500}
+.uxgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin:28px 0 20px;max-width:740px}
+.uxitem{padding:13px 0;border-top:1px solid var(--hair-2)}
+.uxitem b{display:block;font-weight:700;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-2);margin-bottom:4px}
+.uxitem span{font-size:13px;color:var(--ink-3);font-weight:400;line-height:1.5}
+
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:32px 0 20px;flex-wrap:wrap}
+.fchips{display:flex;gap:8px;flex-wrap:wrap}
+.fchip{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border:1px solid var(--hair);
+  border-radius:5px;font-weight:500;font-size:13px;color:var(--ink-3);background:var(--card);transition:all .15s}
+.fchip:hover{border-color:#D6D3C6;color:var(--ink-2)}
+.fchip.on{background:#111;border-color:#111;color:#fff}
+.fchip .n{font-size:11.5px;opacity:.65;font-weight:700}
+.search{position:relative}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.4}
+#q{width:250px;padding:10px 14px 10px 38px;border:1px solid var(--hair);border-radius:5px;background:var(--card);
+  font-size:14px;color:var(--ink);transition:all .15s}
+#q:focus{outline:none;border-color:var(--matcha);box-shadow:0 0 0 3px rgba(97,156,138,.14)}
+#q::placeholder{color:var(--ink-3)}
+
+/* ---------- list ---------- */
+#list{display:flex;flex-direction:column}
+.person{display:flex;flex-direction:column;padding:26px 2px;border-top:1px solid var(--hair-2)}
+.person:first-child{border-top:none}
+.prow{display:flex;gap:32px;justify-content:space-between;align-items:flex-start}
+.person .pl{flex:1;min-width:0}
+.pname{font-weight:700;font-size:17px;letter-spacing:-.01em;color:var(--ink);line-height:1.3}
+.ptitle{font-size:13px;color:var(--ink-3);margin-top:2px;font-weight:500}
+.pkanji{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-top:15px}
+.pkanji .k{font-weight:700;font-size:16px;color:var(--ink);letter-spacing:.01em}
+.pkanji .contact{font-size:13px;color:var(--ink-3);font-weight:500}
+.pkanji .contact .sep{margin:0 7px;opacity:.55}
+.person .pr{flex:none;text-align:right;padding-top:1px}
+.pjpname{font-size:18px;color:var(--ink);letter-spacing:.03em;font-weight:500;line-height:1.35}
+.pnote{font-size:11px;line-height:1.6;color:var(--ink-3);margin-top:14px;font-weight:400;width:100%}
+.pnote .jp{color:var(--ink-2)}
+.pactions{display:flex;align-items:center;gap:14px;margin-top:15px}
+
+/* status pill (clickable, quiet) */
+.spill{display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border-radius:4px;
+  font-weight:600;font-size:11px;letter-spacing:.02em;text-transform:uppercase;border:1px solid var(--hair);color:var(--ink-3);background:transparent;
+  transition:all .15s;cursor:pointer;white-space:nowrap}
+.spill:hover{border-color:#D0CDC2}
+.spill .dot{width:6px;height:6px;border-radius:50%;background:var(--ink-3);flex:none}
+.spill.approved{color:var(--matcha-2);border-color:#CBE0D8}
+.spill.approved .dot{background:var(--matcha)}
+.spill.review{color:var(--gold-2);border-color:#EADBC0}
+.spill.review .dot{background:var(--gold)}
+.spill.draft{color:var(--ink-3);border-color:var(--hair)}
+.spill .cyc{opacity:.4;font-size:10px}
+.editlink{font-size:13px;color:var(--ink-3);font-weight:500;transition:color .15s}
+.editlink:hover{color:var(--matcha-2);text-decoration:underline}
+.ownerchip{font-size:12px;color:var(--ink-3)}
+
+.empty{text-align:center;padding:80px 20px;color:var(--ink-3)}
+.empty b{display:block;color:var(--ink);font-weight:700;font-size:18px;letter-spacing:-.01em;margin-bottom:8px}
+.empty .btn{margin-top:20px}
+
+#foot{max-width:1000px;margin:0 auto;padding:28px 34px 50px;border-top:1px solid var(--hair);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3)}
+
+/* ---------- modal editor ---------- */
+#scrim{position:fixed;inset:0;background:rgba(17,17,17,.32);backdrop-filter:blur(3px);z-index:80;
+  display:none;align-items:flex-start;justify-content:center;padding:44px 20px;overflow:auto}
+#scrim.on{display:flex}
+#modal{background:var(--paper);border-radius:10px;box-shadow:var(--shadow-lg);width:100%;max-width:640px;overflow:hidden}
+#modal .mh{display:flex;align-items:flex-start;justify-content:space-between;padding:24px 28px 6px}
+#modal .mh h3{font-weight:700;font-size:18px;letter-spacing:-.015em}
+#modal .mh p{font-size:13px;color:var(--ink-3);margin-top:3px;font-weight:500}
+#modal .mx{width:34px;height:34px;border-radius:9px;color:var(--ink-3);font-size:17px;transition:all .15s;flex:none}
+#modal .mx:hover{background:var(--wash);color:var(--ink)}
+#modal .mb{padding:14px 28px 8px}
+.fgrp{margin-bottom:16px}
+.fgrp label{display:flex;align-items:center;gap:8px;font-weight:600;font-size:12.5px;color:var(--ink-2);margin-bottom:7px}
+.fgrp input,.fgrp textarea,.fgrp select{width:100%;padding:11px 13px;border:1px solid var(--hair);border-radius:6px;
+  background:var(--card);font-size:15px;color:var(--ink);transition:background .5s,border-color .15s,box-shadow .15s}
+.fgrp textarea{min-height:72px;resize:vertical;line-height:1.55;font-weight:500}
+.fgrp input:focus,.fgrp textarea:focus,.fgrp select:focus{outline:none;border-color:var(--matcha);box-shadow:0 0 0 3px rgba(97,156,138,.14)}
+.fgrp input::placeholder,.fgrp textarea::placeholder{color:var(--ink-3)}
+.fgrp input.flash,.fgrp textarea.flash{background:#FBF6EC;border-color:#EADBC0}
+.frow{display:flex;gap:16px}
+.frow .fgrp{flex:1}
+.fieldhint{font-size:12px;color:var(--gold-2);margin-top:6px;display:none}
+.fieldhint.on{display:block}
+
+/* the "Japanese — auto" panel */
+.jpanel{background:var(--wash);border:1px solid var(--hair);border-radius:8px;padding:18px 18px 6px;margin:6px 0 4px}
+.jphead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.jphead .lt{display:flex;align-items:center;gap:9px}
+.jphead .lt b{font-weight:700;font-size:13px;letter-spacing:-.005em;color:var(--ink)}
+.jbadge{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:10.5px;letter-spacing:.02em;
+  color:var(--gold-2);background:var(--gold-wash);border:1px solid #EADBC0;border-radius:4px;padding:3px 9px}
+.jbadge .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.jphead .jphint{font-size:12px;color:var(--ink-3);font-weight:500}
+.tag{font-weight:700;font-size:10px;letter-spacing:.03em;color:var(--gold-2);background:var(--gold-wash);
+  border:1px solid #EADBC0;border-radius:4px;padding:2px 8px;display:none}
+.tag.on{display:inline-flex;align-items:center}
+.tag.edited{color:var(--matcha-2);background:var(--matcha-wash);border-color:#CBE0D8}
+
+#modal .mf{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 28px 22px;margin-top:6px;
+  border-top:1px solid var(--hair)}
+
+/* toast */
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);opacity:0;
+  background:#111;color:#fff;padding:12px 20px;border-radius:11px;font-weight:600;font-size:14px;
+  z-index:120;transition:all .25s;pointer-events:none;box-shadow:var(--shadow-lg)}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- print sheet ---------- */
+#printroot{display:none}
+@media print{
+  @page{size:A4;margin:16mm 18mm}
+  #top,#wrap,#foot,#scrim,#toast{display:none!important}
+  #printroot{display:block}
+  body{background:#fff;color:var(--ink)}
+  .psheet{font-family:'Obviously','Noto Sans JP',sans-serif}
+  .phead{border-bottom:1.5px solid var(--gold);padding-bottom:12px;margin-bottom:22px}
+  .pbrand{font-size:11pt;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--gold-2)}
+  .ph1{font-size:18pt;font-weight:700;letter-spacing:-.02em;margin-top:6px;color:var(--ink)}
+  .psub{color:var(--ink-3);font-size:10pt;margin-top:4px}
+  .pcard{padding:15px 0 14px;border-bottom:1px solid var(--hair);page-break-inside:avoid}
+  .pcard:last-child{border-bottom:none}
+  .prow{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+  .pnm{font-size:14pt;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+  .ptl{font-size:10pt;color:var(--ink-2);margin-top:2px}
+  .pnmjp{font-size:14pt;color:var(--ink)}
+  .ptlrow{margin-top:7px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .ptljp{font-size:12.5pt;font-weight:700;color:var(--ink)}
+  .pcontact{font-size:9.5pt;color:var(--ink-3)}
+  .pnote2{margin-top:7px;font-size:9pt;color:var(--ink-2);line-height:1.45;background:var(--wash);
+    border:1px solid var(--hair-2);border-radius:6px;padding:8px 11px}
+  .pnote2 .jp{color:var(--ink)}
+}
+</style>
+</head>
+<body>
+
+<div id="top">
+  <div class="tl">
+    <img class="logo" src="../assets/logo/Ki_Logo_Black.svg" alt="Ki" onerror="this.style.display='none'">
+    <div>
+      <div class="wm">Ki Business Cards</div>
+      <div class="ws">Katakana &amp; kanji · internal register</div>
+    </div>
+  </div>
+  <div class="tr">
+    <button class="btn sm" id="btnCsv">Export CSV</button>
+    <button class="btn sm" id="btnPdf">Download PDF</button>
+    <button class="btn gold sm" id="btnAdd"><span class="plus">+</span> Add person</button>
+  </div>
+</div>
+
+<div id="wrap">
+  <div class="hero">
+    <div class="eyebrow">Ki · Bio <span class="jp">気</span></div>
+    <h1>Ki Business Cards</h1>
+    <p class="lede">Approve the katakana and kanji for every card in one place.</p>
+    <div class="uxgrid">
+      <div class="uxitem"><b>Add person</b><span>Katakana &amp; kanji suggested as you type — all editable.</span></div>
+      <div class="uxitem"><b>Status</b><span>Click a chip to set for review, approved or draft.</span></div>
+      <div class="uxitem"><b>Export CSV</b><span>Merge-ready columns for the print vendor.</span></div>
+      <div class="uxitem"><b>Download PDF</b><span>Styled sheet for sign-off, matching the current filter.</span></div>
+    </div>
+  </div>
+
+  <div class="bar">
+    <div class="fchips" id="filters">
+      <button class="fchip on" data-f="all">All <span class="n" data-c="all"></span></button>
+      <button class="fchip" data-f="review">For review <span class="n" data-c="review"></span></button>
+      <button class="fchip" data-f="approved">Approved <span class="n" data-c="approved"></span></button>
+      <button class="fchip" data-f="draft">Draft <span class="n" data-c="draft"></span></button>
+    </div>
+    <div class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+      <input id="q" placeholder="Search name, title, email…">
+    </div>
+  </div>
+
+  <div id="list"></div>
+</div>
+
+<div id="foot">
+  <span>Ki · Bio — internal use</span>
+  <span id="footcount"></span>
+  <span>Saved in this browser · export CSV to share</span>
+</div>
+
+<!-- editor modal -->
+<div id="scrim">
+  <div id="modal">
+    <div class="mh">
+      <div>
+        <h3 id="mTitle">Add person</h3>
+        <p id="mSubtitle">Fill in the English fields — the Japanese fills in as you type.</p>
+      </div>
+      <button class="mx" id="mClose">✕</button>
+    </div>
+    <div class="mb">
+      <div class="fgrp">
+        <label>Name (English)</label>
+        <input id="f_name" placeholder="e.g. Kevin Shillito" autocomplete="off">
+      </div>
+      <div class="fgrp">
+        <label>Title (English)</label>
+        <input id="f_title" placeholder="e.g. Director of Sales" autocomplete="off">
+      </div>
+      <div class="frow">
+        <div class="fgrp">
+          <label>Phone</label>
+          <input id="f_phone" placeholder="+44 …" autocomplete="off">
+        </div>
+        <div class="fgrp">
+          <label>Email</label>
+          <input id="f_email" placeholder="name@ki.bio" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="jpanel">
+        <div class="jphead">
+          <div class="lt"><b>Japanese</b><span class="jbadge"><span class="dot"></span>Suggested automatically</span></div>
+          <button class="btn sm" id="mResuggest" type="button">↻ Re-suggest</button>
+        </div>
+        <div class="jphead" style="margin:0 0 12px"><span class="jphint">Filled from the English above. Edit any field — your version is kept.</span></div>
+        <div class="frow">
+          <div class="fgrp">
+            <label>Name — katakana <span class="tag" id="tag_namejp">auto</span></label>
+            <input id="f_namejp" class="jp" placeholder="type a name above…" autocomplete="off">
+            <div class="fieldhint" id="hint_namejp">No dictionary match — this is a phonetic guess, please verify.</div>
+          </div>
+          <div class="fgrp">
+            <label>Title — kanji <span class="tag" id="tag_titlejp">auto</span></label>
+            <input id="f_titlejp" class="jp" placeholder="type a title above…" autocomplete="off">
+            <div class="fieldhint" id="hint_titlejp">No standard match yet — finish the title or type the kanji.</div>
+          </div>
+        </div>
+        <div class="fgrp">
+          <label>Explainer note <span class="tag" id="tag_note">auto</span></label>
+          <textarea id="f_note" class="jp" placeholder="A one-line explainer is written for you…"></textarea>
+        </div>
+      </div>
+
+      <div class="frow" style="margin-top:16px">
+        <div class="fgrp">
+          <label>Status</label>
+          <select id="f_status">
+            <option value="review">For review</option>
+            <option value="approved">Approved</option>
+            <option value="draft">Draft</option>
+          </select>
+        </div>
+        <div class="fgrp">
+          <label>Requested / owned by (optional)</label>
+          <input id="f_by" placeholder="Your name" autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <div class="mf">
+      <button class="btn danger sm" id="mDelete" style="visibility:hidden">Delete</button>
+      <div style="display:flex;gap:10px">
+        <button class="btn" id="mCancel">Cancel</button>
+        <button class="btn gold" id="mSave">Save person</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="printroot"></div>
+<div id="toast"></div>
+
+<script>
+/* =========================================================================
+   Ki Business Card Name Register — standalone, no backend.
+   Data persists in this browser (localStorage). Export CSV to share.
+   ========================================================================= */
+"use strict";
+
+/* ---------- auto-suggest dictionaries (no API) ---------- */
+const KNOWN_NAMES = {
+  "jasen trautwein":"ジェイセン・トラウトワイン","kevin shillito":"ケビン・シリト",
+  "liz frank":"リズ・フランク","chris tuff":"クリス・タフ","ron booth":"ロン・ブース"
+};
+const CREDS = new Set(["dvm","md","phd","mba","jr","sr","ii","iii","iv","esq","cfa","cpa","dds","rn","do"]);
+const FIRST = {
+  jasen:"ジェイセン",jason:"ジェイソン",kevin:"ケビン",chris:"クリス",christopher:"クリストファー",
+  liz:"リズ",elizabeth:"エリザベス",ron:"ロン",ronald:"ロナルド",john:"ジョン",james:"ジェームズ",
+  michael:"マイケル",mike:"マイク",david:"デイビッド",dave:"デイブ",robert:"ロバート",rob:"ロブ",
+  william:"ウィリアム",will:"ウィル",richard:"リチャード",rick:"リック",thomas:"トーマス",tom:"トム",
+  mark:"マーク",paul:"ポール",steven:"スティーブン",steve:"スティーブ",andrew:"アンドリュー",andy:"アンディ",
+  daniel:"ダニエル",dan:"ダン",matthew:"マシュー",matt:"マット",anthony:"アンソニー",tony:"トニー",
+  peter:"ピーター",pete:"ピート",george:"ジョージ",edward:"エドワード",ed:"エド",brian:"ブライアン",
+  scott:"スコット",gary:"ゲイリー",tim:"ティム",timothy:"ティモシー",joseph:"ジョセフ",joe:"ジョー",
+  charles:"チャールズ",charlie:"チャーリー",frank:"フランク",jack:"ジャック",henry:"ヘンリー",
+  patrick:"パトリック",sean:"ショーン",ryan:"ライアン",justin:"ジャスティン",jacob:"ジェイコブ",
+  nathan:"ネイサン",aaron:"アーロン",adam:"アダム",alan:"アラン",kyle:"カイル",jordan:"ジョーダン",
+  eric:"エリック",kenneth:"ケネス",ken:"ケン",gregory:"グレゴリー",greg:"グレッグ",jeremy:"ジェレミー",
+  sarah:"サラ",sara:"サラ",jennifer:"ジェニファー",jen:"ジェン",jessica:"ジェシカ",emily:"エミリー",
+  emma:"エマ",olivia:"オリビア",amy:"エイミー",laura:"ローラ",anna:"アンナ",anne:"アン",ann:"アン",
+  katie:"ケイティ",kate:"ケイト",katherine:"キャサリン",catherine:"キャサリン",rachel:"レイチェル",
+  rebecca:"レベッカ",becky:"ベッキー",hannah:"ハンナ",grace:"グレース",sophie:"ソフィー",sophia:"ソフィア",
+  chloe:"クロエ",megan:"ミーガン",nicole:"ニコール",michelle:"ミシェル",lisa:"リサ",karen:"カレン",
+  susan:"スーザン",sue:"スー",nancy:"ナンシー",mary:"メアリー",patricia:"パトリシア",linda:"リンダ",
+  barbara:"バーバラ",helen:"ヘレン",claire:"クレア",clare:"クレア",julia:"ジュリア",julie:"ジュリー",
+  victoria:"ヴィクトリア",vicky:"ヴィッキー",diane:"ダイアン",donna:"ドナ",carol:"キャロル",sharon:"シャロン",
+  amanda:"アマンダ",melissa:"メリッサ",stephanie:"ステファニー",angela:"アンジェラ",heather:"ヘザー",
+  natalie:"ナタリー",lauren:"ローレン",abigail:"アビゲイル",abby:"アビー",zoe:"ゾーイ",ellie:"エリー",
+  bella:"ベラ",isabella:"イザベラ",lucy:"ルーシー",molly:"モリー",holly:"ホリー",daisy:"デイジー",
+  ruby:"ルビー",poppy:"ポピー",jasmine:"ジャスミン",maya:"マヤ",mia:"ミア",lily:"リリー"
+};
+const SUR = {
+  trautwein:"トラウトワイン",shillito:"シリト",frank:"フランク",tuff:"タフ",booth:"ブース",
+  smith:"スミス",johnson:"ジョンソン",williams:"ウィリアムズ",brown:"ブラウン",jones:"ジョーンズ",
+  garcia:"ガルシア",miller:"ミラー",davis:"デイビス",rodriguez:"ロドリゲス",martinez:"マルティネス",
+  wilson:"ウィルソン",anderson:"アンダーソン",taylor:"テイラー",thomas:"トーマス",moore:"ムーア",
+  jackson:"ジャクソン",martin:"マーティン",lee:"リー",thompson:"トンプソン",white:"ホワイト",
+  harris:"ハリス",clark:"クラーク",lewis:"ルイス",robinson:"ロビンソン",walker:"ウォーカー",
+  young:"ヤング",allen:"アレン",king:"キング",wright:"ライト",hill:"ヒル",green:"グリーン",
+  adams:"アダムス",baker:"ベイカー",nelson:"ネルソン",carter:"カーター",mitchell:"ミッチェル",
+  roberts:"ロバーツ",phillips:"フィリップス",evans:"エバンス",turner:"ターナー",parker:"パーカー",
+  collins:"コリンズ",edwards:"エドワーズ",stewart:"スチュワート",morris:"モリス",murphy:"マーフィー",
+  cook:"クック",rogers:"ロジャース",morgan:"モーガン",bell:"ベル",bailey:"ベイリー",cooper:"クーパー",
+  richardson:"リチャードソン",cox:"コックス",howard:"ハワード",ward:"ウォード",watson:"ワトソン",
+  brooks:"ブルックス",gray:"グレイ",james:"ジェームズ",price:"プライス",bennett:"ベネット",
+  wood:"ウッド",barnes:"バーンズ",ross:"ロス",henderson:"ヘンダーソン",coleman:"コールマン",
+  hughes:"ヒューズ",murray:"マレー",foster:"フォスター",kelly:"ケリー",palmer:"パーマー",
+  webb:"ウェッブ",holmes:"ホームズ",black:"ブラック",butler:"バトラー",fox:"フォックス",
+  shaw:"ショー",ellis:"エリス",owen:"オーウェン",reid:"リード",graham:"グラハム",knight:"ナイト",
+  chen:"チェン",wang:"ワン",li:"リー",zhang:"チャン",liu:"リュウ",yang:"ヤン",huang:"ホァン",
+  wu:"ウー",zhou:"ジョウ",lin:"リン",kim:"キム",park:"パク",choi:"チェ",kang:"カン",
+  patel:"パテル",singh:"シン",kumar:"クマール",sharma:"シャルマ",nair:"ナイル",gupta:"グプタ",
+  khan:"カーン",ali:"アリ",ahmed:"アフメド",hassan:"ハッサン",nguyen:"グエン",tran:"チャン",
+  sato:"サトウ",tanaka:"タナカ",suzuki:"スズキ",yamamoto:"ヤマモト",cohen:"コーエン",levy:"レヴィ",
+  silva:"シルバ",santos:"サントス",rossi:"ロッシ",muller:"ミュラー",schmidt:"シュミット",
+  okafor:"オカフォー",mensah:"メンサ",osei:"オセイ",dubois:"デュボワ",bernard:"ベルナール"
+};
+function romajiToKana(word){
+  let s=(word||"").toLowerCase().replace(/[^a-z]/g,"");
+  if(!s) return "";
+  s=s.replace(/tch/g,"ch").replace(/sch/g,"sh").replace(/ck/g,"k").replace(/ph/g,"f")
+     .replace(/wh/g,"w").replace(/ght/g,"to").replace(/gh/g,"").replace(/x/g,"ks")
+     .replace(/qu/g,"kw").replace(/q/g,"k").replace(/th/g,"s")
+     .replace(/c(?=[eiy])/g,"s").replace(/c(?!h)/g,"k");
+  s=s.replace(/ee|ea|ie/g,"i_").replace(/oo/g,"u_")
+     .replace(/ai|ay|ei|ey/g,"ei").replace(/oa|au|aw|ou|ow/g,"o_")
+     .replace(/oi|oy/g,"oi").replace(/ew/g,"yu_");
+  s=s.replace(/([bdfgklmnprstvz])e$/,"$1");
+  const ROW={
+    k:["カ","キ","ク","ケ","コ"],g:["ガ","ギ","グ","ゲ","ゴ"],
+    s:["サ","シ","ス","セ","ソ"],z:["ザ","ジ","ズ","ゼ","ゾ"],
+    t:["タ","ティ","トゥ","テ","ト"],d:["ダ","ディ","ドゥ","デ","ド"],
+    n:["ナ","ニ","ヌ","ネ","ノ"],h:["ハ","ヒ","フ","ヘ","ホ"],
+    f:["ファ","フィ","フ","フェ","フォ"],b:["バ","ビ","ブ","ベ","ボ"],
+    p:["パ","ピ","プ","ペ","ポ"],m:["マ","ミ","ム","メ","モ"],
+    y:["ヤ","イ","ユ","イェ","ヨ"],r:["ラ","リ","ル","レ","ロ"],
+    w:["ワ","ウィ","ウ","ウェ","ウォ"],v:["ヴァ","ヴィ","ヴ","ヴェ","ヴォ"],
+    j:["ジャ","ジ","ジュ","ジェ","ジョ"],
+    ch:["チャ","チ","チュ","チェ","チョ"],sh:["シャ","シ","シュ","シェ","ショ"],ts:["ツァ","ツィ","ツ","ツェ","ツォ"]
+  };
+  const CODA={k:"ク",g:"グ",s:"ス",z:"ズ",t:"ト",d:"ド",n:"ン",h:"フ",f:"フ",b:"ブ",p:"プ",m:"ム",
+    r:"",l:"ル",v:"ヴ",ch:"チ",sh:"シュ",j:"ジ",y:"イ",w:"",ts:"ツ"};
+  const VI={a:0,i:1,u:2,e:3,o:4}, SOLO={a:"ア",i:"イ",u:"ウ",e:"エ",o:"オ"};
+  const isV=c=>"aiueo".includes(c);
+  let out="",i=0;
+  while(i<s.length){
+    const c=s[i];
+    if(c==="_"){out+="ー";i++;continue;}
+    let cons="",two=s.substr(i,2);
+    if(two==="sh"||two==="ch"||two==="ts"){cons=two;i+=2;}
+    else if(!isV(c)){cons=c==="l"?"l":c;i+=1;}
+    if(cons){
+      const key=cons==="l"?"r":cons, row=ROW[key], v=s[i];
+      if(row&&isV(v)){out+=row[VI[v]];i++;}
+      else{out+=(CODA[cons]!==undefined?CODA[cons]:(row?row[2]:""));}
+    } else if(isV(c)){ out+=SOLO[c];i++; } else { i++; }
+  }
+  return out.replace(/ー+/g,"ー");
+}
+function nameToKana(name){
+  const raw=(name||"").trim();
+  if(!raw) return {jp:"",auto:false};
+  const cleanParts=raw.split(/\s+/).filter(p=>!CREDS.has(p.toLowerCase().replace(/[.,]/g,"")));
+  const key=cleanParts.join(" ").toLowerCase().replace(/[.,]/g,"");
+  if(KNOWN_NAMES[key]) return {jp:KNOWN_NAMES[key],auto:false};
+  let auto=false;
+  const kana=cleanParts.map((p,idx)=>{
+    const w=p.toLowerCase().replace(/[.,']/g,"");
+    if(idx===0 && FIRST[w]) return FIRST[w];
+    if(SUR[w]) return SUR[w];
+    if(FIRST[w]) return FIRST[w];
+    auto=true; return romajiToKana(w);
+  });
+  return {jp:kana.filter(Boolean).join("・"),auto};
+}
+const DOMAIN = {
+  "sales":["営業","sales"],"marketing":["マーケティング","marketing"],
+  "operations":["業務","operations"],"operation":["業務","operations"],
+  "business":["事業","business"],"business relations":["事業渉外","business relations"],
+  "business development":["事業開発","business development"],
+  "revenue":["収益","revenue"],"finance":["財務","finance"],"financial":["財務","finance"],
+  "technology":["技術","technology"],"technical":["技術","technology"],"engineering":["技術","engineering"],
+  "product":["製品","product"],"people":["人事","people"],"hr":["人事","HR"],"human resources":["人事","human resources"],
+  "legal":["法務","legal"],"communications":["広報","communications"],"comms":["広報","communications"],
+  "partnerships":["提携","partnerships"],"partnership":["提携","partnerships"],
+  "growth":["成長","growth"],"strategy":["戦略","strategy"],"design":["デザイン","design"],
+  "brand":["ブランド","brand"],"creative":["クリエイティブ","creative"],"retail":["小売","retail"],
+  "ecommerce":["EC","e-commerce"],"e-commerce":["EC","e-commerce"],
+  "customer success":["カスタマーサクセス","customer success"],"supply chain":["サプライチェーン","supply chain"],
+  "uk operations":["英国事業","UK operations"],"us operations":["米国事業","US operations"],
+  "u.s. operations":["米国事業","US operations"],"europe":["欧州事業","Europe"],
+  "north america":["北米事業","North America"],"security":["セキュリティ","security"],
+  "information security":["情報セキュリティ","information security"],"data":["データ","data"]
+};
+const EXACT = {
+  "ceo":["最高経営責任者","chief executive officer"],
+  "chief executive officer":["最高経営責任者","chief executive officer"],
+  "coo":["最高執行責任者","chief operating officer"],
+  "chief operating officer":["最高執行責任者","chief operating officer"],
+  "cfo":["最高財務責任者","chief financial officer"],
+  "chief financial officer":["最高財務責任者","chief financial officer"],
+  "cto":["最高技術責任者","chief technology officer"],
+  "chief technology officer":["最高技術責任者","chief technology officer"],
+  "cmo":["最高マーケティング責任者","chief marketing officer"],
+  "chief marketing officer":["最高マーケティング責任者","chief marketing officer"],
+  "cro":["最高収益責任者","chief revenue officer"],
+  "chief revenue officer":["最高収益責任者","chief revenue officer"],
+  "cpo":["最高製品責任者","chief product officer"],
+  "chief product officer":["最高製品責任者","chief product officer"],
+  "co-founder":["共同創業者","co-founder"],"cofounder":["共同創業者","co-founder"],
+  "founder":["創業者","founder"],"president":["社長","president"],
+  "vice president":["副社長","vice president"],"vp":["副社長","vice president"],
+  "managing director":["代表取締役","managing director"],"director":["ディレクター","director"],
+  "director of sales":["営業責任者","person responsible for sales"],
+  "head of sales":["営業責任者","person responsible for sales"],
+  "director of marketing":["マーケティング責任者","person responsible for marketing"],
+  "head of marketing":["マーケティング責任者","person responsible for marketing"],
+  "director of operations":["業務統括責任者","person responsible for overall operations"],
+  "head of operations":["業務統括責任者","person responsible for overall operations"],
+  "director of uk operations":["英国事業責任者","person responsible for UK business"],
+  "director of business relations & operations":["事業渉外・業務統括責任者","person responsible for business relations/liaison and overall operations"],
+  "sales manager":["営業部長","sales manager"],"marketing manager":["マーケティング部長","marketing manager"],
+  "general manager":["統括部長","general manager"],"account executive":["営業担当","account executive"],
+  "account manager":["顧客担当マネージャー","account manager"],
+  "ceo co-founder":["共同創業者・最高経営責任者","co-founder and chief executive officer"],
+  "ceo & co-founder":["共同創業者・最高経営責任者","co-founder and chief executive officer"],
+  "co-founder & ceo":["共同創業者・最高経営責任者","co-founder and chief executive officer"],
+  "founder & ceo":["創業者・最高経営責任者","founder and chief executive officer"]
+};
+function resolveSegment(seg){
+  seg=seg.trim(); if(!seg) return null;
+  if(EXACT[seg]) return {jp:EXACT[seg][0],gloss:EXACT[seg][1],auto:false};
+  let m;
+  if((m=seg.match(/^chief\s+(.+?)\s+officer$/))){
+    const d=DOMAIN[m[1]];
+    if(d) return {jp:"最高"+d[0]+"責任者",gloss:"chief "+d[1]+" officer",auto:false};
+    return {jp:"",gloss:"chief "+m[1]+" officer",auto:true};
+  }
+  if((m=seg.match(/^(?:director|head|vp|vice president)\s+of\s+(.+)$/))){
+    const d=DOMAIN[m[1]];
+    if(d) return {jp:d[0]+"責任者",gloss:"person responsible for "+d[1],auto:false};
+    return {jp:"",gloss:"person responsible for "+m[1],auto:true};
+  }
+  if((m=seg.match(/^(.+?)\s+(manager|lead)$/))){
+    const d=DOMAIN[m[1]];
+    if(d) return {jp:d[0]+(m[2]==="lead"?"リーダー":"マネージャー"),gloss:m[1]+" "+m[2],auto:false};
+  }
+  return {jp:"",gloss:seg,auto:true};
+}
+function titleToKanji(title){
+  let s=(title||"").trim().toLowerCase().replace(/\s+/g," ")
+        .replace(/\band\b/g,"&").replace(/\s*&\s*/g," & ").replace(/\s*\/\s*/g," & ")
+        .replace(/co[\s-]?founder/g,"co-founder");
+  if(!s) return {jp:"",gloss:"",auto:false};
+  if(EXACT[s]) return {jp:EXACT[s][0],gloss:EXACT[s][1],auto:false};
+  const segs=s.split(/\s*(?:&|,)\s*/).map(x=>x.trim()).filter(Boolean);
+  if(segs.length>1){
+    const parts=segs.map(resolveSegment).filter(Boolean);
+    const jp=parts.map(p=>p.jp).filter(Boolean).join("・");
+    const gloss=parts.map(p=>p.gloss).filter(Boolean).join(" and ");
+    const auto=parts.some(p=>p.auto)||parts.some(p=>!p.jp);
+    return {jp,gloss,auto};
+  }
+  return resolveSegment(s)||{jp:"",gloss:s,auto:true};
+}
+function buildNote(namejp,titlejp,gloss){
+  const a = namejp ? "「"+namejp+"」 reflects standard English pronunciation." : "";
+  const b = (titlejp&&gloss) ? " 「"+titlejp+"」 = “"+gloss+".”" : "";
+  return (a+b).trim();
+}
+function suggestAll(name,title){
+  const n=nameToKana(name), t=titleToKanji(title);
+  return {namejp:n.jp,nameAuto:n.auto,titlejp:t.jp,gloss:t.gloss,titleAuto:t.auto,
+          note:buildNote(n.jp,t.jp,t.gloss),auto:(n.auto||t.auto||(!t.jp&&!!title))};
+}
+
+/* ---------- seed data (the 5 approved) ---------- */
+const SEED = [
+  {name:"Jasen Trautwein, DVM",title:"CEO Co-Founder",phone:"+1 512 484 6829",email:"jt@ki.bio",
+   namejp:"ジェイセン・トラウトワイン",titlejp:"共同創業者・最高経営責任者",
+   note:"「ジェイセン・トラウトワイン」 reflects standard English pronunciation (Jasen = JAY-sen, Trautwein = TROWT-wine). 「共同創業者・最高経営責任者」 = “co-founder and chief executive officer.”",
+   status:"review",by:""},
+  {name:"Kevin Shillito",title:"Director of Sales",phone:"+44 790 666 3030",email:"kevin@ki.bio",
+   namejp:"ケビン・シリト",titlejp:"営業責任者",
+   note:"「ケビン・シリト」 reflects standard English pronunciation (Shillito = SHILL-i-to, no long final “o”). 「営業責任者」 = “person responsible for sales.”",
+   status:"review",by:""},
+  {name:"Liz Frank",title:"Director of Business Relations & Operations",phone:"+1 215 287 2218",email:"liz@ki.bio",
+   namejp:"リズ・フランク",titlejp:"事業渉外・業務統括責任者",
+   note:"「リズ・フランク」 reflects standard English pronunciation (Liz Frank). 「事業渉外・業務統括責任者」 = “person responsible for business relations/liaison and overall operations.”",
+   status:"review",by:""},
+  {name:"Chris Tuff",title:"Chief Revenue Officer",phone:"+1 678 431 9624",email:"tuff@ki.bio",
+   namejp:"クリス・タフ",titlejp:"最高収益責任者",
+   note:"「クリス・タフ」 reflects standard English pronunciation (Tuff = “tuff/tough”). 「最高収益責任者」 = “chief revenue officer.”",
+   status:"review",by:""},
+  {name:"Ron Booth",title:"Director of UK Operations",phone:"+44 774 512 0844",email:"booth@ki.bio",
+   namejp:"ロン・ブース",titlejp:"英国事業責任者",
+   note:"「ロン・ブース」 reflects standard English pronunciation (Ron Booth). 「英国事業責任者」 = “person responsible for UK business.”",
+   status:"review",by:""}
+];
+
+/* ---------- state ---------- */
+const LS_KEY="ki-bizcard-register-v1";
+let DATA=[], filter="all", query="", editId=null;
+const STATUS_ORDER=["review","approved","draft"];
+const STATUS_LABEL={approved:"Approved",review:"For review",draft:"Draft"};
+// per-field manual-edit flags + last auto values (reset per modal open)
+let dirty={namejp:false,titlejp:false,note:false};
+let lastAuto={namejp:"",titlejp:"",note:""};
+
+function uid(){return "p"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function load(){
+  try{const raw=localStorage.getItem(LS_KEY); if(raw){DATA=JSON.parse(raw);return;}}catch(e){}
+  DATA=SEED.map(s=>Object.assign({id:uid()},s)); save();
+}
+function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(DATA));}catch(e){}}
+function esc(s){return (s==null?"":String(s)).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+
+/* ---------- render list ---------- */
+function statusPill(s){
+  return '<button class="spill '+s+' act-status" title="Click to change status">'
+    +'<span class="dot"></span>'+(STATUS_LABEL[s]||s)+'<span class="cyc">▸</span></button>';
+}
+function filteredRows(){
+  const q=query.trim().toLowerCase();
+  return DATA.filter(r=>{
+    if(filter!=="all" && r.status!==filter) return false;
+    if(!q) return true;
+    return [r.name,r.title,r.email,r.namejp,r.titlejp].some(v=>(v||"").toLowerCase().includes(q));
+  });
+}
+function render(){
+  const list=document.getElementById("list");
+  const rows=filteredRows();
+  if(!rows.length){
+    list.innerHTML='<div class="empty"><b>Nothing here yet</b>'
+      +(filter==="all"?'Add the first person to get started.':'No people with this status.')
+      +'<div><button class="btn gold" onclick="openEditor(null)"><span class="plus">+</span> Add person</button></div></div>';
+  } else {
+    list.innerHTML=rows.map(r=>{
+      const contact=[r.phone,r.email].filter(Boolean).map(esc).join('<span class="sep">·</span>');
+      const owner=r.by?'<span class="ownerchip">'+esc(r.by)+'</span>':'';
+      return '<div class="person" data-id="'+r.id+'">'
+        +'<div class="prow">'
+          +'<div class="pl">'
+            +'<div class="pname">'+esc(r.name||"Untitled")+'</div>'
+            +'<div class="ptitle">'+esc(r.title||"")+'</div>'
+            +'<div class="pkanji"><span class="k jp">'+esc(r.titlejp||"—")+'</span>'
+              +(contact?'<span class="contact">'+contact+'</span>':'')+'</div>'
+          +'</div>'
+          +'<div class="pr"><div class="pjpname jp">'+esc(r.namejp||"—")+'</div></div>'
+        +'</div>'
+        +(r.note?'<div class="pnote jp">'+esc(r.note)+'</div>':'')
+        +'<div class="pactions">'+statusPill(r.status)
+          +'<button class="editlink act-edit">Edit</button>'+owner+'</div>'
+      +'</div>';
+    }).join("");
+  }
+  const counts={all:DATA.length,review:0,approved:0,draft:0};
+  DATA.forEach(r=>counts[r.status]=(counts[r.status]||0)+1);
+  document.querySelectorAll(".fchip .n").forEach(el=>{el.textContent=counts[el.dataset.c]||0;});
+  document.getElementById("footcount").textContent=DATA.length+" people · "+(counts.approved||0)+" approved";
+}
+
+/* ---------- editor ---------- */
+const $=id=>document.getElementById(id);
+function flash(el){el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),650);}
+function setTag(id,state){ // state: 'auto' | 'edited' | 'off'
+  const t=$("tag_"+id); if(!t) return;
+  t.classList.toggle("on", state!=="off");
+  t.classList.toggle("edited", state==="edited");
+  t.textContent = state==="edited" ? "edited" : "auto";
+}
+function reflectHints(){
+  const titleVal=$("f_title").value.trim();
+  const namejp=$("f_namejp").value.trim(), titlejp=$("f_titlejp").value.trim();
+  // katakana phonetic-guess hint (only when auto & unknown)
+  const nSug=nameToKana($("f_name").value);
+  $("hint_namejp").classList.toggle("on", !dirty.namejp && !!namejp && nSug.auto);
+  // title no-match hint
+  const tSug=titleToKanji(titleVal);
+  $("hint_titlejp").classList.toggle("on", !dirty.titlejp && !!titleVal && !tSug.jp);
+}
+function openEditor(id){
+  editId=id||null;
+  dirty={namejp:false,titlejp:false,note:false};
+  lastAuto={namejp:"",titlejp:"",note:""};
+  const r = id ? DATA.find(x=>x.id===id) : null;
+  $("mTitle").textContent = id ? "Edit person" : "Add person";
+  $("mSubtitle").textContent = id ? "Change the English and the Japanese re-suggests. Your manual edits are kept."
+                                  : "Fill in the English fields — the Japanese fills in as you type.";
+  $("f_name").value=r?r.name:""; $("f_title").value=r?r.title:"";
+  $("f_phone").value=r?r.phone:""; $("f_email").value=r?r.email:"";
+  $("f_namejp").value=r?r.namejp:""; $("f_titlejp").value=r?r.titlejp:"";
+  $("f_note").value=r?r.note:""; $("f_status").value=r?r.status:"review";
+  $("f_by").value=r?(r.by||""):"";
+  // existing records: JP is saved/curated → show nothing as "auto" until English is changed
+  setTag("namejp","off"); setTag("titlejp","off"); setTag("note","off");
+  $("hint_namejp").classList.remove("on"); $("hint_titlejp").classList.remove("on");
+  $("mDelete").style.visibility = id ? "visible":"hidden";
+  $("scrim").classList.add("on");
+  setTimeout(()=>$("f_name").focus(),40);
+}
+window.openEditor=openEditor;
+function closeEditor(){$("scrim").classList.remove("on");editId=null;}
+
+/* recompute suggestions from the English fields */
+function runSuggest(force){
+  const s=suggestAll($("f_name").value,$("f_title").value);
+  if(force){dirty={namejp:false,titlejp:false,note:false};}
+  // name katakana
+  if(!dirty.namejp){
+    if(s.namejp && s.namejp!==$("f_namejp").value){$("f_namejp").value=s.namejp;flash($("f_namejp"));}
+    else if(!s.namejp && lastAuto.namejp){$("f_namejp").value="";}
+    lastAuto.namejp=s.namejp;
+    setTag("namejp", s.namejp ? "auto":"off");
+  }
+  // title kanji
+  if(!dirty.titlejp){
+    if(s.titlejp && s.titlejp!==$("f_titlejp").value){$("f_titlejp").value=s.titlejp;flash($("f_titlejp"));}
+    else if(!s.titlejp && lastAuto.titlejp){$("f_titlejp").value="";}
+    lastAuto.titlejp=s.titlejp;
+    setTag("titlejp", s.titlejp ? "auto":"off");
+  }
+  // note (from whatever is currently in the JP fields)
+  if(!dirty.note){
+    const nv=buildNote($("f_namejp").value.trim(),$("f_titlejp").value.trim(),s.gloss);
+    if(nv!==$("f_note").value){$("f_note").value=nv;flash($("f_note"));}
+    lastAuto.note=nv;
+    setTag("note", nv ? "auto":"off");
+  }
+  reflectHints();
+}
+function saveEditor(){
+  const rec={ id: editId||uid(),
+    name:$("f_name").value.trim(), title:$("f_title").value.trim(),
+    phone:$("f_phone").value.trim(), email:$("f_email").value.trim(),
+    namejp:$("f_namejp").value.trim(), titlejp:$("f_titlejp").value.trim(),
+    note:$("f_note").value.trim(), status:$("f_status").value, by:$("f_by").value.trim() };
+  if(!rec.name){toast("Add a name first");$("f_name").focus();return;}
+  if(editId){const i=DATA.findIndex(x=>x.id===editId);DATA[i]=rec;}
+  else DATA.unshift(rec);
+  save();render();closeEditor();toast(editId?"Saved":"Person added");
+}
+
+/* ---------- CSV ---------- */
+function csvCell(v){v=(v==null?"":String(v));return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function exportCSV(){
+  const cols=["Name_EN","Name_JP","Title_EN","Title_JP","Phone","Email","Note","Status","Owner"];
+  const lines=[cols.join(",")];
+  DATA.forEach(r=>lines.push([r.name,r.namejp,r.title,r.titlejp,r.phone,r.email,r.note,STATUS_LABEL[r.status]||r.status,r.by||""].map(csvCell).join(",")));
+  downloadBlob(new Blob(["﻿"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"}),"Ki_Business_Cards_"+dateStamp()+".csv");
+  toast("CSV exported");
+}
+function downloadBlob(blob,fname){
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fname;
+  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},400);
+}
+function dateStamp(){const d=new Date();return d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0");}
+
+/* ---------- PDF via print ---------- */
+function buildPrint(){
+  const rows=filteredRows();
+  const sub = filter==="all" ? "Katakana (name) and kanji (title) for approval"
+            : STATUS_LABEL[filter]+" — katakana (name) and kanji (title)";
+  const cards=rows.map(r=>{
+    const contact=[r.phone,r.email].filter(Boolean).map(esc).join(" &nbsp;·&nbsp; ");
+    return '<div class="pcard"><div class="prow"><div><div class="pnm">'+esc(r.name||"")+'</div>'
+      +'<div class="ptl">'+esc(r.title||"")+'</div></div>'
+      +'<div class="pnmjp jp">'+esc(r.namejp||"")+'</div></div>'
+      +'<div class="ptlrow"><span class="ptljp jp">'+esc(r.titlejp||"")+'</span>'
+      +'<span class="pcontact">'+contact+'</span></div>'
+      +(r.note?'<div class="pnote2 jp">'+esc(r.note)+'</div>':'')+'</div>';
+  }).join("");
+  document.getElementById("printroot").innerHTML=
+    '<div class="psheet"><div class="phead"><div class="pbrand">Ki · Bio</div>'
+    +'<div class="ph1">Business card names — Japanese rendering</div>'
+    +'<div class="psub">'+esc(sub)+'</div></div>'+cards+'</div>';
+}
+function exportPDF(){buildPrint();setTimeout(()=>window.print(),60);}
+window.addEventListener("beforeprint",buildPrint);
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("on");
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("on"),1700);}
+
+/* ---------- init ---------- */
+function init(){
+  load();render();
+  $("btnAdd").onclick=()=>openEditor(null);
+  $("btnCsv").onclick=exportCSV;
+  $("btnPdf").onclick=exportPDF;
+  $("mClose").onclick=closeEditor; $("mCancel").onclick=closeEditor; $("mSave").onclick=saveEditor;
+  $("mResuggest").onclick=()=>{runSuggest(true);toast("Re-suggested");};
+  $("mDelete").onclick=()=>{ if(!editId)return;
+    if(confirm("Delete this person from the register?")){
+      DATA=DATA.filter(x=>x.id!==editId);save();render();closeEditor();toast("Deleted");}};
+  ["f_name","f_title"].forEach(id=>$(id).addEventListener("input",()=>runSuggest(false)));
+  // manual edits to JP fields → lock that field, mark edited, keep note in sync
+  $("f_namejp").addEventListener("input",()=>{dirty.namejp=true;setTag("namejp","edited");$("hint_namejp").classList.remove("on");
+    if(!dirty.note){$("f_note").value=buildNote($("f_namejp").value.trim(),$("f_titlejp").value.trim(),titleToKanji($("f_title").value).gloss);setTag("note","auto");}});
+  $("f_titlejp").addEventListener("input",()=>{dirty.titlejp=true;setTag("titlejp","edited");$("hint_titlejp").classList.remove("on");
+    if(!dirty.note){$("f_note").value=buildNote($("f_namejp").value.trim(),$("f_titlejp").value.trim(),titleToKanji($("f_title").value).gloss);setTag("note","auto");}});
+  $("f_note").addEventListener("input",()=>{dirty.note=true;setTag("note","edited");});
+  document.getElementById("filters").addEventListener("click",e=>{
+    const b=e.target.closest(".fchip");if(!b)return;
+    filter=b.dataset.f;
+    document.querySelectorAll(".fchip").forEach(x=>x.classList.toggle("on",x===b));
+    render();
+  });
+  $("q").addEventListener("input",e=>{query=e.target.value;render();});
+  document.getElementById("list").addEventListener("click",e=>{
+    const card=e.target.closest(".person");if(!card)return;
+    const id=card.dataset.id, r=DATA.find(x=>x.id===id); if(!r)return;
+    if(e.target.closest(".act-status")){
+      const i=STATUS_ORDER.indexOf(r.status);
+      r.status=STATUS_ORDER[(i+1)%STATUS_ORDER.length];
+      save();render();toast("Marked “"+STATUS_LABEL[r.status]+"”");return;
+    }
+    if(e.target.closest(".act-edit")){openEditor(id);return;}
+  });
+  $("scrim").addEventListener("mousedown",e=>{if(e.target===$("scrim"))closeEditor();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("scrim").classList.contains("on"))closeEditor();});
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+window.KiBizCard={suggestAll,nameToKana,titleToKanji,romajiToKana,buildNote};
+</script>
+</body>
+</html>

@@ -43,6 +43,15 @@
       "internal": true
     },
     {
+      "name": "Business Cards",
+      "kind": "katakana + kanji name & title register · approvals · CSV & PDF",
+      "href": "business-cards/",
+      "dest": "/business-cards",
+      "img": "assets/img/business-cards.png",
+      "alt": "Ki business card name register",
+      "internal": true
+    },
+    {
       "name": "World of Ki",
       "kind": "scrollable artifact world · the brand in context",
       "href": "ki-world.html",
