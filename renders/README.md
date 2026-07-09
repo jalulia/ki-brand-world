@@ -6,7 +6,17 @@ every uploaded format as a download chip.
 
 ## How it works
 - **Layout** follows the `Ø — Render Sheet · One Pager` spec exactly: 01 VIEWS ·
-  02 CONSTRUCTION · 03 ARTWORK · 04 SPEC, plus 05 LIBRARY for extras.
+  02 CONSTRUCTION · 03 ARTWORK · 04 SPEC, plus 05 LIBRARY for extras and
+  06 WORLD (landscape brand world) at the foot of each flavour sheet.
+- **Single-puck shots** live in their own flavour tab. The former "Solo tilts"
+  row on Full Line is gone — each single-puck tilt now sits in that flavour's
+  05 LIBRARY row (`Solo tilt`). Full Line keeps only the multi-flavour group angles.
+- **World / Universe.** Every flavour ends with its landscape world
+  (`worlds/<flavor>.jpg`, shown from `previews/worlds/*.webp`, downloadable as
+  full JPG). Full Line's 02 UNIVERSE gathers all five worlds — tap any tile to
+  jump to that flavour — with a slot reserved for the full-line hero sky shot.
+  Tokyo Cola's world has two reserved slots for the floating-tin sky shots
+  (blue-camo + red) — drop the hi-res files in to fill them.
 - **Files live in the IMPØSSIBLE shared drive** — `01_Projects/Ki/3. Creative/
   2. Packaging/Ki Render Sheet/UK/<Flavor>/<Slot>/`. Everyone at
   impossibleoutcomes.co can upload (`everyone@` = writer); the whole domain can

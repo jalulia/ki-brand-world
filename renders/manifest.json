@@ -275,6 +275,20 @@
       }
      ]
     },
+    "solo-tilt": {
+     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
+     "files": [
+      {
+       "name": "KI_ANGLES_06.png",
+       "fmt": "PNG",
+       "size": "1.2 MB",
+       "part": null,
+       "strength": null,
+       "id": "1TTGxLcRarFGJ3dIv0rlb3kSICyzZTyeJ",
+       "preview": "previews/hokkaido/tilt.webp"
+      }
+     ]
+    },
     "label-flat": {
      "folderId": "1S4E1APG22FK0uEDzuJVUaaX5mSXrahZ5",
      "files": [
@@ -429,6 +443,20 @@
        "strength": null,
        "id": "18EVM98lqwfqvgFm-FWQUCNBIGG69DByK",
        "preview": "previews/maple/05.webp"
+      }
+     ]
+    },
+    "solo-tilt": {
+     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
+     "files": [
+      {
+       "name": "KI_ANGLES_07.png",
+       "fmt": "PNG",
+       "size": "1.2 MB",
+       "part": null,
+       "strength": null,
+       "id": "1oSyG3uzMn9O8IsELhtOyRR45I2phqt-s",
+       "preview": "previews/maple/tilt.webp"
       }
      ]
     },
@@ -589,6 +617,20 @@
       }
      ]
     },
+    "solo-tilt": {
+     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
+     "files": [
+      {
+       "name": "KI_ANGLES_09.png",
+       "fmt": "PNG",
+       "size": "815 KB",
+       "part": null,
+       "strength": null,
+       "id": "1wiOxH6tSjmUUVxI7J-wPg0cven_iRcyI",
+       "preview": "previews/satsuma/tilt.webp"
+      }
+     ]
+    },
     "label-flat": {
      "folderId": "1so7eHnM0k6vnei2GvNdZd9oOZHvmsOWd",
      "files": [
@@ -746,6 +788,20 @@
       }
      ]
     },
+    "solo-tilt": {
+     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
+     "files": [
+      {
+       "name": "KI_ANGLES_08.png",
+       "fmt": "PNG",
+       "size": "884 KB",
+       "part": null,
+       "strength": null,
+       "id": "1TqKQotsfqgKfqibE8xtiBxUJitk_KZFD",
+       "preview": "previews/yuzu/tilt.webp"
+      }
+     ]
+    },
     "label-flat": {
      "folderId": "1_zHfKQHn-rf7I5RjV5iutlPHmCg2hbiG",
      "files": [
@@ -857,62 +913,6 @@
        "strength": null,
        "id": "1okag8eLXtfkrOeF1oqSwYjklpMpHUuE0",
        "preview": "previews/line/05.webp"
-      }
-     ]
-    },
-    "angle-06": {
-     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
-     "files": [
-      {
-       "name": "KI_ANGLES_06.png",
-       "fmt": "PNG",
-       "size": "1.2 MB",
-       "part": null,
-       "strength": null,
-       "id": "1TTGxLcRarFGJ3dIv0rlb3kSICyzZTyeJ",
-       "preview": "previews/line/06.webp"
-      }
-     ]
-    },
-    "angle-07": {
-     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
-     "files": [
-      {
-       "name": "KI_ANGLES_07.png",
-       "fmt": "PNG",
-       "size": "1.2 MB",
-       "part": null,
-       "strength": null,
-       "id": "1oSyG3uzMn9O8IsELhtOyRR45I2phqt-s",
-       "preview": "previews/line/07.webp"
-      }
-     ]
-    },
-    "angle-08": {
-     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
-     "files": [
-      {
-       "name": "KI_ANGLES_08.png",
-       "fmt": "PNG",
-       "size": "884 KB",
-       "part": null,
-       "strength": null,
-       "id": "1TqKQotsfqgKfqibE8xtiBxUJitk_KZFD",
-       "preview": "previews/line/08.webp"
-      }
-     ]
-    },
-    "angle-09": {
-     "folderId": "1hOJy98KVcM2hFyk_V-BdrPPqoX_LTLAE",
-     "files": [
-      {
-       "name": "KI_ANGLES_09.png",
-       "fmt": "PNG",
-       "size": "815 KB",
-       "part": null,
-       "strength": null,
-       "id": "1wiOxH6tSjmUUVxI7J-wPg0cven_iRcyI",
-       "preview": "previews/line/09.webp"
       }
      ]
     },

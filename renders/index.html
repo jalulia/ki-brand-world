@@ -50,9 +50,11 @@
   .r-constr .cells{grid-template-columns:1.35fr 1.35fr 1fr}
   .r-art    .cells{grid-template-columns:1.8fr 1fr}
   .r-spec   .cells{grid-template-columns:1.15fr 1fr}
-  .r-lib    .cells{grid-template-columns:1fr 1fr 1fr}
+  .r-lib    .cells{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
   .r-line5  .cells{grid-template-columns:repeat(5,1fr)}
   .r-line4  .cells{grid-template-columns:repeat(4,1fr)}
+  .r-world  .cells{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .r-universe .cells{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 
   /* ---------- slot ---------- */
   .slot{border:1px solid var(--line);background:var(--slotbg);display:flex;flex-direction:column;min-height:250px;position:relative}
@@ -136,6 +138,25 @@
   .chip.up:hover{background:var(--ok);border-color:var(--ok);color:#fff}
   .slot.orange .chip.up{border-color:#fff;color:#fff}
 
+  /* ---------- world / universe ---------- */
+  .worldlead{grid-column:1/-1;font-size:10.5px;color:var(--sub);font-weight:600;letter-spacing:.02em;line-height:1.5;margin:2px 2px 2px 0}
+  .wslot{border:1px solid var(--line);background:var(--slotbg);display:flex;flex-direction:column;overflow:hidden}
+  .wslot.hero{grid-column:1/-1}
+  .wfig{position:relative;background:#111;overflow:hidden}
+  .wfig img{width:100%;height:100%;object-fit:cover;display:block}
+  .wslot.hero .wfig{aspect-ratio:16/9;max-height:520px}
+  .wslot.hero.portrait .wfig{aspect-ratio:auto;max-height:640px}
+  .wslot.hero.portrait .wfig img{object-fit:contain;background:#111}
+  .wtile .wfig{aspect-ratio:16/10}
+  .wfoot{border-top:1px solid var(--line);padding:10px 12px 11px;display:flex;flex-wrap:wrap;gap:7px 10px;align-items:baseline}
+  .wfoot .t{font-size:14.5px;font-weight:800;letter-spacing:-.2px}
+  .wtile .wfoot .t{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .wfoot .s{font-size:9.5px;color:var(--sub);font-weight:600}
+  .wfoot .grow{flex:1 1 auto}
+  .wslot.await{border-style:dashed;border-color:var(--faint);min-height:170px}
+  .wslot.await .wfig{background:var(--ref);display:flex;align-items:center;justify-content:center;aspect-ratio:16/9}
+  .wslot.await .aw{font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;text-align:center;padding:14px}
+
   .note{max-width:1360px;margin:10px auto 0;padding:0 28px;font-size:10px;color:var(--sub);font-weight:600;letter-spacing:.03em}
 
   @media(max-width:1080px){
@@ -203,7 +224,7 @@ const ROWS=[
  {num:'02',label:'Construction',cls:'r-constr',slots:[
    {id:'cross-section',t:'Cross-section',s:'Lid fit, wall thickness'},
    {id:'exploded',t:'Exploded view',s:'Lid, catch, base'},
-   {id:'beauty',t:'3/4 beauty',s:'Not for tooling',ref:true},
+   {id:'beauty',t:'3/4 beauty',s:'Hero angle'},
  ]},
  {num:'03',label:'Artwork',cls:'r-art',slots:[
    {id:'label-flat',t:'Label flat — unwrapped',s:'0° registration mark',tall:true},
@@ -216,14 +237,29 @@ const ROWS=[
  {num:'05',label:'Library',cls:'r-lib',slots:[
    {id:'open',t:'Open puck',s:'Lid back, pouches in'},
    {id:'stacked',t:'Stacked pair',s:'Side wrap, composition'},
+   {id:'solo-tilt',t:'Solo tilt',s:'Single puck, low orbit'},
    {id:'inbox',t:'New uploads',s:'Anything not yet slotted',kind:'inbox'},
  ]},
 ];
-/* full line sheet */
+/* full line sheet — group angles only; single-puck tilts now live in each flavor's Library */
 const LINE_ROWS=[
  {num:'01',label:'Group',cls:'r-line5',slots:[1,2,3,4,5].map(n=>({id:'angle-0'+n,t:'Group angle 0'+n,s:'All flavors, loose set'}))},
- {num:'02',label:'Solo tilts',cls:'r-line4',slots:[[6,'Hokkaido Mint'],[7,'Maple Coffee'],[8,'Yuzu Mint'],[9,'Satsuma Citrus']].map(([n,f])=>({id:'angle-0'+n,t:'Solo tilt 0'+n,s:f+', low orbit'}))},
 ];
+/* landscape brand worlds — one cinematic scene per flavor, + the collective Universe */
+const WORLDS={
+  cola:    {title:'Tokyo Cola World',    scene:'Sunset dunes · serving ritual', full:'worlds/cola.jpg',    preview:'previews/worlds/cola.webp',    size:'200 KB', portrait:true},
+  hokkaido:{title:'Hokkaido Mint World', scene:'Alpine mint terraces at dawn',  full:'worlds/hokkaido.jpg',preview:'previews/worlds/hokkaido.webp',size:'357 KB'},
+  maple:   {title:'Maple Coffee World',  scene:'Autumn roastery in the maples', full:'worlds/maple.jpg',   preview:'previews/worlds/maple.webp',   size:'400 KB'},
+  satsuma: {title:'Satsuma Citrus World',scene:'Golden-hour citrus orchard',    full:'worlds/satsuma.jpg', preview:'previews/worlds/satsuma.webp', size:'328 KB'},
+  yuzu:    {title:'Yuzu Mint World',      scene:'Yuzu grove at sundown',         full:'worlds/yuzu.jpg',    preview:'previews/worlds/yuzu.webp',    size:'356 KB'},
+};
+/* extra hero shots that belong to a flavor's world but aren't uploaded yet */
+const WORLD_EXTRAS={
+  cola:[
+    {t:'Sky drop — blue camo',s:'Floating tins, cloud sky'},
+    {t:'Sky drop — red',      s:'Floating tins, cloud sky'},
+  ],
+};
 
 /* ================= state ================= */
 let MANIFEST=null, current=location.hash.replace('#','')||'cola';
@@ -247,7 +283,7 @@ function slotHtml(fk,def){
   const d=slotData(fk,def.id);
   const cls=['slot',def.orange?'orange':'',def.ref?'refonly':'',def.tall?'tall':''].join(' ').trim();
   if(def.kind==='callouts'){
-    return `<div class="${cls}"><span class="tag">Callout table</span>
+    return `<div class="${cls}">
       <table class="callouts"><tr><th>Surface</th><th>Finish</th><th>Note</th></tr>
       <tr><td>Puck body</td><td class="dim">awaiting spec</td><td class="dim">—</td></tr>
       <tr><td>Lid</td><td class="dim">awaiting spec</td><td class="dim">—</td></tr>
@@ -259,20 +295,20 @@ function slotHtml(fk,def){
   if(def.kind==='palette'){
     const fl=FLAVORS.find(x=>x.key===fk);
     const chips=[[fl.name.toUpperCase()+' ACCENT',fl.accent],...BRAND];
-    return `<div class="${cls}"><span class="tag">Chips</span>
+    return `<div class="${cls}">
       <div class="chipsrow">${chips.map(([n,h])=>`<div class="swatch" data-hex="${h}" title="copy ${h}">
         <div class="c" style="background:${h}"></div><div class="l">${esc(n)}<span class="mono">${h}</span></div></div>`).join('')}</div>
       <div class="foot"><span class="t">${esc(def.t)}</span><span class="s">${esc(def.s)}</span></div></div>`;
   }
   if(def.kind==='inbox'){
-    return `<div class="${cls} await"><span class="tag">Slot</span>
+    return `<div class="${cls} await">
       <div class="fig"><div class="aw">Live drop zone</div></div>
       <div class="foot"><span class="t">${esc(def.t)}</span><span class="s">${esc(def.s)}</span><span class="grow"></span>
         ${liveBits(d,def,true)}</div></div>`;
   }
   const files=d.files||[];
   if(!files.length){
-    return `<div class="${cls} await"><span class="tag">Slot</span>
+    return `<div class="${cls} await">
       <div class="fig"><div class="aw">Awaiting upload</div><div class="s">${esc(def.s)}</div></div>
       <div class="foot"><span class="t">${esc(def.t)}</span><span class="grow"></span>${manageChips(d,def)}</div></div>`;
   }
@@ -280,7 +316,7 @@ function slotHtml(fk,def){
   const first=files.find(f=>f.preview)||files[0];
   const seg=strengths.length>1?`<span class="seg" data-slot="${def.id}">${strengths.map((s,i)=>
       `<button class="${i===0?'on':''}" data-strength="${s}">${s}</button>`).join('')}</span>`:'';
-  return `<div class="${cls}" data-slotbox="${def.id}"><span class="tag">${def.ref?'Reference only':'Slot'}</span>
+  return `<div class="${cls}" data-slotbox="${def.id}">
     <div class="fig">${first.preview?`<img loading="lazy" src="${esc(first.preview)}" alt="${esc(def.t)}">`:`<div class="aw">no preview</div>`}</div>
     <div class="foot"><span class="t">${esc(def.t)}</span><span class="s">${esc(def.s)}</span>${seg}
       <div class="chips">${files.map(chipHtml).join('')}${folderChip(d)}${manageChips(d,def)}</div>${liveBits(d,def)}</div></div>`;
@@ -290,6 +326,28 @@ function manageChips(d,def){ return d.folderId?`<a class="chip up m-only" target
 function liveBits(d,def,open){
   if(!d.folderId) return '';
   return `<div class="live"><a class="chip m-only" data-live="${d.folderId}" ${open?'data-open="1"':''}>Live view ▾</a><div class="livehost"></div></div>`;
+}
+
+/* ---------- world / universe ---------- */
+function worldDlChip(w){ return `<a class="chip" href="${w.full}" download title="${esc(w.title)} — full JPG"><span class="fmt">JPG</span><span class="sz">${esc(w.size)}</span> ↓</a>`; }
+function worldSectionHtml(fk){
+  if(fk==='line'){
+    const tiles=FLAVORS.filter(f=>WORLDS[f.key]).map(f=>{const w=WORLDS[f.key];
+      return `<div class="wslot wtile"><a class="wfig" href="#${f.key}" data-jump="${f.key}" title="Open ${esc(f.name)}"><img loading="lazy" src="${esc(w.preview)}" alt="${esc(w.title)}"></a>
+        <div class="wfoot"><span class="t">${esc(f.name)}</span><span class="grow"></span>${worldDlChip(w)}</div></div>`;}).join('');
+    const heroAwait=`<div class="wslot wtile await"><div class="wfig"><div class="aw">Universe hero —<br>full-line sky shot<br>awaiting upload</div></div>
+      <div class="wfoot"><span class="t">Ki Universe</span><span class="s">All five worlds, one frame</span></div></div>`;
+    return `<div class="row r-universe"><div class="rail"><div class="num">02</div><div class="rlabel">Universe</div></div>
+      <div class="cells"><div class="worldlead">The whole line shares one sky — every flavour opens into its own landscape. Tap a world to jump to that flavour’s sheet. Drop the full-line hero shot in the last slot when it lands.</div>
+      ${tiles}${heroAwait}</div></div>`;
+  }
+  const w=WORLDS[fk]; if(!w) return '';
+  const extras=(WORLD_EXTRAS[fk]||[]).map(e=>`<div class="wslot await"><div class="wfig"><div class="aw">${esc(e.t)}<br>awaiting upload</div></div>
+    <div class="wfoot"><span class="t">${esc(e.t)}</span><span class="s">${esc(e.s)}</span></div></div>`).join('');
+  const hero=`<div class="wslot hero${w.portrait?' portrait':''}"><div class="wfig"><img loading="lazy" src="${esc(w.preview)}" alt="${esc(w.title)}"></div>
+    <div class="wfoot"><span class="t">${esc(w.title)}</span><span class="s">${esc(w.scene)}</span><span class="grow"></span>${worldDlChip(w)}</div></div>`;
+  return `<div class="row r-world"><div class="rail"><div class="num">06</div><div class="rlabel">World</div></div>
+    <div class="cells">${hero}${extras}</div></div>`;
 }
 
 function render(){
@@ -302,13 +360,15 @@ function render(){
     +`<button class="mng" id="lockBtn">${document.body.classList.contains('manage')?'Manage · unlocked':'Manage'}</button>`;
   const rows=current==='line'?LINE_ROWS:ROWS;
   $('#rows').innerHTML=rows.map(r=>`<div class="row ${r.cls}"><div class="rail"><div class="num">${r.num}</div><div class="rlabel">${esc(r.label)}</div></div>
-    <div class="cells">${r.slots.map(s=>slotHtml(current,s)).join('')}</div></div>`).join('');
+    <div class="cells">${r.slots.map(s=>slotHtml(current,s)).join('')}</div></div>`).join('')
+    + worldSectionHtml(current);
   if(MANIFEST&&MANIFEST.rootFolderId) $('#rootLink').href=folderUrl(MANIFEST.rootFolderId);
   wire();
 }
 
 function wire(){
   document.querySelectorAll('#tabs button[data-fl]').forEach(b=>b.onclick=()=>{current=b.dataset.fl;history.replaceState(null,'','#'+current);render();window.scrollTo({top:0});});
+  document.querySelectorAll('[data-jump]').forEach(a=>a.onclick=e=>{e.preventDefault();current=a.dataset.jump;history.replaceState(null,'','#'+current);render();window.scrollTo({top:0});});
   $('#lockBtn').onclick=toggleManage;
   document.querySelectorAll('.seg').forEach(seg=>seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{
     seg.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
