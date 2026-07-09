@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ki Social — Gallery</title>
+<meta name="description" content="Ki social assets — expertly composed posts & stories, shown in situ. Present and download.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Obviously — web voice: Regular 400 + Semibold 600 only */
+@font-face{font-family:'Obviously';src:url('assets/fonts/Obviously-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Obviously';src:url('assets/fonts/Obviously-Semibold.woff2') format('woff2');font-weight:600;font-display:swap}
+
+:root{
+  --paper:#F4F2ED; --panel:#FFFFFF; --ink:#111111; --muted:#555555; --meta:#6B7280;
+  --gold:#B88448; --sage:#619C8A; --line:#E7E3DA; --line2:#EFEBE2;
+  --jp:'Noto Sans JP',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Obviously',system-ui,sans-serif;background:var(--paper);color:var(--ink);font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit;text-decoration:none}
+.up{text-transform:uppercase}
+
+/* header */
+header{max-width:1360px;margin:0 auto;padding:40px 34px 10px}
+.brand{display:flex;align-items:center;gap:14px}
+.crest{width:44px;height:44px;border-radius:11px;background:#050707 center/cover no-repeat;background-image:url('assets/img-ki-heritage.png');box-shadow:0 2px 8px rgba(20,16,10,.14)}
+.brand h1{font-weight:600;font-size:19px;letter-spacing:-.01em}
+.brand h1 span{color:var(--meta);font-weight:400}
+.eyebrow{font-weight:600;font-size:12px;letter-spacing:.05em;color:var(--gold);text-transform:uppercase;margin:26px 0 6px}
+.lead{font-size:16px;color:var(--muted);max-width:60ch}
+.rule{max-width:1360px;margin:22px auto 0;padding:0 34px}
+.rule hr{border:none;border-top:1px solid var(--line)}
+
+/* gallery grid */
+main{max-width:1360px;margin:0 auto;padding:26px 34px 60px}
+.grid{display:grid;gap:26px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+
+/* post card */
+.post{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(30,24,14,.04),0 14px 34px -18px rgba(30,24,14,.22)}
+.phead{display:flex;align-items:center;gap:11px;padding:13px 15px}
+.ava{width:34px;height:34px;border-radius:9px;background:#050707 center/cover no-repeat;background-image:url('assets/img-ki-heritage.png');flex:0 0 auto}
+.who{display:flex;flex-direction:column;line-height:1.15}
+.who b{font-weight:600;font-size:13px}
+.who span{font-size:11px;color:var(--meta)}
+.more{margin-left:auto;color:var(--meta);font-size:18px;letter-spacing:1px;line-height:0;padding-bottom:6px}
+
+/* feed media (1:1) */
+.feedwrap{display:block}
+.media{width:100%;aspect-ratio:1/1;background:#EDE8DF;overflow:hidden}
+.media img{width:100%;height:100%;object-fit:cover;display:block}
+.acts{display:flex;align-items:center;gap:16px;padding:11px 14px 4px}
+.acts svg{width:23px;height:23px;stroke:var(--ink);stroke-width:1.7;fill:none}
+.acts .sp{margin-left:auto}
+
+/* story mock (9:16) */
+.storywrap{display:none;padding:16px 14px 6px;justify-content:center;background:linear-gradient(180deg,#faf9f6,#f1eee7)}
+.post.isStory .feedwrap{display:none}
+.post.isStory .acts{display:none}
+.post.isStory .storywrap{display:flex}
+.phone{position:relative;width:63%;max-width:250px;aspect-ratio:9/16;border-radius:20px;overflow:hidden;background:#111;box-shadow:0 10px 30px rgba(20,16,10,.18)}
+.phone img{width:100%;height:100%;object-fit:cover;display:block}
+.pbar{position:absolute;top:9px;left:10px;right:10px;display:flex;gap:4px;z-index:3}
+.pbar i{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.45)}
+.pbar i:first-child{background:#fff}
+.shead{position:absolute;top:20px;left:10px;right:10px;display:flex;align-items:center;gap:7px;z-index:3}
+.shead .a{width:24px;height:24px;border-radius:6px;background:#050707 center/cover no-repeat;background-image:url('assets/img-ki-heritage.png')}
+.shead b{color:#fff;font-weight:600;font-size:11px;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.shead span{color:rgba(255,255,255,.8);font-size:10px;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+
+/* caption + controls */
+.cap{padding:8px 15px 2px;font-size:13.5px;line-height:1.5;color:var(--ink)}
+.cap b{font-weight:600;margin-right:6px}
+.cap .head{display:block;font-weight:600;text-transform:uppercase;letter-spacing:-.01em;font-size:12.5px;color:var(--muted);margin-bottom:4px}
+.ctl{margin-top:auto;padding:12px 15px 15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.seg button{appearance:none;border:none;background:var(--panel);font:600 11px/1 'Obviously';letter-spacing:.02em;padding:8px 12px;cursor:pointer;color:var(--muted)}
+.seg button.on{background:var(--ink);color:#fff}
+.dls{margin-left:auto;display:flex;gap:7px}
+.dl{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-size:11px;font-weight:600;color:var(--ink);cursor:pointer}
+.dl .d{color:var(--meta);font-weight:400}
+.dl:hover{border-color:var(--ink)}
+.dl.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.dl.on .d{color:rgba(255,255,255,.8)}
+.copy{background:none;border:none;font:400 12px 'Obviously';color:var(--meta);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.copy:hover{color:var(--ink)}
+
+footer{max-width:1360px;margin:0 auto;padding:24px 34px 60px;border-top:1px solid var(--line);display:flex;gap:14px;align-items:center;font-size:12px;color:var(--meta)}
+footer a{color:var(--gold);font-weight:600}
+footer .r{margin-left:auto}
+
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#fff;font-size:12px;padding:10px 18px;border-radius:6px;opacity:0;transition:.2s;z-index:50;pointer-events:none}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:560px){header,main,footer,.rule{padding-left:18px;padding-right:18px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="crest"></div>
+    <h1>Ki Social <span>· Gallery</span></h1>
+  </div>
+  <div class="eyebrow">Phase One · posts &amp; stories, in situ</div>
+  <p class="lead">Every asset expertly composed to the brand system, shown in a live post. Switch any post between feed and story, download at true size.</p>
+</header>
+<div class="rule"><hr></div>
+
+<main><div class="grid" id="grid"></div></main>
+
+<footer>
+  <span>Ki Social · Asset Gallery</span>
+  <span class="r">Finals &amp; source in the shared <a id="drive" target="_blank" rel="noopener">Drive library ↗</a></span>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+const DRIVE_FOLDER='1hs4Lpmqhat8o0GMu_W1IHf5bZZyK9Fyh';
+/* register finals to swap a card to Drive: 'sku-yuzu':{post:'ID',story:'ID'} */
+const DRIVE={};
+
+const A=[
+ {key:'sku-yuzu',     title:'Yuzu Mint',      cap:'Hit refresh 🔄 🌱 🍋'},
+ {key:'sku-satsuma',  title:'Satsuma Citrus', cap:'We’ve got a juicy secret (it’s satsuma) 🍊'},
+ {key:'sku-maple',    title:'Maple Coffee',   cap:'Rich coffee. Sweet maple. A match made in heaven. Or just in your mouth.'},
+ {key:'sku-cola',     title:'Tokyo Cola',     cap:'Enjoy the refined flavour of Tokyo craft cola. For the full experience try it at 1am under a neon sign just as it stops raining.'},
+ {key:'sku-hokkaido', title:'Hokkaido Mint',  cap:'Chill. Literally ❄️'},
+ {key:'rtb-ingredients', title:'Ingredients', cap:'Obsessed with ingredients? Us? Absolutely 🤓'},
+ {key:'rtb-chef',        title:'Hired a Chef', head:'It goes in your mouth. So we hired a chef.', cap:'Yes, a chef, for a pouch 👨‍🍳'},
+ {key:'rtb-sweetened',   title:'Sweetened by Nature', head:'Sweetened by nature. Not by a lab.', cap:'Natural sweeteners are better than artificial ones. We checked.'},
+ {key:'rtb-can',         title:'Regular Sized Can', head:'Smaller carbon footprint. Regular sized can.', cap:'Our cans are environmentally certified, lower carbon, and made with pine oil. They also do a good job holding your pouches.'},
+ {key:'range-1',         title:'The Range · 1', cap:'Some waits are worth their weight. Which in this case, if you’re curious, is .5278 grams.'},
+ {key:'range-2',         title:'The Range · 2', cap:'Like the sunrise, we didn’t wait all night for it, dawn would be pretty meh.'},
+ {key:'range-3',         title:'The Range · 3', cap:'If you think nicotine pouches should have taste and that taste should taste like what it is supposed to taste like — without the lab-made ‘alternatives’ when nature already does it pretty well — we were thinking the same thing.\n\nHi. Nice to meet you. We’re Ki.'},
+];
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dlUrl=id=>'https://drive.google.com/uc?export=download&id='+id;
+const thumb=id=>'https://drive.google.com/thumbnail?id='+id+'&sz=w1200';
+const src=(k,f)=>{const d=DRIVE[k];const s=f==='post'?'1x1':'9x16';return (d&&d[f])?thumb(d[f]):`assets/prev/${k}-${s}.webp`;};
+const file=(k,f)=>{const d=DRIVE[k];const s=f==='post'?'1x1':'9x16';return (d&&d[f])?{h:dlUrl(d[f])}:{h:`assets/library/${k}-${s}.png`,dl:`Ki_${k}_${s}.png`};};
+
+const ICONS=`
+<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-9.3-8.4C1.2 9 2.3 5.8 5.4 5.2 7.4 4.8 9.2 6 12 8.6 14.8 6 16.6 4.8 18.6 5.2 21.7 5.8 22.8 9 21.3 11.6 19 15.65 12 20 12 20Z"/></svg>
+<svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.6-5A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+<svg viewBox="0 0 24 24"><path d="M22 3 11 14M22 3l-7 18-4-7-7-4 18-7Z"/></svg>
+<svg class="sp" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>`;
+
+function card(a){
+  const head=a.head?`<span class="head">“${esc(a.head)}”</span>`:'';
+  const fp=file(a.key,'post'), fs=file(a.key,'story');
+  const A1=fp.dl?` download="${fp.dl}"`:' target="_blank" rel="noopener"';
+  const A2=fs.dl?` download="${fs.dl}"`:' target="_blank" rel="noopener"';
+  return `<article class="post" data-key="${a.key}">
+    <div class="feedwrap">
+      <div class="phead"><div class="ava"></div><div class="who"><b>ki.bio</b></div><div class="more">···</div></div>
+      <div class="media"><img loading="lazy" src="${src(a.key,'post')}" alt="${esc(a.title)} — feed post"></div>
+      <div class="acts">${ICONS}</div>
+    </div>
+    <div class="storywrap">
+      <div class="phone">
+        <div class="pbar"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="shead"><div class="a"></div><b>ki.bio</b><span>2h</span></div>
+        <img loading="lazy" src="${src(a.key,'story')}" alt="${esc(a.title)} — story">
+      </div>
+    </div>
+    <div class="cap">${head}<b>ki.bio</b>${esc(a.cap).replace(/\n/g,'<br>')}</div>
+    <div class="ctl">
+      <div class="seg"><button class="on" data-v="post">Feed</button><button data-v="story">Story</button></div>
+      <div class="dls">
+        <a class="dl on" data-f="post" href="${fp.h}"${A1}><span>1:1</span><span class="d">1080</span> ↓</a>
+        <a class="dl" data-f="story" href="${fs.h}"${A2}><span>9:16</span><span class="d">1920</span> ↓</a>
+      </div>
+      <button class="copy" data-cap="${esc((a.head?'“'+a.head+'” ':'')+a.cap)}">copy caption</button>
+    </div>
+  </article>`;
+}
+
+document.getElementById('grid').innerHTML=A.map(card).join('');
+document.getElementById('drive').href='https://drive.google.com/drive/folders/'+DRIVE_FOLDER;
+
+document.querySelectorAll('.post').forEach(p=>{
+  const segs=p.querySelectorAll('.seg button'), dls=p.querySelectorAll('.dl');
+  segs.forEach(b=>b.onclick=()=>{
+    const v=b.dataset.v; p.classList.toggle('isStory',v==='story');
+    segs.forEach(x=>x.classList.toggle('on',x===b));
+    dls.forEach(d=>d.classList.toggle('on',d.dataset.f===v));
+  });
+  p.querySelector('.copy').onclick=e=>{navigator.clipboard&&navigator.clipboard.writeText(e.target.dataset.cap);toast('Caption copied');};
+});
+let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1300);}
+</script>
+</body>
+</html>

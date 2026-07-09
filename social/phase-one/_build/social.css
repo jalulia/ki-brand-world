@@ -1,0 +1,36 @@
+/* ===== KI SOCIAL SYSTEM ===== */
+@font-face{font-family:'Obviously';src:url('FONTS/Obviously-Medium.woff2') format('woff2');font-weight:500}
+@font-face{font-family:'Obviously';src:url('FONTS/Obviously-Semibold.woff2') format('woff2');font-weight:600}
+@font-face{font-family:'Obviously';src:url('FONTS/Obviously-Bold.woff2') format('woff2');font-weight:700}
+@font-face{font-family:'Obviously';src:url('FONTS/Obviously-Black.woff2') format('woff2');font-weight:900}
+/* Web/social type system per uk.ki.bio type sheet: Obviously Regular+Semibold ONLY,
+   never Black; refined uppercase display in Semibold, lh~1.0, negative tracking;
+   Japanese eyebrows in Site Gold #B88448 with light tracking. */
+:root{--cream:#FCFBF8;--gold:#B88448;--ink:#111111;--sage:#619C8A;--jp:'Noto Sans JP',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#222}
+.post{position:relative;overflow:hidden;background:#1c2a17;font-family:'Obviously',sans-serif;-webkit-font-smoothing:antialiased}
+.post .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+/* light legibility aid only — no heavy scrims over the art */
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none}
+.scrim.top{background:linear-gradient(180deg,rgba(8,12,6,.34) 0%,rgba(8,12,6,.06) 34%,rgba(8,12,6,0) 56%)}
+.scrim.full{background:linear-gradient(178deg,rgba(8,12,6,.24) 0%,rgba(8,12,6,0) 34%,rgba(8,12,6,.20) 100%)}
+
+.logo{position:absolute;z-index:6;background-size:contain;background-repeat:no-repeat;background-position:center}
+.eyebrow{position:absolute;z-index:5;display:flex;align-items:center;color:var(--gold);
+  font-weight:500;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+.eyebrow .bar{display:inline-block;background:var(--gold);opacity:.9}
+.eyebrow .jp{font-family:var(--jp);font-weight:500;letter-spacing:.04em;margin-left:.6em;opacity:.96}
+/* Display = Obviously MEDIUM (production weight), branded soft shadow */
+.headline{position:absolute;z-index:5;color:var(--cream);font-weight:500;text-transform:uppercase;
+  letter-spacing:-.016em;line-height:1.02;text-shadow:0 3px 26px rgba(6,12,4,.5)}
+.flavtag{position:absolute;z-index:5;display:flex;align-items:center;color:var(--cream);
+  font-weight:500;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.flavtag .bar{display:inline-block;background:var(--gold);opacity:.95}
+.flavtag .jp{font-family:var(--jp);font-weight:500;letter-spacing:.04em;margin-left:.6em;color:var(--gold)}
+/* discreet responsible-use mark */
+.age{position:absolute;z-index:6;font-weight:700;letter-spacing:.04em;color:var(--cream);
+  border:2px solid rgba(252,251,248,.85);border-radius:999px;display:flex;align-items:center;justify-content:center;
+  text-shadow:none;opacity:.9}
+.warn{position:absolute;z-index:6;left:0;right:0;text-align:center;color:rgba(252,251,248,.82);
+  font-weight:600;text-transform:uppercase;letter-spacing:.18em}
