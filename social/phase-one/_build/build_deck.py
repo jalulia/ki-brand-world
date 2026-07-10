@@ -108,20 +108,26 @@ for section, blurb, items in POSTS:
       </section>''')
 
 # story-backgrounds gallery section (blank landscapes) appended at the end
-bgcards=''.join(f'''<div class="bgcard"><img src="{stbg(bid)}" alt="{esc(nm)}">
-    <div class="bgname">{esc(nm)}</div><a href="1080/{bid}_9x16.png" download>↓ 9:16</a></div>''' for bid,nm in STORYBGS)
+def bgrow(suffix):
+    return ''.join(f'''<div class="bgcard"><img src="{stbg(bid+suffix)}" alt="{esc(nm)}">
+        <div class="bgname">{esc(nm)}</div><a href="1080/{bid}{suffix}_9x16.png" download>↓ 9:16</a></div>''' for bid,nm in STORYBGS)
 storybg_section=f'''<section class="sec">
     <div class="sechead"><span class="kick">Story backgrounds</span>
-    <h2>Blank landscapes</h2><p>Clean 1080×1920 landscape backgrounds — no product, no type. Drop your own copy, stickers or polls on top for quick organic stories.</p></div>
-    <div class="bgs">{bgcards}</div>
+    <h2>Blank landscapes</h2><p>Clean 1080×1920 story backgrounds — no product, no type. Two takes per world: the full landscape, plus a closer colour-wash crop for a little variety while staying on-system.</p></div>
+    <div class="bgsublabel">The landscape</div>
+    <div class="bgs">{bgrow("")}</div>
+    <div class="bgsublabel">Colour wash — closer crop</div>
+    <div class="bgs">{bgrow("-wash")}</div>
   </section>'''
 concepts_html.append(storybg_section)
 
 # profile grid (9 tiles) — SKU + RTB
-grid_ids=["sku-yuzu","sku-satsuma","sku-maple","sku-cola","sku-hokkaido","rtb-ingredients","rtb-chef","rtb-nature","rtb-carbon"]
+grid_ids=["sku-yuzu","rtb-chef","sku-maple","sku-cola","rtb-ingredients","sku-satsuma"]
 grid=''.join(f'<img src="{sq(i)}">' for i in grid_ids)
 all_ids=[it[0] for _sec,_blurb,items in POSTS for it in items]
-dl_files=[f"1080/{i}_{s}.png" for i in all_ids for s in ("1x1","9x16")]+[f"1080/{b}_9x16.png" for b,_ in STORYBGS]
+dl_files=([f"1080/{i}_{s}.png" for i in all_ids for s in ("1x1","9x16")]
+          +[f"1080/{b}_9x16.png" for b,_ in STORYBGS]
+          +[f"1080/{b}-wash_9x16.png" for b,_ in STORYBGS])
 
 HTML=f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -210,6 +216,7 @@ body{{background:var(--paper);color:var(--ink);font-family:'Obviously',-apple-sy
 .dlall{{margin-top:26px;font-family:'Obviously';font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.05em;
   color:#fff;background:var(--ink);border:none;border-radius:999px;padding:13px 24px;cursor:pointer;transition:.15s}}
 .dlall:hover{{background:#000;transform:translateY(-1px)}}
+.bgsublabel{{margin:22px 0 2px;font-family:'Obviously';font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--meta)}}
 .bgs{{display:flex;gap:20px;flex-wrap:wrap;margin-top:6px}}
 .bgcard{{width:158px}}
 .bgcard img{{width:158px;aspect-ratio:9/16;object-fit:cover;border-radius:14px;display:block;box-shadow:0 12px 30px rgba(40,34,20,.12)}}

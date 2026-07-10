@@ -78,16 +78,19 @@ for i,(section,kick,name,pid,cap) in enumerate(CONCEPTS):
           T(930,606,290,40,"1080×1080 feed\n1080×1920 story",12,META,400,lh=1.5)]
     slides.append(dict(bg=PAPER,els=els))
 
-# ---- Story backgrounds ----
-els=header("Story backgrounds",len(CONCEPTS)+2,14)
-els+=[T(80,150,900,20,"BLANK LANDSCAPES · 1080×1920",12,GOLD,600,spacing=1.4,upper=True),
-      T(80,176,1120,40,"Clean landscape story backgrounds — no product, no type. Drop your own copy, stickers or polls on top for quick organic stories.",14,MUTED,400,lh=1.4)]
-bw=165; gap=26; by=256; bh=293
-for j,(bid,nm) in enumerate(STORYBGS):
-    x=80+j*(bw+gap)
-    els+=[IMGEL(x,by,bw,bh,f"{IMG}/{bid}_9x16.png",14),
-          T(x,by+bh+14,bw,18,nm,10.5,META,600,spacing=1.0,upper=True)]
-slides.append(dict(bg=PAPER,els=els))
+# ---- Story backgrounds (two slides: the landscape + colour wash) ----
+def storybg_slide(page, subtitle, suffix):
+    els=header("Story backgrounds",page,14)
+    els+=[T(80,150,900,20,f"BLANK LANDSCAPES · {subtitle}",12,GOLD,600,spacing=1.4,upper=True),
+          T(80,176,1120,40,"Clean 1080×1920 story backgrounds — no product, no type. Drop your own copy, stickers or polls on top for quick organic stories.",14,MUTED,400,lh=1.4)]
+    bw=165; gap=26; by=256; bh=293
+    for j,(bid,nm) in enumerate(STORYBGS):
+        x=80+j*(bw+gap)
+        els+=[IMGEL(x,by,bw,bh,f"{IMG}/{bid}{suffix}_9x16.png",14),
+              T(x,by+bh+14,bw,18,nm,10.5,META,600,spacing=1.0,upper=True)]
+    slides.append(dict(bg=PAPER,els=els))
+storybg_slide(len(CONCEPTS)+2, "THE LANDSCAPE", "")
+storybg_slide(len(CONCEPTS)+3, "COLOUR WASH · CLOSER CROP", "-wash")
 
 # ---- Closing ----
 els=[R(0,0,W,H,PAPER),
@@ -95,7 +98,7 @@ els=[R(0,0,W,H,PAPER),
      T(0,300,W,60,"THAT’S THE FLIGHT.",44,INK,500,spacing=-1.0,align="center",upper=True),
      T(0,378,W,40,"9 concepts · 18 posts + 6 story backgrounds · built on the Ki landscape system",15,MUTED,400,align="center"),
      T(0,414,W,40,"Product from KI_NEW_UK pucks · Obviously Regular + Semibold · Site Gold #B88448",12.5,META,400,align="center"),
-     T(1150,676,60,20,f"{len(CONCEPTS)+3:02d}",11,META,600,align="right")]
+     T(1150,676,60,20,f"{len(CONCEPTS)+4:02d}",11,META,600,align="right")]
 slides.append(dict(bg=PAPER,els=els))
 
 json.dump(dict(W=W,H=H,slides=slides), open(f"{HERE}/slides.json","w"), ensure_ascii=False)

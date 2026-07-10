@@ -75,21 +75,25 @@ STORYBG={"yuzu":"KI_BACK_05.png","satsuma":"KI_BACK_04.png","maple":"KI_BACK_03.
          "cola":"KI_BACK_01.png","hokkaido":"KI_BACK_02.png","horizon":None}
 for name,fn in STORYBG.items():
     src=ext if fn is None else load(f"{BACKS}/{fn}")
-    bg=cover(src,1080,1920,0.5,0.34)
-    bg.convert("RGB").save(f"{OUT}/bg-{name}_9x16.png","PNG")
-    print("storybg",name)
+    # (1) the landscape — full scene
+    cover(src,1080,1920,0.5,0.34).convert("RGB").save(f"{OUT}/bg-{name}_9x16.png","PNG")
+    # (2) colour wash — closer crop into the saturated lower bands only (below the sky/sun, no scene)
+    w,h=src.size; y0=int(h*0.42); ch=h-y0; cw=int(ch*9/16); x0=(w-cw)//2
+    src.crop((x0,y0,x0+cw,y0+ch)).resize((1080,1920),Image.LANCZOS).convert("RGB").save(f"{OUT}/bg-{name}-wash_9x16.png","PNG")
+    print("storybg",name,"(+wash)")
 
 # ---------- Ingredient RTB (recomposite clean, no colour-profile leak) ----------
 subj=Image.open("/sessions/quirky-bold-heisenberg/mnt/outputs/_ingredient/subject.png").convert("RGBA")
 subj.info.pop("icc_profile",None); subj=subj.crop(subj.getbbox()); sw2,sh2=subj.size
 def compose_ing(box,out,w,cyf,f):
     bg=load(f"{BACKS}/KI_BACK_07.png").crop(box).resize(out,Image.LANCZOS).convert("RGB")
-    bg=ImageEnhance.Brightness(bg).enhance(0.80).convert("RGBA")   # slightly darker — sets the "ingredients" story apart
+    bg=ImageEnhance.Brightness(bg).enhance(0.74).convert("RGBA")   # slightly darker — sets the "ingredients" story apart
     k=w/sw2; s=subj.resize((w,round(sh2*k)),Image.LANCZOS)
     shd,pad,dy=shadow(s)
     W,H=out; cx=W//2; cy=int(H*cyf); x=cx-s.size[0]//2; y=cy-s.size[1]//2
     bg.alpha_composite(shd,(x-pad, y-pad+dy)); bg.alpha_composite(s,(x,y))
     bg.convert("RGB").save(f,"PNG"); print("ingredient",f.split("/")[-1])
-compose_ing((1300,720,1300+1520,720+1520),(1080,1080),800,0.50,f"{OUT}/rtb-ingredients_1x1.png")   # centred
-compose_ing((1050,560,1050+981,560+1744),(1080,1920),780,0.50,f"{OUT}/rtb-ingredients_9x16.png")   # centred
+# tight, close landscape crop (few soft bands) + larger centred subject
+compose_ing((1420,860,1420+1150,860+1150),(1080,1080),880,0.50,f"{OUT}/rtb-ingredients_1x1.png")
+compose_ing((1230,760,1230+820,760+1458),(1080,1920),860,0.50,f"{OUT}/rtb-ingredients_9x16.png")
 print("ALL DONE")
