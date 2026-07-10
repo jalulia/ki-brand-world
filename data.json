@@ -7,15 +7,6 @@
   },
   "items": [
     {
-      "name": "Ki Social",
-      "kind": "social asset library · correctly-sized posts & stories, with copy · present & download",
-      "href": "social/",
-      "dest": "/social",
-      "img": "assets/img/social-tool.png",
-      "alt": "Grid of Ki social posts across the flavour range",
-      "internal": true
-    },
-    {
       "name": "Social Launch",
       "kind": "phase one instagram creative · designed posts & stories in IG mockups, with copy · present & download",
       "href": "social/phase-one/Ki_Social_Phase-One.html",
