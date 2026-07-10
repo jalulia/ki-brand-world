@@ -55,6 +55,7 @@ POSTS=[
 # blank landscape story backgrounds (no product / no type)
 STORYBGS=[("bg-yuzu","Yuzu world"),("bg-satsuma","Satsuma world"),("bg-maple","Maple world"),
           ("bg-cola","Cola world"),("bg-hokkaido","Hokkaido world"),("bg-horizon","Full horizon")]
+SHOW_STORYBG=False   # Sam pulled the blank story backgrounds 2026-07-10; flip to True to bring them back
 
 # icons
 HEART='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#262626" stroke-width="1.8"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.3 2 4.8 5.3 4.8 7.3 4.8 8.7 6 12 9.2 15.3 6 16.7 4.8 18.7 4.8 22 4.8 23.6 8.3 22 11.7 19.5 16.4 12 21 12 21z"/></svg>'
@@ -119,15 +120,15 @@ storybg_section=f'''<section class="sec">
     <div class="bgsublabel">Colour wash — closer crop</div>
     <div class="bgs">{bgrow("-wash")}</div>
   </section>'''
-concepts_html.append(storybg_section)
+if SHOW_STORYBG: concepts_html.append(storybg_section)
 
 # profile grid (9 tiles) — SKU + RTB
 grid_ids=["sku-yuzu","rtb-chef","sku-maple","sku-cola","rtb-ingredients","sku-satsuma"]
 grid=''.join(f'<img src="{sq(i)}">' for i in grid_ids)
 all_ids=[it[0] for _sec,_blurb,items in POSTS for it in items]
-dl_files=([f"1080/{i}_{s}.png" for i in all_ids for s in ("1x1","9x16")]
-          +[f"1080/{b}_9x16.png" for b,_ in STORYBGS]
-          +[f"1080/{b}-wash_9x16.png" for b,_ in STORYBGS])
+dl_files=[f"1080/{i}_{s}.png" for i in all_ids for s in ("1x1","9x16")]
+if SHOW_STORYBG:
+    dl_files+=[f"1080/{b}_9x16.png" for b,_ in STORYBGS]+[f"1080/{b}-wash_9x16.png" for b,_ in STORYBGS]
 
 HTML=f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -234,7 +235,7 @@ body{{background:var(--paper);color:var(--ink);font-family:'Obviously',-apple-sy
     <div class="sub">Ki · Instagram · Phase One</div>
     <h1>Social<br>Content</h1>
     <p>A first flight of Instagram creative for Ki — single-flavour features and reason-to-believe statements, plus a set of blank landscape story backgrounds. Every post is designed on the Ki landscape system and delivered crisp at <b>1080×1080</b> (feed) and <b>1080×1920</b> (story).</p>
-    <div class="legend"><span><b>9</b> concepts</span><span><b>18</b> posts + 6 story BGs</span><span>Feed <b>1:1</b> + Story <b>9:16</b></span><span>Handle <b>@ki.bio</b></span></div>
+    <div class="legend"><span><b>9</b> concepts</span><span><b>18</b> posts{" + <b>12</b> story BGs" if SHOW_STORYBG else ""}</span><span>Feed <b>1:1</b> + Story <b>9:16</b></span><span>Handle <b>@ki.bio</b></span></div>
     <button class="dlall" id="dlall">↓ Download all {len(dl_files)} image assets</button>
     <div class="profile">
       <div class="phead"><div class="pava"><img src="{LOGO_HERITAGE}" alt="KI"></div>

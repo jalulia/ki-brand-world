@@ -89,8 +89,10 @@ def storybg_slide(page, subtitle, suffix):
         els+=[IMGEL(x,by,bw,bh,f"{IMG}/{bid}{suffix}_9x16.png",14),
               T(x,by+bh+14,bw,18,nm,10.5,META,600,spacing=1.0,upper=True)]
     slides.append(dict(bg=PAPER,els=els))
-storybg_slide(len(CONCEPTS)+2, "THE LANDSCAPE", "")
-storybg_slide(len(CONCEPTS)+3, "COLOUR WASH · CLOSER CROP", "-wash")
+SHOW_STORYBG=False   # Sam pulled the blank story backgrounds 2026-07-10; flip to True to bring them back
+if SHOW_STORYBG:
+    storybg_slide(len(CONCEPTS)+2, "THE LANDSCAPE", "")
+    storybg_slide(len(CONCEPTS)+3, "COLOUR WASH · CLOSER CROP", "-wash")
 
 # ---- Closing ----
 els=[R(0,0,W,H,PAPER),
@@ -98,7 +100,7 @@ els=[R(0,0,W,H,PAPER),
      T(0,300,W,60,"THAT’S THE FLIGHT.",44,INK,500,spacing=-1.0,align="center",upper=True),
      T(0,378,W,40,"9 concepts · 18 posts + 6 story backgrounds · built on the Ki landscape system",15,MUTED,400,align="center"),
      T(0,414,W,40,"Product from KI_NEW_UK pucks · Obviously Regular + Semibold · Site Gold #B88448",12.5,META,400,align="center"),
-     T(1150,676,60,20,f"{len(CONCEPTS)+4:02d}",11,META,600,align="right")]
+     T(1150,676,60,20,f"{len(slides)+1:02d}",11,META,600,align="right")]
 slides.append(dict(bg=PAPER,els=els))
 
 json.dump(dict(W=W,H=H,slides=slides), open(f"{HERE}/slides.json","w"), ensure_ascii=False)
