@@ -4,7 +4,7 @@ import os, json, urllib.parse
 
 MNT="/sessions/quirky-bold-heisenberg/mnt/Ki Brand"
 IMG=MNT+"/06_World-of-Ki/social/phase-one/1080"
-FONTS=MNT+"/06_World-of-Ki/social/assets/fonts"
+FONTS=MNT+"/06_World-of-Ki/social/phase-one/_assets/fonts"
 HERE=os.path.dirname(os.path.abspath(__file__))
 
 W,H=1280,720

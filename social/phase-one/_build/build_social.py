@@ -8,8 +8,8 @@ MNT  = "/sessions/quirky-bold-heisenberg/mnt/Ki Brand"
 ASSET = MNT + "/Digital-Banners/assets"
 SRC   = MNT + "/04_Source-Assets"
 LIB   = MNT + "/06_World-of-Ki/social/assets/library"
-FONTS = MNT + "/06_World-of-Ki/social/assets/fonts"   # relocated
-BACKS = MNT + "/Digital-Banners/Backgrounds"           # KI_BACK landscapes
+FONTS = MNT + "/06_World-of-Ki/social/phase-one/_assets/fonts"   # self-contained
+BACKS = MNT + "/06_World-of-Ki/social/phase-one/_assets/bg"   # sRGB-clean landscapes (bad Linear ICC stripped)
 
 def url(p): return "file://" + urllib.parse.quote(p)
 css = open(f"{HERE}/social.css").read().replace("FONTS/", url(FONTS)+"/")
@@ -18,7 +18,7 @@ open(f"{HERE}/social.resolved.css","w").write(css)
 LOGO_W = url(f"{ASSET}/ki-logo-white.svg")
 LOGO_B = url(f"{ASSET}/ki-logo-black.svg")
 # flavour → KI_BACK landscape (flav_*.jpg crops were removed in the folder reshuffle)
-BG_MAP={"yuzu":"KI_BACK_05.png","satsuma":"KI_BACK_04.png","maple":"KI_BACK_03.jpg",
+BG_MAP={"yuzu":"KI_BACK_05.png","satsuma":"KI_BACK_04.png","maple":"KI_BACK_03.png",
         "cola":"KI_BACK_01.png","hokkaido":"KI_BACK_02.png"}
 def bg_flav(name): return url(f"{BACKS}/{BG_MAP[name]}")
 def puck(fl): return url(f"{SRC}/Pucks/KI_NEW_UK_{fl}_01.png")

@@ -4,8 +4,8 @@ from PIL import Image
 
 MNT="/sessions/quirky-bold-heisenberg/mnt/Ki Brand"
 IMG=MNT+"/06_World-of-Ki/social/phase-one/1080"
-FONTS=MNT+"/06_World-of-Ki/social/assets/fonts"
-HERITAGE=MNT+"/06_World-of-Ki/social/assets/img-ki-heritage.png"
+FONTS=MNT+"/06_World-of-Ki/social/phase-one/_assets/fonts"
+HERITAGE=MNT+"/06_World-of-Ki/social/phase-one/_assets/img-ki-heritage.png"
 OUT=MNT+"/06_World-of-Ki/social/phase-one/Ki_Social_Phase-One.html"
 
 def fb64(name):
@@ -16,7 +16,7 @@ FONT_REG=fb64("Obviously-Regular.woff2")
 LOGO_HERITAGE="data:image/png;base64,"+base64.b64encode(open(HERITAGE,"rb").read()).decode()
 
 def img_b64(path, w, q=90):
-    im=Image.open(path).convert("RGB")
+    im=Image.open(path).convert("RGB"); im.info.pop("icc_profile",None)
     if im.width>w:
         im=im.resize((w, round(im.height*w/im.width)), Image.LANCZOS)
     b=io.BytesIO(); im.save(b,"JPEG",quality=q,optimize=True)
@@ -58,7 +58,7 @@ STORYBGS=[("bg-yuzu","Yuzu world"),("bg-satsuma","Satsuma world"),("bg-maple","M
 
 # icons
 HEART='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#262626" stroke-width="1.8"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.3 2 4.8 5.3 4.8 7.3 4.8 8.7 6 12 9.2 15.3 6 16.7 4.8 18.7 4.8 22 4.8 23.6 8.3 22 11.7 19.5 16.4 12 21 12 21z"/></svg>'
-COMMENT='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#262626" stroke-width="1.8"><path d="M21 11.5A8.5 8.5 0 0 1 4.8 17L3 21l4-1.2A8.5 8.5 0 1 0 21 11.5z"/></svg>'
+COMMENT='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#262626" stroke-width="1.8" stroke-linejoin="round"><path d="M20.5 11.6a8 8 0 0 1-11.5 7.2L3.5 20.5l1.7-5.4A8 8 0 1 1 20.5 11.6z"/></svg>'
 SHARE='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#262626" stroke-width="1.8"><path d="M22 3 11 14M22 3l-7 19-4-8-8-4 19-7z"/></svg>'
 SAVE='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#262626" stroke-width="1.8"><path d="M19 21l-7-5-7 5V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1z"/></svg>'
 KIAVA=f'<div class="ava"><img src="{LOGO_HERITAGE}" alt="KI"></div>'
