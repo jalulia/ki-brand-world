@@ -15,17 +15,26 @@ FONT_MED=fb64("Obviously-Medium.woff2")
 FONT_REG=fb64("Obviously-Regular.woff2")
 LOGO_HERITAGE="data:image/png;base64,"+base64.b64encode(open(HERITAGE,"rb").read()).decode()
 
-def img_b64(path, w):
+def img_b64(path, w, q=90):
     im=Image.open(path).convert("RGB")
     if im.width>w:
         im=im.resize((w, round(im.height*w/im.width)), Image.LANCZOS)
-    b=io.BytesIO(); im.save(b,"JPEG",quality=82,optimize=True)
+    b=io.BytesIO(); im.save(b,"JPEG",quality=q,optimize=True)
     return "data:image/jpeg;base64,"+base64.b64encode(b.getvalue()).decode()
 
-def sq(id): return img_b64(f"{IMG}/{id}_1x1.png", 720)
-def st(id): return img_b64(f"{IMG}/{id}_9x16.png", 600)
+# higher-res previews so the deck reads crisp (assets themselves are 1080)
+def sq(id): return img_b64(f"{IMG}/{id}_1x1.png", 1040)
+def st(id): return img_b64(f"{IMG}/{id}_9x16.png", 1000)
+def stbg(id): return img_b64(f"{IMG}/{id}_9x16.png", 560, 88)
 
 def esc(s): return html.escape(s).replace("\n","<br>")
+
+# varied, organic-looking engagement per post (no repeated 2,480)
+LIKES={"sku-yuzu":"3,412","sku-satsuma":"1,987","sku-maple":"2,540","sku-cola":"4,106","sku-hokkaido":"2,233",
+       "rtb-ingredients":"1,764","rtb-chef":"5,120","rtb-nature":"2,908","rtb-carbon":"1,442"}
+TIMES={"sku-yuzu":("5 hours ago","5h"),"sku-satsuma":("1 day ago","1d"),"sku-maple":("2 days ago","2d"),
+       "sku-cola":("3 hours ago","3h"),"sku-hokkaido":("6 hours ago","6h"),"rtb-ingredients":("8 hours ago","8h"),
+       "rtb-chef":("1 day ago","1d"),"rtb-nature":("2 days ago","2d"),"rtb-carbon":("4 days ago","4d")}
 
 POSTS=[
  ("Single-flavour · SKU","The five faces of the range. Product-forward, flavour-led, caption does the talking.",[
@@ -41,16 +50,11 @@ POSTS=[
    ("rtb-nature","Naturally Sweetened","Natural sweeteners are better than artificial ones. We checked."),
    ("rtb-carbon","Lower Carbon","Our cans are environmentally certified, lower carbon, and made with pine oil. They also do a good job holding your pouches."),
  ]),
- ("Range triptych","Three posts, one horizon. Posted in sequence they lock together across the feed grid into a single panorama.",[
-   ("tri-1","Range · I","Some waits are worth their weight. Which in this case, if you’re curious, is .5278 grams."),
-   ("tri-2","Range · II","Like the sunrise, we didn’t wait all night for it, dawn would be pretty meh."),
-   ("tri-3","Range · III","If you think nicotine pouches should have taste and that taste should taste like what it is supposed to taste like — without the lab-made ‘alternatives’ when nature already does it pretty well — we were thinking the same thing.\n\nHi. Nice to meet you. We’re Ki."),
- ]),
- ("Brand lines","One-line brand voice moments — dry, confident, unmistakably Ki.",[
-   ("brand-clarity","A Moment of Clarity","Clarity, made with intention. 気"),
-   ("brand-bamboo","Sustainable by Design","Our packaging has a green streak. 🎋"),
- ]),
 ]
+
+# blank landscape story backgrounds (no product / no type)
+STORYBGS=[("bg-yuzu","Yuzu world"),("bg-satsuma","Satsuma world"),("bg-maple","Maple world"),
+          ("bg-cola","Cola world"),("bg-hokkaido","Hokkaido world"),("bg-horizon","Full horizon")]
 
 # icons
 HEART='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#262626" stroke-width="1.8"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.3 2 4.8 5.3 4.8 7.3 4.8 8.7 6 12 9.2 15.3 6 16.7 4.8 18.7 4.8 22 4.8 23.6 8.3 22 11.7 19.5 16.4 12 21 12 21z"/></svg>'
@@ -60,20 +64,22 @@ SAVE='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#26262
 KIAVA=f'<div class="ava"><img src="{LOGO_HERITAGE}" alt="KI"></div>'
 
 def feed_card(id, name, cap):
+    likes=LIKES.get(id,"2,480"); tm=TIMES.get(id,("2 hours ago","2h"))[0]
     return f'''<div class="ig">
       <div class=" igh">{KIAVA}<div class="hmeta hmeta-solo"><b>ki.bio</b></div><div class="dots">•••</div></div>
       <img class="igimg" src="{sq(id)}" alt="{esc(name)}">
       <div class="igact"><div class="l">{HEART}{COMMENT}{SHARE}</div>{SAVE}</div>
-      <div class="iglikes">2,480 likes</div>
+      <div class="iglikes">{likes} likes</div>
       <div class="igcap"><b>ki.bio</b> {esc(cap)}</div>
-      <div class="igtime">2 hours ago</div>
+      <div class="igtime">{tm}</div>
     </div>'''
 
 def story_card(id, name):
+    tm=TIMES.get(id,("2 hours ago","2h"))[1]
     return f'''<div class="story">
       <img src="{st(id)}" alt="{esc(name)} story">
       <div class="sbars"><i></i><i></i><i></i></div>
-      <div class="shead">{KIAVA}<b>ki.bio</b><span>2h</span></div>
+      <div class="shead">{KIAVA}<b>ki.bio</b><span>{tm}</span></div>
       <div class="sfoot"><div class="smsg">Send message</div>{HEART}{SHARE}</div>
     </div>'''
 
@@ -101,11 +107,21 @@ for section, blurb, items in POSTS:
         {''.join(rows)}
       </section>''')
 
-# profile grid (9 tiles)
-# triptych occupies the top row so it reads as one seamless panorama across the grid
-grid_ids=["tri-1","tri-2","tri-3","sku-yuzu","sku-satsuma","sku-cola","rtb-chef","rtb-ingredients","sku-hokkaido"]
+# story-backgrounds gallery section (blank landscapes) appended at the end
+bgcards=''.join(f'''<div class="bgcard"><img src="{stbg(bid)}" alt="{esc(nm)}">
+    <div class="bgname">{esc(nm)}</div><a href="1080/{bid}_9x16.png" download>↓ 9:16</a></div>''' for bid,nm in STORYBGS)
+storybg_section=f'''<section class="sec">
+    <div class="sechead"><span class="kick">Story backgrounds</span>
+    <h2>Blank landscapes</h2><p>Clean 1080×1920 landscape backgrounds — no product, no type. Drop your own copy, stickers or polls on top for quick organic stories.</p></div>
+    <div class="bgs">{bgcards}</div>
+  </section>'''
+concepts_html.append(storybg_section)
+
+# profile grid (9 tiles) — SKU + RTB
+grid_ids=["sku-yuzu","sku-satsuma","sku-maple","sku-cola","sku-hokkaido","rtb-ingredients","rtb-chef","rtb-nature","rtb-carbon"]
 grid=''.join(f'<img src="{sq(i)}">' for i in grid_ids)
 all_ids=[it[0] for _sec,_blurb,items in POSTS for it in items]
+dl_files=[f"1080/{i}_{s}.png" for i in all_ids for s in ("1x1","9x16")]+[f"1080/{b}_9x16.png" for b,_ in STORYBGS]
 
 HTML=f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -194,6 +210,12 @@ body{{background:var(--paper);color:var(--ink);font-family:'Obviously',-apple-sy
 .dlall{{margin-top:26px;font-family:'Obviously';font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.05em;
   color:#fff;background:var(--ink);border:none;border-radius:999px;padding:13px 24px;cursor:pointer;transition:.15s}}
 .dlall:hover{{background:#000;transform:translateY(-1px)}}
+.bgs{{display:flex;gap:20px;flex-wrap:wrap;margin-top:6px}}
+.bgcard{{width:158px}}
+.bgcard img{{width:158px;aspect-ratio:9/16;object-fit:cover;border-radius:14px;display:block;box-shadow:0 12px 30px rgba(40,34,20,.12)}}
+.bgcard .bgname{{margin-top:11px;font-family:'Obviously';font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.03em}}
+.bgcard a{{display:inline-block;margin-top:9px;font-family:'Obviously';font-weight:500;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;transition:.15s}}
+.bgcard a:hover{{background:var(--ink);color:#fff;border-color:var(--ink)}}
 .foot{{padding:50px 0 80px;color:var(--meta);font-size:13px;line-height:1.6}}
 @media(max-width:1080px){{.concept{{grid-template-columns:1fr}}.mocks{{flex-wrap:wrap}}}}
 @media(max-width:560px){{.wrap{{padding:0 20px}}.cover h1{{font-size:52px}}.ig{{width:300px}}}}
@@ -204,9 +226,9 @@ body{{background:var(--paper);color:var(--ink);font-family:'Obviously',-apple-sy
     <div class="kanji">気</div>
     <div class="sub">Ki · Instagram · Phase One</div>
     <h1>Social<br>Content</h1>
-    <p>A first flight of Instagram creative for Ki — single-flavour features, reason-to-believe statements, a grid-spanning range triptych and brand-voice one-liners. Every post is designed on the Ki landscape system and delivered crisp at <b>1080×1080</b> (feed) and <b>1080×1920</b> (story).</p>
-    <div class="legend"><span><b>14</b> concepts</span><span><b>28</b> assets</span><span>Feed <b>1:1</b> + Story <b>9:16</b></span><span>Handle <b>@ki.bio</b></span></div>
-    <button class="dlall" id="dlall">↓ Download all 28 image assets</button>
+    <p>A first flight of Instagram creative for Ki — single-flavour features and reason-to-believe statements, plus a set of blank landscape story backgrounds. Every post is designed on the Ki landscape system and delivered crisp at <b>1080×1080</b> (feed) and <b>1080×1920</b> (story).</p>
+    <div class="legend"><span><b>9</b> concepts</span><span><b>18</b> posts + 6 story BGs</span><span>Feed <b>1:1</b> + Story <b>9:16</b></span><span>Handle <b>@ki.bio</b></span></div>
+    <button class="dlall" id="dlall">↓ Download all {len(dl_files)} image assets</button>
     <div class="profile">
       <div class="phead"><div class="pava"><img src="{LOGO_HERITAGE}" alt="KI"></div>
         <div class="pstats"><div><b>112</b>posts</div><div><b>2,480</b>followers</div><div><b>5</b>following</div></div>
@@ -220,10 +242,9 @@ body{{background:var(--paper);color:var(--ink);font-family:'Obviously',-apple-sy
 </div>
 <script>
 (function(){{
-  var ids={json.dumps(all_ids)};
+  var files={json.dumps(dl_files)};
   var btn=document.getElementById('dlall'); if(!btn) return;
   btn.addEventListener('click',function(){{
-    var files=[]; ids.forEach(function(id){{ files.push('1080/'+id+'_1x1.png'); files.push('1080/'+id+'_9x16.png'); }});
     var i=0;(function next(){{ if(i>=files.length) return;
       var a=document.createElement('a'); a.href=files[i]; a.download=files[i].split('/').pop();
       document.body.appendChild(a); a.click(); document.body.removeChild(a); i++; setTimeout(next,350); }})();

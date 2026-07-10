@@ -22,12 +22,9 @@ CONCEPTS=[
  ("Reason to believe · RTB","RTB","Chef-Crafted","rtb-chef","Yes, a chef, for a pouch. 👨‍🍳"),
  ("Reason to believe · RTB","RTB","Naturally Sweetened","rtb-nature","Natural sweeteners are better than artificial ones. We checked."),
  ("Reason to believe · RTB","RTB","Lower Carbon","rtb-carbon","Our cans are environmentally certified, lower carbon, and made with pine oil. They also do a good job holding your pouches."),
- ("Brand lines","BRAND","A Moment of Clarity","brand-clarity","Clarity, made with intention. 気"),
- ("Brand lines","BRAND","Sustainable by Design","brand-bamboo","Our packaging has a green streak. 🎋"),
 ]
-TRI=["Some waits are worth their weight. Which in this case, if you’re curious, is .5278 grams.",
-     "Like the sunrise, we didn’t wait all night for it, dawn would be pretty meh.",
-     "If you think nicotine pouches should have taste and that taste should taste like what it is supposed to taste like — without the lab-made ‘alternatives’ when nature already does it pretty well — we were thinking the same thing.\n\nHi. Nice to meet you. We’re Ki."]
+STORYBGS=[("bg-yuzu","Yuzu"),("bg-satsuma","Satsuma"),("bg-maple","Maple"),
+          ("bg-cola","Cola"),("bg-hokkaido","Hokkaido"),("bg-horizon","Full horizon")]
 
 slides=[]
 def T(x,y,w,h,text,size,color=INK,weight=400,align="left",spacing=0,lh=1.15,upper=False,jp=False):
@@ -43,14 +40,14 @@ cov=[R(0,0,W,H,PAPER),
  T(80,60,200,40,"気",30,GOLD,600),
  T(80,116,700,24,"KI · INSTAGRAM · PHASE ONE",13,GOLD,600,spacing=2.4,upper=True),
  T(76,150,780,230,"SOCIAL\nCONTENT",92,INK,500,spacing=-1.8,lh=0.98,upper=True),
- T(80,410,600,120,"A first flight of Instagram creative for Ki — single-flavour features, reasons to believe, a grid-spanning range triptych and brand-voice one-liners. Every post designed on the Ki landscape system.",16,MUTED,400,lh=1.55),
- T(80,556,900,24,"14 CONCEPTS   ·   28 ASSETS   ·   FEED 1:1 + STORY 9:16   ·   @KI.BIO",12.5,META,600,spacing=1.2,upper=True),
+ T(80,410,600,120,"A first flight of Instagram creative for Ki — single-flavour features and reasons to believe, plus a set of blank landscape story backgrounds. Every post designed on the Ki landscape system.",16,MUTED,400,lh=1.55),
+ T(80,556,900,24,"9 CONCEPTS   ·   18 POSTS + 6 STORY BGS   ·   FEED 1:1 + STORY 9:16   ·   @KI.BIO",12.5,META,600,spacing=1.2,upper=True),
  IMGEL(742,300,168,168,f"{IMG}/sku-yuzu_1x1.png",14),
  IMGEL(918,300,168,168,f"{IMG}/rtb-chef_1x1.png",14),
  IMGEL(1094,300,168,168,f"{IMG}/sku-cola_1x1.png",14),
- IMGEL(742,478,168,168,f"{IMG}/tri-2_1x1.png",14),
+ IMGEL(742,478,168,168,f"{IMG}/sku-maple_1x1.png",14),
  IMGEL(918,478,168,168,f"{IMG}/sku-satsuma_1x1.png",14),
- IMGEL(1094,478,168,168,f"{IMG}/brand-clarity_1x1.png",14),
+ IMGEL(1094,478,168,168,f"{IMG}/rtb-ingredients_1x1.png",14),
  T(80,676,400,20,"Ki · Social · Phase One",11,META,400),
  T(1150,676,60,20,"01",11,META,600,align="right"),
 ]
@@ -81,26 +78,24 @@ for i,(section,kick,name,pid,cap) in enumerate(CONCEPTS):
           T(930,606,290,40,"1080×1080 feed\n1080×1920 story",12,META,400,lh=1.5)]
     slides.append(dict(bg=PAPER,els=els))
 
-# ---- Triptych overview ----
-els=header("Range triptych",12,14)
-els+=[IMGEL(190,96,900,300,f"{IMG}/tri-panorama_3x1.png",12)]
-els+=[T(80,420,700,20,"RANGE TRIPTYCH — ONE HORIZON",12,GOLD,600,spacing=1.4,upper=True),
-      T(80,442,1120,20,"Three posts, in sequence, lock together across the feed grid into one panorama — also delivered as three 9:16 stories.",13,MUTED,400,lh=1.4)]
-# 3 caption columns (roomy for the long copy)
-cx=[80,478,876]
-roman=["I","II","III"]
-for j in range(3):
-    els+=[T(cx[j],488,34,26,roman[j],17,GOLD,600),
-          T(cx[j]+34,491,356,210,TRI[j],12,INK,400,lh=1.36)]
-slides.insert(11, dict(bg=PAPER,els=els))  # place after RTB (index 11 -> slide 12)
+# ---- Story backgrounds ----
+els=header("Story backgrounds",len(CONCEPTS)+2,14)
+els+=[T(80,150,900,20,"BLANK LANDSCAPES · 1080×1920",12,GOLD,600,spacing=1.4,upper=True),
+      T(80,176,1120,40,"Clean landscape story backgrounds — no product, no type. Drop your own copy, stickers or polls on top for quick organic stories.",14,MUTED,400,lh=1.4)]
+bw=165; gap=26; by=256; bh=293
+for j,(bid,nm) in enumerate(STORYBGS):
+    x=80+j*(bw+gap)
+    els+=[IMGEL(x,by,bw,bh,f"{IMG}/{bid}_9x16.png",14),
+          T(x,by+bh+14,bw,18,nm,10.5,META,600,spacing=1.0,upper=True)]
+slides.append(dict(bg=PAPER,els=els))
 
 # ---- Closing ----
 els=[R(0,0,W,H,PAPER),
      T(0,250,W,40,"気",34,GOLD,600,align="center"),
      T(0,300,W,60,"THAT’S THE FLIGHT.",44,INK,500,spacing=-1.0,align="center",upper=True),
-     T(0,378,W,40,"14 concepts · 28 crisp assets · 1080 + @2×  ·  built on the Ki landscape system",15,MUTED,400,align="center"),
+     T(0,378,W,40,"9 concepts · 18 posts + 6 story backgrounds · built on the Ki landscape system",15,MUTED,400,align="center"),
      T(0,414,W,40,"Product from KI_NEW_UK pucks · Obviously Regular + Semibold · Site Gold #B88448",12.5,META,400,align="center"),
-     T(1150,676,60,20,"14",11,META,600,align="right")]
+     T(1150,676,60,20,f"{len(CONCEPTS)+3:02d}",11,META,600,align="right")]
 slides.append(dict(bg=PAPER,els=els))
 
 json.dump(dict(W=W,H=H,slides=slides), open(f"{HERE}/slides.json","w"), ensure_ascii=False)

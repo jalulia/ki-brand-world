@@ -8,7 +8,8 @@ MNT  = "/sessions/quirky-bold-heisenberg/mnt/Ki Brand"
 ASSET = MNT + "/Digital-Banners/assets"
 SRC   = MNT + "/04_Source-Assets"
 LIB   = MNT + "/06_World-of-Ki/social/assets/library"
-FONTS = ASSET + "/fonts"
+FONTS = MNT + "/06_World-of-Ki/social/assets/fonts"   # relocated
+BACKS = MNT + "/Digital-Banners/Backgrounds"           # KI_BACK landscapes
 
 def url(p): return "file://" + urllib.parse.quote(p)
 css = open(f"{HERE}/social.css").read().replace("FONTS/", url(FONTS)+"/")
@@ -16,7 +17,10 @@ open(f"{HERE}/social.resolved.css","w").write(css)
 
 LOGO_W = url(f"{ASSET}/ki-logo-white.svg")
 LOGO_B = url(f"{ASSET}/ki-logo-black.svg")
-def bg_flav(name): return url(f"{ASSET}/bg/flav_{name}.jpg")
+# flavour → KI_BACK landscape (flav_*.jpg crops were removed in the folder reshuffle)
+BG_MAP={"yuzu":"KI_BACK_05.png","satsuma":"KI_BACK_04.png","maple":"KI_BACK_03.jpg",
+        "cola":"KI_BACK_01.png","hokkaido":"KI_BACK_02.png"}
+def bg_flav(name): return url(f"{BACKS}/{BG_MAP[name]}")
 def puck(fl): return url(f"{SRC}/Pucks/KI_NEW_UK_{fl}_01.png")
 def plate(name, ratio): return url(f"{LIB}/{name}-{'1x1' if ratio=='sq' else '9x16'}.png")
 
@@ -107,13 +111,14 @@ def render_html(post, ratio):
         E.append(f'<img class="bg" src="{bg_flav(post["bg"])}" style="object-position:50% 42%">')
         E.append('<div class="scrim top"></div>')
         # no on-art KI logo (redundant in social)
-        hf = post["fs_st"] if story else post["fs_sq"]
+        # story: slightly smaller so intended line breaks hold, and lifted for a bottom safe zone
+        hf = round(post["fs_st"]*0.86) if story else post["fs_sq"]
         lh = hf*1.0
         n=len(post["lines"]); block=(n-1)*lh+hf
-        bottom = 140 if not story else 300
+        bottom = 150 if not story else 430   # 9:16 bottom safe-zone clearance
         top = H-bottom-block
         lines_html="<br>".join(esc(l).upper() for l in post["lines"])
-        E.append(f'<div class="headline" style="left:72px;top:{top:.0f}px;font-size:{hf}px">{lines_html}</div>')
+        E.append(f'<div class="headline" style="left:72px;width:936px;top:{top:.0f}px;font-size:{hf}px">{lines_html}</div>')
 
     # 18+ badge removed across the board per brand direction
     E.append('</div></body></html>')
