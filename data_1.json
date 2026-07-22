@@ -1,0 +1,100 @@
+{
+  "config": {
+    "repo": "jalulia/ki-brand-world",
+    "branch": "main",
+    "editPassphraseSha256": "034471d9fc375c1aa15d477c3c78c68728963bacb1837b2e16e10bbcb4a99321",
+    "liveLabel": "live"
+  },
+  "items": [
+    {
+      "name": "Social Launch",
+      "kind": "phase one instagram creative · designed posts & stories in IG mockups, with copy · present & download",
+      "href": "social/phase-one/Ki_Social_Phase-One.html",
+      "dest": "/social/phase-one",
+      "img": "assets/img/social-launch.jpg",
+      "alt": "Ki Instagram range triptych across a sunrise horizon",
+      "internal": true
+    },
+    {
+      "name": "Emails",
+      "kind": "woo transactional suite · journey library, mockups & handoff",
+      "href": "emails/",
+      "dest": "/emails",
+      "img": "assets/img/emails-tool.png",
+      "alt": "Ki transactional email mockup",
+      "internal": true
+    },
+    {
+      "name": "Ki-Landscapes",
+      "kind": "generative landscape visualizer · rolling worlds",
+      "href": "https://jalulia.github.io/Ki-Landscapes/",
+      "dest": "jalulia.github.io/Ki-Landscapes",
+      "img": "assets/img/landscape.png",
+      "alt": "Rolling matcha-and-gold hills",
+      "internal": false
+    },
+    {
+      "name": "Marketing Materials",
+      "kind": "sell sheets · download, edit & version · the Origin Collection",
+      "href": "marketing-materials/",
+      "dest": "/marketing-materials",
+      "img": "assets/img/pucks/hero-hok.png",
+      "alt": "Hokkaido Mint puck",
+      "internal": true
+    },
+    {
+      "name": "Render Sheet",
+      "kind": "live render library · every view, every format · Drive-backed uploads",
+      "href": "renders/",
+      "dest": "/renders",
+      "img": "assets/img/render-sheet.webp",
+      "alt": "Five Ki pucks, loose group angle",
+      "internal": true
+    },
+    {
+      "name": "Business Cards",
+      "kind": "katakana + kanji name & title register · approvals · CSV & PDF",
+      "href": "business-cards/",
+      "dest": "/business-cards",
+      "img": "assets/img/business-cards.png",
+      "alt": "Ki business card name register",
+      "internal": true
+    },
+    {
+      "name": "World of Ki",
+      "kind": "scrollable artifact world · the brand in context",
+      "href": "ki-world.html",
+      "dest": "/ki-world.html",
+      "img": "assets/img/kitsune-poster.png",
+      "alt": "Kitsune poster",
+      "internal": true
+    },
+    {
+      "name": "Tokusatsu RTB Brief",
+      "kind": "creative brief · five ingredient worlds",
+      "href": "tokusatsu-rtb.html",
+      "dest": "/tokusatsu-rtb.html",
+      "img": "assets/img/worlds/satsuma.jpg",
+      "alt": "Satsuma orchard at golden hour",
+      "internal": true
+    },
+    {
+      "name": "Kin Study Nº1 — Rose",
+      "kind": "brand study · the sold-out membership playbook · verified",
+      "href": "kin-study-01-rose.html",
+      "dest": "/kin-study-01-rose.html",
+      "img": "assets/img/kin-study-rose.svg",
+      "alt": "Sold out, on purpose — kin study card",
+      "internal": true
+    },
+    {
+      "name": "Brand Showcase",
+      "kind": "state of the brand · the full picture, section by section · July 2026",
+      "href": "brand-showcase.html",
+      "dest": "/brand-showcase.html",
+      "img": "assets/img/unlock-poster.png",
+      "alt": "Unlock — Ki brand showcase poster",
+      "internal": true
+    }
+  ]
+}
